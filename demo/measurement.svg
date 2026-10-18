@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-label="Measurement workflow: observe, convert, interpret">
+<rect width="900" height="220" rx="12" fill="#101619"/>
+<g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
+<rect x="40" y="50" width="225" height="120" rx="8" fill="#16232c" stroke="#7098c3"/><text x="152" y="88" fill="#a6c8ed" font-size="15">01 / OBSERVE</text><text x="152" y="122" fill="#d5dce3" font-size="22">12 units in 3 s</text><text x="152" y="148" fill="#a7b3bf" font-size="13">Record value and unit</text>
+<path d="M280 110 H320 M309 100 L320 110 L309 120" fill="none" stroke="#8bceb0" stroke-width="2"/>
+<rect x="337" y="50" width="225" height="120" rx="8" fill="#182720" stroke="#72ad90"/><text x="449" y="88" fill="#9ad5b7" font-size="15">02 / CONVERT</text><text x="449" y="122" fill="#d5dce3" font-size="22">12 ÷ 3 = 4</text><text x="449" y="148" fill="#a7b3bf" font-size="13">Divide by elapsed time</text>
+<path d="M577 110 H617 M606 100 L617 110 L606 120" fill="none" stroke="#8bceb0" stroke-width="2"/>
+<rect x="635" y="50" width="225" height="120" rx="8" fill="#292317" stroke="#b6975f"/><text x="747" y="88" fill="#e1bd7e" font-size="15">03 / INTERPRET</text><text x="747" y="122" fill="#d5dce3" font-size="22">4 units per second</text><text x="747" y="148" fill="#a7b3bf" font-size="13">Average over this interval</text>
+</g></svg>

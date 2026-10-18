@@ -1,0 +1,5 @@
+course_title = "Example Course"
+theme_accent = "violet"
+depth = "thorough"
+exam_days_left = 5
+output_filename = "Example_Course.html"

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>From observation to understanding</title>
+<style id="suite-styles">:root{--accent:#88b9ae;--bg:#000;--panel:#0d1013;--line:#262c32;--text:#c1c8d0;--muted:#949fa9;--heading:#e1e5e9;--blue:#93b9ec;--green:#8bceb0;--amber:#e1bd7e;--red:#e2a0a0;font-family:Segoe UI,Arial,sans-serif;color-scheme:dark;scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:16px;line-height:1.7}button,input,textarea{font:inherit}button,a,input,textarea{touch-action:manipulation}button{cursor:pointer;background:#13181c;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:8px 13px;line-height:1.4}button:hover{border-color:var(--accent);color:var(--heading)}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}a{color:var(--accent)}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.skip{position:fixed;top:-100px;z-index:20;background:#18221f;padding:12px}.skip:focus{top:5px}
+.toolbar{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:12px;padding:14px 28px;background:#080a0b;border-bottom:1px solid var(--line);height:72px}.search{margin-right:auto;max-width:420px;flex:1}.search input{width:100%;background:#101417;border:1px solid var(--line);color:var(--heading);padding:9px 13px;border-radius:7px;min-width:0}.modes{display:flex;background:#111518;border:1px solid var(--line);padding:3px;border-radius:8px}.modes button{border:0;background:transparent;padding:6px 13px}.modes [aria-pressed=true]{background:#2b3935;color:#d6e9df}.primary{background:#b1cfc3;color:#14221c;border-color:#b1cfc3;font-weight:650}.primary:hover{color:#000;background:#c3ddcf}
+#sidebar{position:fixed;top:72px;bottom:0;width:258px;padding:30px 23px;overflow:auto;border-right:1px solid var(--line);background:#07090a;z-index:5}.brand{display:flex;gap:12px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.1em;line-height:1.6;margin-bottom:36px}.brand small{font-weight:400;letter-spacing:0;color:var(--muted)}.brand-mark{border:1px solid #3c5750;padding:10px 7px;color:var(--accent);font-size:14px}.eyebrow{font-size:11px;font-weight:650;letter-spacing:.16em;color:var(--accent);margin:0 0 14px}nav a{display:flex;gap:12px;text-decoration:none;color:var(--muted);padding:10px 8px;border-radius:6px;font-size:14px;border-left:2px solid transparent;line-height:1.5;margin-bottom:5px}nav a span:first-child{font-size:11px;padding-top:3px;color:var(--accent)}nav a[aria-current]{background:#17201d;color:var(--heading);border-left-color:var(--accent)}.legend{border-top:1px solid var(--line);margin-top:34px;padding-top:23px;font-size:12px}.legend>span{display:block;margin:8px 0}.legend>span:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:9px}.definition{--semantic:var(--blue);color:var(--blue)}.process{--semantic:var(--green);color:var(--green)}.formula{--semantic:var(--amber);color:var(--amber)}.warning{--semantic:var(--red);color:var(--red)}.sidebar-note{color:var(--muted);font-size:12px;line-height:1.8;margin-top:30px}
+main{margin-left:258px;padding:42px clamp(24px,4vw,68px) 20px;max-width:1400px}.course-heading{border-bottom:1px solid var(--line);padding-bottom:29px;margin-bottom:42px}h1,h2,h3{color:var(--heading);line-height:1.25;letter-spacing:-.025em}h1{font-size:clamp(29px,3.4vw,44px);font-weight:650;margin:10px 0 15px}h2{font-size:26px;font-weight:600;margin:0}h3{font-size:20px;font-weight:600;margin:0 0 14px}.subtitle{max-width:740px;color:var(--muted);font-size:17px;margin:0}.course-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;text-transform:uppercase;letter-spacing:.09em;margin-top:21px;color:var(--accent)}.course-meta span{border:1px solid var(--line);border-radius:4px;padding:3px 9px}.section{scroll-margin-top:95px;margin-bottom:50px}.section-heading{display:flex;gap:16px;align-items:baseline;margin-bottom:23px}.section-number{font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}.section-intro{color:var(--muted);margin:-8px 0 24px;max-width:800px}.blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.block{grid-column:1/-1;min-width:0;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--semantic,var(--accent));border-radius:9px;padding:23px 25px;color:var(--text)}.block.compact{grid-column:auto}.block .label{color:var(--semantic,var(--accent));font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:9px}.block p{margin:10px 0}.block p:last-child{margin-bottom:0}.lead{color:#d4dbe1}.explanation{color:var(--text)}.block ol,.block ul{padding-left:24px;margin-bottom:0}.block li{padding-left:6px;margin:10px 0}.block li::marker{color:var(--semantic,var(--accent))}.takeaway{background:#101a17;border-left-color:var(--accent)}.takeaway h3{font-size:17px}.table-scroll{overflow:auto;border:1px solid var(--line);border-radius:5px}table{border-collapse:collapse;width:100%;min-width:500px;font-size:14px}th,td{text-align:left;vertical-align:top;padding:13px 16px;border-bottom:1px solid var(--line);min-width:140px}th{background:#192128;color:#dbe3e9}tbody tr:last-child td{border:0}details{margin-top:16px}summary{cursor:pointer;color:var(--accent);padding:5px 0}details.provenance{font-size:12px;color:var(--muted)}.equation-render{overflow:auto;max-width:100%;padding:15px 8px;color:#ead4aa;font-family:Consolas,monospace;white-space:pre-wrap}.edit-formula{font-size:12px;padding:5px 10px}figure{margin:12px 0 0}.figure-open{padding:0;width:100%;background:#101619;overflow:hidden;border:1px solid var(--line)}figure img{display:block;width:100%;max-height:420px;object-fit:contain}figcaption{font-size:13px;color:var(--muted);margin-top:10px}.credit{display:block;font-size:11px;margin-top:5px}.review-note{font-size:13px;color:var(--accent);margin-top:18px}
+[contenteditable]{border-radius:3px;outline:none;overflow-wrap:anywhere}[contenteditable]:hover{box-shadow:0 0 0 1px #34423d}[contenteditable]:focus{box-shadow:0 0 0 2px var(--accent);background:#17201c}body[data-mode=review]:not(.searching) .explanation{display:none}body.nav-closed #sidebar{display:none}body.nav-closed main{margin-left:0;max-width:1142px;margin-right:auto;margin-left:auto}footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:11px;letter-spacing:.12em;display:flex;justify-content:space-between;gap:15px}footer span{letter-spacing:0}#status{position:fixed;bottom:18px;right:18px;background:#20342b;color:#e3eee7;border-radius:7px;padding:10px 16px;max-width:min(450px,90vw);z-index:12;font-size:13px}#status:empty{display:none}dialog{background:#101518;color:var(--text);border:1px solid #46514d;border-radius:12px;padding:22px;max-width:90vw;max-height:90vh}dialog::backdrop{background:#000c}#formula-dialog{width:620px}textarea{display:block;width:100%;background:#080a0b;color:var(--text);padding:12px;border:1px solid #53665e;border-radius:5px;margin:12px 0;font-family:Consolas,monospace}.dialog-tools{display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px}.image-stage{overflow:auto;max-height:72vh}.image-stage img{display:block;width:100%;min-width:0}.image-stage.zoomed img{width:1600px;max-width:none}#image-dialog{width:1000px}mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden}#scrim{position:fixed;inset:72px 0 0;border:0;border-radius:0;background:#000a;z-index:4}
+@media(min-width:1600px){main{margin-left:max(258px,calc((100vw - 1140px)/2))}}@media(max-width:1000px){.block.compact{grid-column:1/-1}#sidebar{width:225px;padding:25px 17px}main{margin-left:225px;padding:30px 26px}.toolbar{padding:12px 16px;gap:8px}}
+@media(max-width:720px){.toolbar{height:112px;flex-wrap:wrap;gap:8px;padding:10px 14px}.search{order:4;flex-basis:100%;max-width:none}.search input{padding:6px 11px}.toolbar button{font-size:13px}#nav-toggle{margin-right:auto}#nav-toggle span{display:none}#sidebar{top:112px;width:min(310px,85vw);display:none}body.nav-open #sidebar{display:block}#scrim{top:112px}main{margin-left:0;padding:28px 17px}.course-heading{margin-bottom:32px;padding-bottom:24px}.course-meta{font-size:10px}.section{scroll-margin-top:130px}.section-heading{gap:12px}h2{font-size:23px}.block{padding:19px 18px}.blocks{gap:13px}.section{margin-bottom:35px}.subtitle{font-size:15px}body{font-size:15px}.equation-render{font-size:14px}footer{font-size:10px}dialog{padding:16px;max-width:94vw}.legend{margin-top:24px}}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}}@media print{.toolbar,#sidebar,#status,.edit-formula,footer{display:none!important}main{margin:0;padding:0;max-width:none}body,.block{background:white;color:black}h1,h2,h3,.lead{color:black}.block{break-inside:avoid}.explanation{display:block!important}.section{display:block!important}}
+.inline-math{display:inline-flex;align-items:baseline;gap:4px;max-width:100%;vertical-align:middle}.inline-math .equation-render{display:inline-block;white-space:normal;padding:0 2px;font-family:inherit}.inline-math .edit-formula{font-size:10px;padding:1px 4px;opacity:.65}.inline-math:hover .edit-formula,.inline-math:focus-within .edit-formula{opacity:1}
+
+:root{--accent:#88b9ae}</style>
+</head>
+<body data-mode="learn">
+<a class="skip" href="#content">Skip to reading</a>
+<header class="toolbar">
+ <button id="nav-toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle navigation">☰ <span>Contents</span></button>
+ <label class="search"><span class="sr-only">Search course content</span><input id="search" type="search" placeholder="Find a concept…" autocomplete="off"></label>
+ <div class="modes" aria-label="Reading mode"><button id="learn" aria-pressed="true">Learn</button><button id="review" aria-pressed="false" >Review</button></div>
+ <button id="save" class="primary">Save Progress</button>
+</header>
+<button id="scrim" aria-label="Close navigation" hidden></button>
+<aside id="sidebar">
+ <div class="brand"><span class="brand-mark">S / 3</span><span>STUDY SUITE<br><small>A focused reading space</small></span></div>
+ <p class="eyebrow">IN THIS COURSE</p><nav aria-label="Sections"><a href="#section-foundations"><span>01</span><span class="nav-title">Start with the quantities</span></a><a href="#section-reasoning"><span>02</span><span class="nav-title">Build the reasoning</span></a><a href="#section-interpretation"><span>03</span><span class="nav-title">Read the result carefully</span></a></nav>
+ <div class="legend"><p class="eyebrow">A VISUAL LANGUAGE</p><span class="definition">Definitions & structures</span><span class="process">Mechanisms & sequences</span><span class="formula">Formulas & rules</span><span class="warning">Pitfalls & limitations</span></div>
+ <p class="sidebar-note">Read. Make it yours. Keep it.<br>Click text to edit; use Edit formula for equations. Save Progress exports your changes.</p>
+</aside>
+<main id="content" tabindex="-1">
+ <div class="course-heading"><p class="eyebrow">SYNTHETIC DEMO / NOT COURSE MATERIAL</p><h1 contenteditable="true" spellcheck="false">From observation to understanding</h1><p class="subtitle" contenteditable="true" spellcheck="false">A small guide to quantities, rates, and clear reasoning. Explore the reading workflow, edit an explanation, and save your own edition.</p><div class="course-meta"><span>3 sections</span><span>balanced high yield</span><span>Editable edition</span></div></div>
+ <p id="search-status" role="status" hidden></p>
+ <section class="section" id="section-foundations"><div class="section-heading"><span class="section-number">01</span><h2 contenteditable="true" spellcheck="false">Start with the quantities</h2></div><p class="section-intro" contenteditable="true" spellcheck="false">A number becomes useful when you know what it measures. Keep the quantity, its unit, and its context together.</p><div class="blocks"><article class="block definition compact" data-type="concept"><div class="label">definition</div><h3 contenteditable="true" spellcheck="false">Quantity &amp; unit</h3><p class="lead" contenteditable="true" spellcheck="false">A quantity describes a measurable property. A unit tells you the scale used to express it.</p><div class="explanation"><p class="" contenteditable="true" spellcheck="false">For example, 3 seconds describes a duration. The number 3 alone does not tell you whether you measured time, distance, or a count.</p></div><details class="provenance"><summary>Source note</summary>Synthetic illustration created for template setup; not taken from a course.</details></article><article class="block warning compact" data-type="concept"><div class="label">warning</div><h3 contenteditable="true" spellcheck="false">Keep the context</h3><p class="lead" contenteditable="true" spellcheck="false">The same number can describe different things. Units and conditions keep the meaning intact.</p><div class="explanation"><p class="" contenteditable="true" spellcheck="false">An average over three seconds describes the whole interval. It does not establish that the measured process was equally fast at every instant.</p></div></article><article class="block definition" data-type="comparison"><div class="label">Compare &amp; distinguish</div><h3 contenteditable="true" spellcheck="false">Total amount or rate?</h3><p class="lead" contenteditable="true" spellcheck="false">An amount tells you how much; a rate relates that amount to an interval.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Comparison table"><table><thead><tr><th scope="col" contenteditable="true" spellcheck="false">Idea</th><th scope="col" contenteditable="true" spellcheck="false">What it describes</th><th scope="col" contenteditable="true" spellcheck="false">Example</th><th scope="col" contenteditable="true" spellcheck="false">Interpretation</th></tr></thead><tbody><tr><td contenteditable="true" spellcheck="false">Amount</td><td contenteditable="true" spellcheck="false">A total measured quantity</td><td contenteditable="true" spellcheck="false">12 units</td><td contenteditable="true" spellcheck="false">No time interval is implied</td></tr><tr><td contenteditable="true" spellcheck="false">Duration</td><td contenteditable="true" spellcheck="false">The elapsed interval</td><td contenteditable="true" spellcheck="false">3 seconds</td><td contenteditable="true" spellcheck="false">Use consistent time units</td></tr><tr><td contenteditable="true" spellcheck="false">Average rate</td><td contenteditable="true" spellcheck="false">Amount per unit of time</td><td contenteditable="true" spellcheck="false">4 units per second</td><td contenteditable="true" spellcheck="false">Describes the interval as a whole</td></tr></tbody></table></div></article><article class="block definition takeaway" data-type="review"><div class="label">Section takeaway</div><h3 contenteditable="true" spellcheck="false">Keep these ideas connected</h3><p class="lead" contenteditable="true" spellcheck="false">Read the value together with its unit and conditions.</p><ul><li contenteditable="true" spellcheck="false">A quantity needs a clear definition.</li><li contenteditable="true" spellcheck="false">A rate introduces a denominator: check what that denominator measures.</li></ul></article></div></section><section class="section" id="section-reasoning"><div class="section-heading"><span class="section-number">02</span><h2 contenteditable="true" spellcheck="false">Build the reasoning</h2></div><p class="section-intro" contenteditable="true" spellcheck="false">Move from a recorded observation to a calculation, then explain what the result means. Each step should preserve the units.</p><div class="blocks"><article class="block process" data-type="process"><div class="label">process</div><h3 contenteditable="true" spellcheck="false">A reliable calculation sequence</h3><p class="lead" contenteditable="true" spellcheck="false">Define → align units → calculate → interpret.</p><ol><li contenteditable="true" spellcheck="false">Define the measured amount and the start and end of the interval.</li><li contenteditable="true" spellcheck="false">Express the interval in one consistent time unit before dividing.</li><li contenteditable="true" spellcheck="false">Divide the amount by the elapsed time; carry the units through the calculation.</li><li contenteditable="true" spellcheck="false">Describe the result as an average over the observed interval.</li></ol><div class="explanation"><p class="" contenteditable="true" spellcheck="false">Writing the unit beside each value makes the calculation easier to audit. If the interval were supplied in minutes but the desired rate were per second, convert the interval before evaluating the quotient.</p><p class="" contenteditable="true" spellcheck="false">A useful final sentence links the result back to the observation. This turns an isolated number into an explanation you can reuse.</p></div></article><article class="block formula" data-type="formula"><div class="label">formula</div><h3 contenteditable="true" spellcheck="false">Average rate</h3><p class="lead" contenteditable="true" spellcheck="false">Divide the observed change in amount by the elapsed time.</p><div class="math-unit"><div class="equation-render" data-raw="\bar{r} = \frac{\Delta q}{\Delta t} = \frac{12\;\mathrm{units}}{3\;\mathrm{s}} = 4\;\mathrm{units}\,\mathrm{s}^{-1}">\bar{r} = \frac{\Delta q}{\Delta t} = \frac{12\;\mathrm{units}}{3\;\mathrm{s}} = 4\;\mathrm{units}\,\mathrm{s}^{-1}</div><button class="edit-formula">Edit formula</button></div><div class="explanation"><p class="" contenteditable="true" spellcheck="false">Here Δq is the measured change in amount, Δt is the positive elapsed time, and r̄ is the average rate. The expression does not specify an instantaneous rate. The unit of the numerator must match the quantity being measured.</p></div></article><article class="block formula" data-type="worked"><div class="label">Worked example</div><h3 contenteditable="true" spellcheck="false">Worked calculation · changing the time unit</h3><p class="lead" contenteditable="true" spellcheck="false">The same observation is 240 units per minute. The measured process has not changed; only the reporting unit has.</p><ol><li contenteditable="true" spellcheck="false">Start from the observation: 12 units in 3 seconds.</li><li contenteditable="true" spellcheck="false">Convert the interval: 3 seconds ÷ 60 seconds per minute = 0.05 minutes.</li><li contenteditable="true" spellcheck="false">Divide: 12 units ÷ 0.05 minutes = 240 units per minute.</li><li contenteditable="true" spellcheck="false">Check: 240 units per minute ÷ 60 seconds per minute = 4 units per second.</li></ol><div class="explanation"><p class="" contenteditable="true" spellcheck="false">The numerical rate grows when the reporting interval becomes larger: one minute contains sixty seconds. This is a change of representation, not a change in the measured amount.</p></div></article><article class="block definition" data-type="figure"><div class="label">figure</div><h3 contenteditable="true" spellcheck="false">Follow the units through the workflow</h3><figure><button class="figure-open" aria-label="Enlarge figure: Three stages: observe 12 units in 3 seconds, divide 12 by 3, interpret 4 units per second."><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MDAgMjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ik1lYXN1cmVtZW50IHdvcmtmbG93OiBvYnNlcnZlLCBjb252ZXJ0LCBpbnRlcnByZXQiPgo8cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjIyMCIgcng9IjEyIiBmaWxsPSIjMTAxNjE5Ii8+CjxnIGZvbnQtZmFtaWx5PSJTZWdvZSBVSSwgQXJpYWwsIHNhbnMtc2VyaWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPgo8cmVjdCB4PSI0MCIgeT0iNTAiIHdpZHRoPSIyMjUiIGhlaWdodD0iMTIwIiByeD0iOCIgZmlsbD0iIzE2MjMyYyIgc3Ryb2tlPSIjNzA5OGMzIi8+PHRleHQgeD0iMTUyIiB5PSI4OCIgZmlsbD0iI2E2YzhlZCIgZm9udC1zaXplPSIxNSI+MDEgLyBPQlNFUlZFPC90ZXh0Pjx0ZXh0IHg9IjE1MiIgeT0iMTIyIiBmaWxsPSIjZDVkY2UzIiBmb250LXNpemU9IjIyIj4xMiB1bml0cyBpbiAzIHM8L3RleHQ+PHRleHQgeD0iMTUyIiB5PSIxNDgiIGZpbGw9IiNhN2IzYmYiIGZvbnQtc2l6ZT0iMTMiPlJlY29yZCB2YWx1ZSBhbmQgdW5pdDwvdGV4dD4KPHBhdGggZD0iTTI4MCAxMTAgSDMyMCBNMzA5IDEwMCBMMzIwIDExMCBMMzA5IDEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGJjZWIwIiBzdHJva2Utd2lkdGg9IjIiLz4KPHJlY3QgeD0iMzM3IiB5PSI1MCIgd2lkdGg9IjIyNSIgaGVpZ2h0PSIxMjAiIHJ4PSI4IiBmaWxsPSIjMTgyNzIwIiBzdHJva2U9IiM3MmFkOTAiLz48dGV4dCB4PSI0NDkiIHk9Ijg4IiBmaWxsPSIjOWFkNWI3IiBmb250LXNpemU9IjE1Ij4wMiAvIENPTlZFUlQ8L3RleHQ+PHRleHQgeD0iNDQ5IiB5PSIxMjIiIGZpbGw9IiNkNWRjZTMiIGZvbnQtc2l6ZT0iMjIiPjEyIMO3IDMgPSA0PC90ZXh0Pjx0ZXh0IHg9IjQ0OSIgeT0iMTQ4IiBmaWxsPSIjYTdiM2JmIiBmb250LXNpemU9IjEzIj5EaXZpZGUgYnkgZWxhcHNlZCB0aW1lPC90ZXh0Pgo8cGF0aCBkPSJNNTc3IDExMCBINjE3IE02MDYgMTAwIEw2MTcgMTEwIEw2MDYgMTIwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4YmNlYjAiIHN0cm9rZS13aWR0aD0iMiIvPgo8cmVjdCB4PSI2MzUiIHk9IjUwIiB3aWR0aD0iMjI1IiBoZWlnaHQ9IjEyMCIgcng9IjgiIGZpbGw9IiMyOTIzMTciIHN0cm9rZT0iI2I2OTc1ZiIvPjx0ZXh0IHg9Ijc0NyIgeT0iODgiIGZpbGw9IiNlMWJkN2UiIGZvbnQtc2l6ZT0iMTUiPjAzIC8gSU5URVJQUkVUPC90ZXh0Pjx0ZXh0IHg9Ijc0NyIgeT0iMTIyIiBmaWxsPSIjZDVkY2UzIiBmb250LXNpemU9IjIyIj40IHVuaXRzIHBlciBzZWNvbmQ8L3RleHQ+PHRleHQgeD0iNzQ3IiB5PSIxNDgiIGZpbGw9IiNhN2IzYmYiIGZvbnQtc2l6ZT0iMTMiPkF2ZXJhZ2Ugb3ZlciB0aGlzIGludGVydmFsPC90ZXh0Pgo8L2c+PC9zdmc+DQo=" alt="Three stages: observe 12 units in 3 seconds, divide 12 by 3, interpret 4 units per second."></button><figcaption contenteditable="true" spellcheck="false">The diagram keeps observation, operation, and interpretation separate. Tap to enlarge; use Zoom in to inspect labels.</figcaption><span class="credit">Original synthetic diagram · Study Suite demo</span></figure></article><article class="block definition" data-type="details"><div class="label">Further explanation</div><h3 contenteditable="true" spellcheck="false">Why averages hide variation</h3><p class="lead" contenteditable="true" spellcheck="false">Different time patterns can produce the same interval average.</p><details class="explanation" open><summary>Read the explanation</summary><p class="" contenteditable="true" spellcheck="false">The twelve units might accumulate evenly, or more quickly during part of the interval. Both patterns can yield twelve units after three seconds. The average alone cannot distinguish them.</p><p class="" contenteditable="true" spellcheck="false">An instantaneous description would require additional information about how the quantity changes with time. This is why the interval belongs in the interpretation.</p></details></article><article class="block definition takeaway" data-type="review"><div class="label">Section takeaway</div><h3 contenteditable="true" spellcheck="false">The calculation in one view</h3><p class="lead" contenteditable="true" spellcheck="false">12 units / 3 seconds = 4 units per second = 240 units per minute.</p><ul><li contenteditable="true" spellcheck="false">Convert units before combining values.</li><li contenteditable="true" spellcheck="false">Interpret the average only over the measured interval.</li></ul></article></div></section><section class="section" id="section-interpretation"><div class="section-heading"><span class="section-number">03</span><h2 contenteditable="true" spellcheck="false">Read the result carefully</h2></div><p class="section-intro" contenteditable="true" spellcheck="false">A clear explanation states both what the calculation establishes and the limits of that conclusion.</p><div class="blocks"><article class="block warning" data-type="concept"><div class="label">warning</div><h3 contenteditable="true" spellcheck="false">Avoid an unsupported conclusion</h3><p class="lead" contenteditable="true" spellcheck="false">An interval average does not prove a constant rate.</p><div class="explanation"><p class="" contenteditable="true" spellcheck="false">The observation supports the statement that twelve units accumulated in three seconds. To claim a constant rate throughout the interval, you would need additional time-resolved observations. The interval average is written as <span class="math-unit inline-math" contenteditable="false"><span class="equation-render" data-display="inline" data-raw="\bar{r}=4\;\mathrm{units}\,\mathrm{s}^{-1}">\bar{r}=4\;\mathrm{units}\,\mathrm{s}^{-1}</span><button class="edit-formula" aria-label="Edit inline formula">Edit</button></span>.</p></div></article><article class="block definition" data-type="prose"><div class="label">prose</div><h3 contenteditable="true" spellcheck="false">Make this explanation yours</h3><p class="lead" contenteditable="true" spellcheck="false">Click this sentence and rephrase it in language that helps you understand.</p><div class="explanation"><p class="" contenteditable="true" spellcheck="false">Your edits stay in this tab until you export them with Save Progress. The downloaded HTML includes your text, raw formulas, and embedded figure. Reopen that file to continue reading your edited edition.</p></div></article><article class="block definition takeaway" data-type="review"><div class="label">Section takeaway</div><h3 contenteditable="true" spellcheck="false">A compact reading trail</h3><p class="lead" contenteditable="true" spellcheck="false">Quantity → unit → calculation → interpretation.</p><ul><li contenteditable="true" spellcheck="false">Name what was measured and over which interval.</li><li contenteditable="true" spellcheck="false">Keep units attached throughout the calculation.</li><li contenteditable="true" spellcheck="false">State the result with the scope supported by the observation.</li></ul></article></div></section>
+ <footer>STUDY SUITE / V3 <span>One document. Your own words.</span></footer>
+</main>
+<div id="status" role="status" aria-live="polite"></div>
+<dialog id="image-dialog" aria-label="Enlarged figure"><div class="dialog-tools"><button id="zoom">Zoom in</button><button id="close-image">Close figure</button></div><div class="image-stage"></div></dialog>
+<dialog id="formula-dialog" aria-labelledby="formula-title"><h2 id="formula-title">Edit formula</h2><label for="formula-source">LaTeX source (without delimiters)</label><textarea id="formula-source" spellcheck="false" rows="5"></textarea><div class="dialog-tools"><button id="cancel-formula">Cancel</button><button id="apply-formula" class="primary">Apply formula</button></div></dialog>
+<script id="suite-app">/* Raw formula source and editable DOM are the document's persistent state. */
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+let dirty = false, activeFormula = null, mathQueue = Promise.resolve(), statusTimer;
+const status = text => {
+ $('#status').textContent = text;
+ clearTimeout(statusTimer);
+ statusTimer = setTimeout(() => { $('#status').textContent = ''; }, 9000);
+};
+const markDirty = () => { dirty = true; status('Unsaved changes · use Save Progress to keep them.'); };
+const mobile = () => matchMedia('(max-width: 720px)').matches;
+function setNavigation(open) {
+  document.body.classList.toggle('nav-open', mobile() && open);
+  document.body.classList.toggle('nav-closed', !mobile() && !open);
+  $('#nav-toggle').setAttribute('aria-expanded', String(open));
+  $('#scrim').hidden = !(mobile() && open);
+}
+$('#nav-toggle').onclick = () => setNavigation($('#nav-toggle').getAttribute('aria-expanded') !== 'true');
+$('#scrim').onclick = () => { setNavigation(false); $('#nav-toggle').focus(); };
+matchMedia('(max-width: 720px)').addEventListener('change', () => setNavigation(!mobile()));
+setNavigation(!mobile());
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && mobile()) setNavigation(false);
+});
+function mode(value) {
+  document.body.dataset.mode = value;
+  $('#learn').setAttribute('aria-pressed', String(value === 'learn'));
+  $('#review').setAttribute('aria-pressed', String(value === 'review'));
+  requestAnimationFrame(scrollSpy);
+}
+$('#learn').onclick = () => mode('learn');
+$('#review').onclick = () => mode('review');
+function search() {
+ const query = $('#search').value.trim().toLowerCase();
+ document.body.classList.toggle('searching', Boolean(query));
+ let count = 0;
+ $$('.section').forEach(section => {
+   const headingMatch = [section.querySelector('.section-heading'), section.querySelector('.section-intro')].some(e => e.textContent.toLowerCase().includes(query));
+   let found = false;
+   section.querySelectorAll('.block').forEach(block => {
+     const match = !query || headingMatch || block.textContent.toLowerCase().includes(query) || [...block.querySelectorAll('[data-raw]')].some(e => e.dataset.raw.toLowerCase().includes(query)) || [...block.querySelectorAll('img')].some(e => e.alt.toLowerCase().includes(query));
+     block.hidden = !match;
+     if (match) { found = true; count++; }
+   });
+   section.hidden = !found;
+   // Search may reveal text inside a closed explanation without altering saved preference.
+   section.querySelectorAll('details').forEach(detail => {
+     if (query && !detail.hasAttribute('data-before-search')) detail.dataset.beforeSearch = String(detail.open);
+     if (query) detail.open = true;
+     else if (detail.hasAttribute('data-before-search')) { detail.open = detail.dataset.beforeSearch === 'true'; delete detail.dataset.beforeSearch; }
+   });
+ });
+ $('#search-status').hidden = !query;
+ $('#search-status').textContent = count ? `${count} matching reading blocks. Search includes expanded explanations.` : 'No matching concepts. Try another term.';
+ requestAnimationFrame(scrollSpy);
+}
+$('#search').addEventListener('input', search);
+$$('nav a').forEach(link => link.onclick = () => {
+ $('#search').value = ''; search();
+ if (mobile()) setNavigation(false);
+ const section = document.getElementById(link.hash.slice(1));
+ section.setAttribute('tabindex', '-1'); section.focus({preventScroll:true});
+});
+let scrollScheduled = false;
+function scrollSpy() {
+ scrollScheduled = false;
+ const sections = $$('.section').filter(s => !s.hidden);
+ const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3;
+ const current = atBottom ? sections.at(-1) : sections.filter(s => s.getBoundingClientRect().top <= (mobile() ? 160 : 125)).pop() || sections[0];
+ $$('nav a').forEach(a => { if (current && a.hash === '#' + current.id) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+}
+window.addEventListener('scroll', () => { if (!scrollScheduled) { scrollScheduled = true; requestAnimationFrame(scrollSpy); } }, {passive:true});
+scrollSpy();
+function syncHeading(target) {
+ const heading = target.closest('.section-heading');
+ if (heading) document.querySelector(`nav a[href="#${heading.closest('.section').id}"] .nav-title`).textContent = heading.querySelector('h2').textContent;
+ if (target.matches('h1')) document.title = target.textContent;
+}
+document.addEventListener('input', event => {
+ if (event.target.closest('[contenteditable]')) {
+   markDirty();
+   syncHeading(event.target);
+ }
+});
+// Paste as text: copied web formatting must not introduce scripts, images or nested layouts.
+document.addEventListener('paste', event => {
+ if (!event.target.closest('[contenteditable]')) return;
+ event.preventDefault();
+ const selection = getSelection();
+ if (!selection.rangeCount) return;
+ const range = selection.getRangeAt(0); range.deleteContents();
+ const node = document.createTextNode(event.clipboardData.getData('text/plain'));
+ range.insertNode(node); range.setStartAfter(node); range.collapse(true); selection.removeAllRanges(); selection.addRange(range);
+ syncHeading(event.target);
+ markDirty();
+});
+function renderMath(element) {
+ mathQueue = mathQueue.catch(() => {}).then(async () => {
+   if (window.MathJax?.typesetClear) window.MathJax.typesetClear([element]);
+   element.textContent = element.dataset.display === 'inline' ? '\\(' + element.dataset.raw + '\\)' : '\\[' + element.dataset.raw + '\\]';
+   if (window.MathJax?.typesetPromise) {
+     try { await window.MathJax.typesetPromise([element]); }
+     catch { element.textContent = element.dataset.raw; }
+   }
+ });
+ return mathQueue;
+}
+$$('.edit-formula').forEach(button => button.onclick = () => {
+ activeFormula = button.closest('.math-unit').querySelector('.equation-render');
+ $('#formula-source').value = activeFormula.dataset.raw;
+ $('#formula-dialog').showModal(); $('#formula-source').focus();
+});
+$('#cancel-formula').onclick = () => $('#formula-dialog').close();
+$('#apply-formula').onclick = () => {
+ activeFormula.dataset.raw = $('#formula-source').value;
+ renderMath(activeFormula); markDirty(); $('#formula-dialog').close();
+};
+$$('.figure-open').forEach(button => button.onclick = () => {
+ const stage = $('#image-dialog .image-stage'); stage.replaceChildren(button.querySelector('img').cloneNode(true));
+ stage.classList.remove('zoomed'); $('#zoom').textContent = 'Zoom in'; $('#image-dialog').showModal();
+});
+$('#close-image').onclick = () => $('#image-dialog').close();
+$('#zoom').onclick = () => { const zoomed = $('.image-stage').classList.toggle('zoomed'); $('#zoom').textContent = zoomed ? 'Fit figure' : 'Zoom in'; };
+function exportHTML() {
+ const clone = document.documentElement.cloneNode(true);
+ clone.querySelectorAll('.equation-render').forEach(element => { element.replaceChildren(); element.textContent = element.dataset.raw; });
+ // Only MathJax-generated assets are replaceable. Never remove educational SVGs.
+ clone.querySelectorAll('mjx-container, [id^="MJX-"], [id^="MathJax-"], .CtxtMenu_Menu, script[data-math-loader]').forEach(e => e.remove());
+ clone.querySelectorAll('style:not(#suite-styles)').forEach(e => { if (e.textContent.includes('.CtxtMenu_')) e.remove(); });
+ clone.querySelectorAll('script[src^="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/"]').forEach(e => e.remove());
+ clone.querySelectorAll('[contenteditable]').forEach(e => { e.removeAttribute('autofocus'); });
+ clone.querySelectorAll('[style]').forEach(e => { if (!e.getAttribute('style').trim()) e.removeAttribute('style'); });
+ clone.querySelectorAll('.section,.block').forEach(e => e.removeAttribute('hidden'));
+ clone.querySelectorAll('details[data-before-search]').forEach(e => { e.open = e.dataset.beforeSearch === 'true'; delete e.dataset.beforeSearch; });
+ clone.querySelectorAll('dialog').forEach(e => e.removeAttribute('open'));
+ clone.querySelector('.image-stage').replaceChildren();
+ clone.querySelector('#formula-source').textContent = '';
+ clone.querySelector('#search').setAttribute('value', '');
+ clone.querySelector('#search-status').hidden = true;
+ clone.querySelector('#status').textContent = '';
+ clone.querySelector('body').classList.remove('searching', 'nav-open', 'nav-closed');
+ clone.querySelector('#scrim').hidden = true;
+ return '<!DOCTYPE html>\n' + clone.outerHTML;
+}
+$('#save').onclick = async () => {
+ document.activeElement?.blur();
+ const html = exportHTML();
+ const filename = (document.title.replace(/[^a-z0-9 _-]/gi, '').trim() || 'Study Suite') + '.html';
+ if (window.showSaveFilePicker) {
+   try {
+     const handle = await window.showSaveFilePicker({suggestedName:filename,types:[{description:'Study Suite HTML',accept:{'text/html':['.html']}}]});
+     const writable = await handle.createWritable(); await writable.write(html); await writable.close();
+     dirty = false; status('Saved to your selected file.'); return;
+   } catch (error) {
+     if (error.name === 'AbortError') { status('Save cancelled. Your edits remain in this tab.'); return; }
+   }
+ }
+ try {
+   const url = URL.createObjectURL(new Blob([html], {type:'text/html;charset=utf-8'}));
+   const a = document.createElement('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove();
+   setTimeout(() => URL.revokeObjectURL(url), 60000);
+   // Browsers do not expose download completion. Keep dirty state until a confirmed write.
+   status('Download requested. Confirm the HTML is in Downloads before closing this tab.');
+ } catch { status('Export failed. Keep this tab open and try again.'); }
+};
+window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
+mode(document.body.dataset.mode === 'review' && !$('#review').hidden ? 'review' : 'learn');
+if ($$('.equation-render').length) {
+ window.MathJax = {loader:{load:['ui/safe']},tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},startup:{typeset:false,ready:() => { MathJax.startup.defaultReady(); MathJax.startup.promise.then(() => $$('.equation-render').forEach(renderMath)); }}};
+ const script = document.createElement('script'); script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js'; script.async = true; script.dataset.mathLoader = 'true';
+ script.onerror = () => { $$('.equation-render').forEach(e => { e.textContent = e.dataset.raw; }); status('Math renderer unavailable. Editable LaTeX is shown; reading and saving still work.'); };
+ document.head.append(script);
+}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+{
+  "schema_version": 3,
+  "language": "en",
+  "synthetic": true,
+  "title": "From observation to understanding",
+  "subtitle": "A small guide to quantities, rates, and clear reasoning. Explore the reading workflow, edit an explanation, and save your own edition.",
+  "included_section_ids": [
+    "foundations",
+    "reasoning",
+    "interpretation"
+  ],
+  "sections": [
+    {
+      "id": "foundations",
+      "title": "Start with the quantities",
+      "intro": "A number becomes useful when you know what it measures. Keep the quantity, its unit, and its context together.",
+      "blocks": [
+        {
+          "type": "concept",
+          "category": "definition",
+          "compact": true,
+          "title": "Quantity & unit",
+          "summary": "A quantity describes a measurable property. A unit tells you the scale used to express it.",
+          "body": "For example, 3 seconds describes a duration. The number 3 alone does not tell you whether you measured time, distance, or a count.",
+          "source": "Synthetic illustration created for template setup; not taken from a course."
+        },
+        {
+          "type": "concept",
+          "category": "warning",
+          "compact": true,
+          "title": "Keep the context",
+          "summary": "The same number can describe different things. Units and conditions keep the meaning intact.",
+          "body": "An average over three seconds describes the whole interval. It does not establish that the measured process was equally fast at every instant."
+        },
+        {
+          "type": "comparison",
+          "title": "Total amount or rate?",
+          "summary": "An amount tells you how much; a rate relates that amount to an interval.",
+          "headers": [
+            "Idea",
+            "What it describes",
+            "Example",
+            "Interpretation"
+          ],
+          "rows": [
+            [
+              "Amount",
+              "A total measured quantity",
+              "12 units",
+              "No time interval is implied"
+            ],
+            [
+              "Duration",
+              "The elapsed interval",
+              "3 seconds",
+              "Use consistent time units"
+            ],
+            [
+              "Average rate",
+              "Amount per unit of time",
+              "4 units per second",
+              "Describes the interval as a whole"
+            ]
+          ]
+        },
+        {
+          "type": "review",
+          "title": "Keep these ideas connected",
+          "summary": "Read the value together with its unit and conditions.",
+          "steps": [
+            "A quantity needs a clear definition.",
+            "A rate introduces a denominator: check what that denominator measures."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reasoning",
+      "title": "Build the reasoning",
+      "intro": "Move from a recorded observation to a calculation, then explain what the result means. Each step should preserve the units.",
+      "blocks": [
+        {
+          "type": "process",
+          "title": "A reliable calculation sequence",
+          "summary": "Define → align units → calculate → interpret.",
+          "steps": [
+            "Define the measured amount and the start and end of the interval.",
+            "Express the interval in one consistent time unit before dividing.",
+            "Divide the amount by the elapsed time; carry the units through the calculation.",
+            "Describe the result as an average over the observed interval."
+          ],
+          "body": "Writing the unit beside each value makes the calculation easier to audit. If the interval were supplied in minutes but the desired rate were per second, convert the interval before evaluating the quotient.\n\nA useful final sentence links the result back to the observation. This turns an isolated number into an explanation you can reuse."
+        },
+        {
+          "type": "formula",
+          "title": "Average rate",
+          "summary": "Divide the observed change in amount by the elapsed time.",
+          "latex": "\\bar{r} = \\frac{\\Delta q}{\\Delta t} = \\frac{12\\;\\mathrm{units}}{3\\;\\mathrm{s}} = 4\\;\\mathrm{units}\\,\\mathrm{s}^{-1}",
+          "body": "Here Δq is the measured change in amount, Δt is the positive elapsed time, and r̄ is the average rate. The expression does not specify an instantaneous rate. The unit of the numerator must match the quantity being measured."
+        },
+        {
+          "type": "worked",
+          "title": "Worked calculation · changing the time unit",
+          "summary": "The same observation is 240 units per minute. The measured process has not changed; only the reporting unit has.",
+          "steps": [
+            "Start from the observation: 12 units in 3 seconds.",
+            "Convert the interval: 3 seconds ÷ 60 seconds per minute = 0.05 minutes.",
+            "Divide: 12 units ÷ 0.05 minutes = 240 units per minute.",
+            "Check: 240 units per minute ÷ 60 seconds per minute = 4 units per second."
+          ],
+          "body": "The numerical rate grows when the reporting interval becomes larger: one minute contains sixty seconds. This is a change of representation, not a change in the measured amount."
+        },
+        {
+          "type": "figure",
+          "title": "Follow the units through the workflow",
+          "asset": "measurement.svg",
+          "origin": "custom",
+          "alt": "Three stages: observe 12 units in 3 seconds, divide 12 by 3, interpret 4 units per second.",
+          "caption": "The diagram keeps observation, operation, and interpretation separate. Tap to enlarge; use Zoom in to inspect labels.",
+          "credit": "Original synthetic diagram · Study Suite demo"
+        },
+        {
+          "type": "details",
+          "title": "Why averages hide variation",
+          "summary": "Different time patterns can produce the same interval average.",
+          "body": "The twelve units might accumulate evenly, or more quickly during part of the interval. Both patterns can yield twelve units after three seconds. The average alone cannot distinguish them.\n\nAn instantaneous description would require additional information about how the quantity changes with time. This is why the interval belongs in the interpretation."
+        },
+        {
+          "type": "review",
+          "title": "The calculation in one view",
+          "summary": "12 units / 3 seconds = 4 units per second = 240 units per minute.",
+          "steps": [
+            "Convert units before combining values.",
+            "Interpret the average only over the measured interval."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interpretation",
+      "title": "Read the result carefully",
+      "intro": "A clear explanation states both what the calculation establishes and the limits of that conclusion.",
+      "blocks": [
+        {
+          "type": "concept",
+          "category": "warning",
+          "title": "Avoid an unsupported conclusion",
+          "summary": "An interval average does not prove a constant rate.",
+          "body": "The observation supports the statement that twelve units accumulated in three seconds. To claim a constant rate throughout the interval, you would need additional time-resolved observations. The interval average is written as \\(\\bar{r}=4\\;\\mathrm{units}\\,\\mathrm{s}^{-1}\\)."
+        },
+        {
+          "type": "prose",
+          "title": "Make this explanation yours",
+          "summary": "Click this sentence and rephrase it in language that helps you understand.",
+          "body": "Your edits stay in this tab until you export them with Save Progress. The downloaded HTML includes your text, raw formulas, and embedded figure. Reopen that file to continue reading your edited edition."
+        },
+        {
+          "type": "review",
+          "title": "A compact reading trail",
+          "summary": "Quantity → unit → calculation → interpretation.",
+          "steps": [
+            "Name what was measured and over which interval.",
+            "Keep units attached throughout the calculation.",
+            "State the result with the scope supported by the observation."
+          ]
+        }
+      ]
+    }
+  ]
+}
