@@ -4,6 +4,8 @@ A reusable system for turning a whole course into **one editable HTML reading re
 
 Open `output/Demo_Study_Suite.html` in a browser. This is a small synthetic demonstration, not a course summary. The original reference package is preserved separately.
 
+Private source repository: [Gehrman-Sparrow42/study-suite](https://github.com/Gehrman-Sparrow42/study-suite).
+
 ## Read, edit, save
 
 - Read top to bottom or jump using Contents. On phones, Contents opens a drawer.
