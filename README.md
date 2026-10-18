@@ -9,8 +9,8 @@ Private source repository: [Gehrman-Sparrow42/study-suite](https://github.com/Ge
 ## Read, edit, save
 
 - Read top to bottom or jump using Contents. On phones, Contents opens a drawer.
-- Learn shows the teaching explanations. Review hides explanatory bodies while retaining core statements, formulas, sequences, comparisons and takeaways. Search temporarily exposes matching explanations in either mode.
-- Click headings, paragraphs, list items, captions or table cells to edit. Rich text pasted from elsewhere becomes plain text. Use **Edit formula** (or **Edit** beside inline math) to change raw LaTeX, then Apply formula.
+- Learn shows the teaching explanations. Review hides explanatory bodies while retaining core statements, formulas, sequences, comparisons and takeaways. Search temporarily exposes matching explanations in either mode. Only matching sections appear in Contents while searching; section jumps retain the query. Clear the search to restore the full course. Unrelated source notes stay closed.
+- Click headings, paragraphs, list items, captions or table cells to edit. An expanded explanation is one editing area: Enter adds paragraphs, and Backspace can join adjacent paragraphs. Added text stays editable after export/reopen. Rich text pasted from elsewhere becomes plain text. Use **Edit formula** (or **Edit** beside inline math) to change raw LaTeX, then Apply formula.
 - Click a figure to enlarge it. Zoom in permits panning inside the figure window. Escape or Close figure dismisses it.
 - **Save Progress** exports your current edition, including edits and embedded figures. Chromium browsers may offer a file picker; Firefox and other browsers use a download. A fallback download message says only that the download was requested: check Downloads before closing the tab.
 - Reopen the exported HTML to continue. Edits are not automatically written to disk or synced to the authoring JSON. Rebuilding from JSON creates a fresh edition, so keep edited exports under separate names.

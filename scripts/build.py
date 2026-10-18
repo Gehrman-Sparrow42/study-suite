@@ -173,7 +173,10 @@ def rich_text(value: str) -> str:
 
 
 def paragraph(value: str, css='') -> str:
-    return f'<p class="{css}"{EDIT}>{rich_text(value)}</p>'
+    # Browsers may insert block children on Enter. A div keeps them valid and
+    # editable after serialization and reparsing, unlike an editable p host.
+    classes = 'editable-text' + (f' {css}' if css else '')
+    return f'<div class="{classes}"{EDIT}>{rich_text(value)}</div>'
 
 
 def render_block(block: dict, content_dir: Path, config: dict) -> str:
@@ -203,7 +206,8 @@ def render_block(block: dict, content_dir: Path, config: dict) -> str:
         credit = block['credit'] + (f' · {block["source_url"]} · {block["license"]}' if block['origin'] == 'web' else '')
         out.append(f'<figure><button class="figure-open" aria-label="Enlarge figure: {esc(block["alt"])}"><img src="{uri}" alt="{esc(block["alt"])}"></button><figcaption{EDIT}>{esc(block["caption"])}</figcaption><span class="credit">{esc(credit)}</span></figure>')
     if block.get('body'):
-        body = ''.join(paragraph(p) for p in block['body'].split('\n\n'))
+        paragraphs = ''.join(f'<p>{rich_text(p)}</p>' for p in block['body'].split('\n\n'))
+        body = f'<div class="explanation-body"{EDIT}>{paragraphs}</div>'
         out.append(f'<details class="explanation" open><summary>Read the explanation</summary>{body}</details>' if kind == 'details' else f'<div class="explanation">{body}</div>')
     if block.get('source') and config['source_labels'] == 'minimal':
         out.append(f'<details class="provenance"><summary>Source note</summary>{esc(block["source"])}</details>')
@@ -223,7 +227,8 @@ def build(source: Path, output: Path | None = None, config_path: Path | None = N
         blocks = ''.join(render_block(b, source.parent, config) for b in section['blocks'])
         if not blocks:
             raise ValueError(f'{ident}: no reading blocks remain under the chosen visual policy')
-        sections.append(f'<section class="section" id="{ident}"><div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}>{esc(section["title"])}</h2></div>{paragraph(section.get("intro", ""), "section-intro")}<div class="blocks">{blocks}</div></section>')
+        intro = paragraph(section['intro'], 'section-intro') if section.get('intro') else ''
+        sections.append(f'<section class="section" id="{ident}"><div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}>{esc(section["title"])}</h2></div>{intro}<div class="blocks">{blocks}</div></section>')
     accent = ACCENTS.get(config['theme_accent'], config['theme_accent'])
     values = {'TITLE': esc(title), 'SUBTITLE': esc(course['subtitle']), 'KICKER': 'SYNTHETIC DEMO / NOT COURSE MATERIAL' if course['synthetic'] else 'YOUR COURSE / YOUR READING SPACE',
               'META': f'<span>{len(sections)} sections</span><span>{esc(config["depth"].replace("_", " "))}</span><span>Editable edition</span>',

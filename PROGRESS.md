@@ -12,6 +12,8 @@ Last updated: 2026-10-18 (Europe/Istanbul).
 - Built output/Demo_Study_Suite.html from synthetic content only. No real course summary generated.
 - Ran ten builder tests, JS syntax check, structural validation, Edge and Firefox local-file browser regression suites, and desktop/mobile visual inspection.
 - Fixed export bloat/empty styles, MathJax extension cleanup, heading synchronization, section-intro search and bottom-section scrollspy.
+- Completed the Argon-review implementation follow-up: block-safe text hosts, shared multi-paragraph editors, selective search expansion, query-preserving filtered navigation, optional-intro handling, and delegated formula/figure controls. The rebuilt demo and expanded Edge/Firefox tests pass, including typing more notes after reopening newly inserted paragraphs.
+- Updated usage/visual guidelines and verification documentation. A bounded Flash High follow-up review was attempted but the CLI returned no structured task output; no external approval is claimed. Local regression tests provide the executed verification.
 - Created the private GitHub repository https://github.com/Gehrman-Sparrow42/study-suite, pushed main, and verified the remote SHA matches local implementation commit a5f8e1d4601fc7d40ecf02c91aa14652e5d2c326. GitHub reports isPrivate=true.
 
 ## Important architectural decisions
@@ -28,7 +30,7 @@ Last updated: 2026-10-18 (Europe/Istanbul).
 
 ## Test results and known limitations
 
-See TEST_RESULTS.md for coverage and explicit limits. All implemented core checks pass. Final clean demo is 37,411 bytes. Edited export and second export were exactly 37,075 bytes in both Edge and Firefox.
+See TEST_RESULTS.md for coverage and explicit limits. Twelve builder tests, JS syntax, HTML validation and expanded Edge/Firefox suites pass. Final clean demo is 38,326 bytes. Edited export and second export were exactly 37,979 bytes in both Edge and Firefox.
 
 Native OS picker interaction is mocked in tests; actual download and reopen paths are tested. Mobile checks use 390/320 px browser viewports, not physical phones/Safari. Future real-course source coverage/scientific correctness and image permissions need authoring review.
 
@@ -36,11 +38,13 @@ The requested prompt filename was not present; the supplied `Codex_Study_Suite_V
 
 ## Remaining tasks
 
-No remaining implementation tasks for this setup. The reusable core, documentation, verified synthetic demo and private repository are complete. A real course summary awaits a separate user request.
+No remaining required implementation tasks. Optional print styling and math-startup performance improvements remain deferred. The independent follow-up review was unavailable (no structured CLI output), which is recorded as a review limit rather than a passing result.
+
+A real course summary still awaits a separate user request.
 
 ## Exact next steps for resuming
 
 1. Work in `C:\Users\Berkay\Desktop\Ders\study-suite`; inspect `git status`, `git log -3 --oneline` and `git remote -v` first.
 2. Check publication state with `gh repo view Gehrman-Sparrow42/study-suite --json isPrivate,url` and `git ls-remote origin refs/heads/main`.
-3. No core rebuild is necessary. Consult TEST_RESULTS.md for tested behavior and limits; rerun affected checks only when changing implementation.
+3. The expanded browser suite has completed successfully; results are in tests/artifacts/results.json. The current demo is rebuilt and verified. Review context is in ignored work/argon-review/ and work/followup-review/. No core rebuild is needed unless implementation changes.
 4. For the next course, follow README.md's new-course prompt, save staged work in `work/<course>/`, and reuse the template.

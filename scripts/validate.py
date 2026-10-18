@@ -5,6 +5,9 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
+# These tags implicitly end a paragraph in an HTML browser. Merely balancing
+# opening/closing tags misses the changed editing boundaries after reopening.
+P_BREAKERS = {'address', 'article', 'aside', 'blockquote', 'details', 'div', 'dl', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hgroup', 'hr', 'main', 'menu', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'}
 
 
 class Inspector(HTMLParser):
@@ -15,6 +18,8 @@ class Inspector(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if tag in P_BREAKERS and 'p' in self.stack:
+            self.errors.append(f'Invalid paragraph nesting: {tag} inside p; browser reopening changes the DOM')
         if tag not in VOID:
             self.stack.append(tag)
         ident = values.get('id')

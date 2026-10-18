@@ -32,23 +32,27 @@ function mode(value) {
 }
 $('#learn').onclick = () => mode('learn');
 $('#review').onclick = () => mode('review');
+function matchesContent(element, query) {
+ return element.textContent.toLowerCase().includes(query) || [...element.querySelectorAll('[data-raw]')].some(e => e.dataset.raw.toLowerCase().includes(query)) || [...element.querySelectorAll('img')].some(e => e.alt.toLowerCase().includes(query));
+}
 function search() {
  const query = $('#search').value.trim().toLowerCase();
  document.body.classList.toggle('searching', Boolean(query));
  let count = 0;
  $$('.section').forEach(section => {
-   const headingMatch = [section.querySelector('.section-heading'), section.querySelector('.section-intro')].some(e => e.textContent.toLowerCase().includes(query));
+   const headingMatch = [...section.querySelectorAll('.section-heading, .section-intro')].some(e => matchesContent(e, query));
    let found = false;
    section.querySelectorAll('.block').forEach(block => {
-     const match = !query || headingMatch || block.textContent.toLowerCase().includes(query) || [...block.querySelectorAll('[data-raw]')].some(e => e.dataset.raw.toLowerCase().includes(query)) || [...block.querySelectorAll('img')].some(e => e.alt.toLowerCase().includes(query));
+     const match = !query || headingMatch || matchesContent(block, query);
      block.hidden = !match;
      if (match) { found = true; count++; }
    });
    section.hidden = !found;
+   document.querySelector(`nav a[href="#${section.id}"]`).hidden = !found;
    // Search may reveal text inside a closed explanation without altering saved preference.
    section.querySelectorAll('details').forEach(detail => {
      if (query && !detail.hasAttribute('data-before-search')) detail.dataset.beforeSearch = String(detail.open);
-     if (query) detail.open = true;
+     if (query) detail.open = detail.dataset.beforeSearch === 'true' || (!detail.closest('.block').hidden && matchesContent(detail, query));
      else if (detail.hasAttribute('data-before-search')) { detail.open = detail.dataset.beforeSearch === 'true'; delete detail.dataset.beforeSearch; }
    });
  });
@@ -58,7 +62,6 @@ function search() {
 }
 $('#search').addEventListener('input', search);
 $$('nav a').forEach(link => link.onclick = () => {
- $('#search').value = ''; search();
  if (mobile()) setNavigation(false);
  const section = document.getElementById(link.hash.slice(1));
  section.setAttribute('tabindex', '-1'); section.focus({preventScroll:true});
@@ -107,20 +110,25 @@ function renderMath(element) {
  });
  return mathQueue;
 }
-$$('.edit-formula').forEach(button => button.onclick = () => {
- activeFormula = button.closest('.math-unit').querySelector('.equation-render');
- $('#formula-source').value = activeFormula.dataset.raw;
- $('#formula-dialog').showModal(); $('#formula-source').focus();
+// Delegate to keep controls working if editing/undo reconstructs their nodes.
+document.addEventListener('click', event => {
+ const button = event.target.closest('.edit-formula');
+ if (button) {
+   activeFormula = button.closest('.math-unit').querySelector('.equation-render');
+   $('#formula-source').value = activeFormula.dataset.raw;
+   $('#formula-dialog').showModal(); $('#formula-source').focus();
+ }
+ const figure = event.target.closest('.figure-open');
+ if (figure) {
+   const stage = $('#image-dialog .image-stage'); stage.replaceChildren(figure.querySelector('img').cloneNode(true));
+   stage.classList.remove('zoomed'); $('#zoom').textContent = 'Zoom in'; $('#image-dialog').showModal();
+ }
 });
 $('#cancel-formula').onclick = () => $('#formula-dialog').close();
 $('#apply-formula').onclick = () => {
  activeFormula.dataset.raw = $('#formula-source').value;
  renderMath(activeFormula); markDirty(); $('#formula-dialog').close();
 };
-$$('.figure-open').forEach(button => button.onclick = () => {
- const stage = $('#image-dialog .image-stage'); stage.replaceChildren(button.querySelector('img').cloneNode(true));
- stage.classList.remove('zoomed'); $('#zoom').textContent = 'Zoom in'; $('#image-dialog').showModal();
-});
 $('#close-image').onclick = () => $('#image-dialog').close();
 $('#zoom').onclick = () => { const zoomed = $('.image-stage').classList.toggle('zoomed'); $('#zoom').textContent = zoomed ? 'Fit figure' : 'Zoom in'; };
 function exportHTML() {
@@ -130,9 +138,12 @@ function exportHTML() {
  clone.querySelectorAll('mjx-container, [id^="MJX-"], [id^="MathJax-"], .CtxtMenu_Menu, script[data-math-loader]').forEach(e => e.remove());
  clone.querySelectorAll('style:not(#suite-styles)').forEach(e => { if (e.textContent.includes('.CtxtMenu_')) e.remove(); });
  clone.querySelectorAll('script[src^="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/"]').forEach(e => e.remove());
- clone.querySelectorAll('[contenteditable]').forEach(e => { e.removeAttribute('autofocus'); });
+ clone.querySelectorAll('[contenteditable]').forEach(e => {
+   e.removeAttribute('autofocus');
+   if (e.getAttribute('contenteditable') === 'true') e.setAttribute('spellcheck', 'false');
+ });
  clone.querySelectorAll('[style]').forEach(e => { if (!e.getAttribute('style').trim()) e.removeAttribute('style'); });
- clone.querySelectorAll('.section,.block').forEach(e => e.removeAttribute('hidden'));
+ clone.querySelectorAll('.section,.block,nav a').forEach(e => e.removeAttribute('hidden'));
  clone.querySelectorAll('details[data-before-search]').forEach(e => { e.open = e.dataset.beforeSearch === 'true'; delete e.dataset.beforeSearch; });
  clone.querySelectorAll('dialog').forEach(e => e.removeAttribute('open'));
  clone.querySelector('.image-stage').replaceChildren();

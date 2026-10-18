@@ -21,6 +21,104 @@ def download(page, name):
     return path
 
 
+def editing_regressions(context, name, errors):
+    page = context.new_page()
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.route('https://cdn.jsdelivr.net/**', lambda route: route.abort())
+    page.goto(DEMO.as_uri())
+    # Matching explanations open; unrelated source notes do not. A subsequent
+    # query restores the original detail state rather than accumulating opens.
+    provenance = page.locator('details.provenance').first
+    page.locator('#search').fill('quantity')
+    assert not provenance.evaluate('(e) => e.open')
+    page.locator('nav a:visible').first.click()
+    expect(page.locator('#search')).to_have_value('quantity')
+    page.locator('#search').fill('Synthetic illustration')
+    assert provenance.evaluate('(e) => e.open')
+    page.locator('#search').fill('quantity')
+    assert not provenance.evaluate('(e) => e.open')
+    page.locator('#search').fill('')
+    # A section without an optional introduction still searches normally.
+    page.locator('.section-intro').first.evaluate('(e) => e.remove()')
+    page.locator('#search').fill('Quantity')
+    expect(page.locator('#section-foundations')).to_be_visible()
+    page.locator('#search').fill('')
+
+    body = page.locator('[data-type="process"] .explanation-body')
+    expect(body.locator('p')).to_have_count(2)
+    body.locator('p').nth(1).evaluate('''e => {
+      e.parentElement.focus(); const range = document.createRange();
+      range.setStart(e.firstChild, 0); range.collapse(true);
+      const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range);
+    }''')
+    page.keyboard.press('Backspace')
+    expect(body.locator('p')).to_have_count(1)
+    # Enter inside existing prose must remain editable after an actual download.
+    body.locator('p').first.evaluate('''e => {
+      e.parentElement.focus(); const range = document.createRange();
+      range.setStart(e.firstChild, 12); range.collapse(true);
+      const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range);
+    }''')
+    page.keyboard.press('Enter')
+    page.keyboard.type('Added reading paragraph. ')
+    lead = page.locator('[data-type="concept"] .lead').first
+    lead.focus()
+    page.keyboard.press('End')
+    page.keyboard.press('Enter')
+    page.keyboard.type('Added core explanation. ')
+    # Real formula deletion/undo, followed by a DOM reconstruction, exercises
+    # the delegated controls without assuming browser Undo loses listeners.
+    page.locator('.inline-math').evaluate('''e => {
+      e.parentElement.focus(); const range = document.createRange(); range.selectNode(e);
+      const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range);
+    }''')
+    page.keyboard.press('Backspace')
+    expect(page.locator('.inline-math')).to_have_count(0)
+    page.keyboard.press('Control+z')
+    expect(page.locator('.inline-math')).to_have_count(1)
+    page.locator('.inline-math').evaluate('(e) => e.replaceWith(e.cloneNode(true))')
+    page.locator('.inline-math .edit-formula').click()
+    expect(page.locator('#formula-dialog')).to_be_visible()
+    page.locator('#cancel-formula').click()
+    page.locator('.figure-open').evaluate('(e) => e.replaceWith(e.cloneNode(true))')
+    page.locator('.figure-open').click()
+    expect(page.locator('#image-dialog')).to_be_visible()
+    page.locator('#close-image').click()
+    exported = download(page, f'{name}-multiline.html')
+    assert not validate_html(exported.read_text(encoding='utf-8'))
+    reopened = context.new_page()
+    reopened.on('pageerror', lambda error: errors.append(str(error)))
+    reopened.route('https://cdn.jsdelivr.net/**', lambda route: route.abort())
+    reopened.goto(exported.as_uri())
+    for selector, marker in [('[data-type="process"] .explanation-body', 'Added reading paragraph.'), ('[data-type="concept"] .lead', 'Added core explanation.')]:
+        host = reopened.locator(selector).first
+        expect(host).to_contain_text(marker)
+        # Inspect the actual marker text node; seeing the text is insufficient.
+        assert host.evaluate('''(e, marker) => {
+          const walker = document.createTreeWalker(e, NodeFilter.SHOW_TEXT);
+          let node; while ((node = walker.nextNode())) {
+            if (node.textContent.includes(marker)) return node.parentElement.isContentEditable;
+          }
+          return false;
+        }''', marker)
+        host.evaluate('''(e, marker) => {
+          const walker = document.createTreeWalker(e, NodeFilter.SHOW_TEXT);
+          let node; while ((node = walker.nextNode())) {
+            if (node.textContent.includes(marker)) {
+              e.focus(); const range = document.createRange(); range.setStart(node, node.length); range.collapse(true);
+              const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range); break;
+            }
+          }
+        }''', marker)
+        reopened.keyboard.type('Continued after reopening. ')
+        expect(host).to_contain_text('Continued after reopening.')
+    again = download(reopened, f'{name}-multiline-continued.html')
+    assert not validate_html(again.read_text(encoding='utf-8'))
+    assert 'Continued after reopening.' in again.read_text(encoding='utf-8')
+    page.close(run_before_unload=False)
+    reopened.close(run_before_unload=False)
+
+
 def run(browser_type, name, **launch_options):
     browser = browser_type.launch(headless=True, **launch_options)
     context = browser.new_context(viewport={'width': 1440, 'height': 1000}, accept_downloads=True)
@@ -97,6 +195,7 @@ def run(browser_type, name, **launch_options):
     expect(page2.locator('body')).to_have_attribute('data-mode', 'review')
     expect(page2.locator('#search')).to_have_value('')
     expect(page2.locator('.section:visible')).to_have_count(3)
+    expect(page2.locator('nav a:visible')).to_have_count(3)
     expect(page2.locator('[data-type="details"] details')).not_to_have_attribute('open', '')
     page2.wait_for_function("document.querySelector('mjx-container') !== null", timeout=45000)
     assert page2.locator('img').first.evaluate('(e) => e.complete && e.naturalWidth > 0')
@@ -136,6 +235,7 @@ def run(browser_type, name, **launch_options):
     page2.locator('#review').click()
     page2.evaluate("window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'})")
     expect(page2.locator('nav a').last).to_have_attribute('aria-current', 'location')
+    editing_regressions(context, name, errors)
     assert not errors, errors
     context.close()
     browser.close()

@@ -92,6 +92,22 @@ class BuilderTests(unittest.TestCase):
         self.assertTrue(any('Duplicate' in e for e in errors))
         self.assertTrue(any('Missing anchor' in e for e in errors))
 
+    def test_validator_detects_paragraph_repair(self):
+        value = (ROOT / 'output/Demo_Study_Suite.html').read_text(encoding='utf-8')
+        errors = validate_html(value.replace('</main>', '<p><div>Inserted notes</div></p></main>'))
+        self.assertTrue(any('Invalid paragraph nesting' in e for e in errors))
+
+    def test_optional_intro_omitted(self):
+        for section in self.course['sections']:
+            section.pop('intro', None)
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'course.json'
+            source.write_text(json.dumps(self.course), encoding='utf-8')
+            output = build(source, Path(directory) / 'out.html', overrides={'visuals': 'off'})
+            value = output.read_text(encoding='utf-8')
+            self.assertNotIn('class="editable-text section-intro"', value)
+            self.assertFalse(validate_html(value))
+
 
 if __name__ == '__main__':
     unittest.main()

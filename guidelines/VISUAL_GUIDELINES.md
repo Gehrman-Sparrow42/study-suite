@@ -42,4 +42,6 @@ Do not add decorative charts, stock photography, giant hero banners, unrelated a
 
 Text stays in editable DOM nodes. Formula raw source stays in `data-raw`; MathJax output is replaceable. Exports restore raw math, remove only MathJax-generated resources, preserve educational images, reset transient search/modal state, and keep the selected reading mode. Never remove all SVG tags. Do not export the live DOM without cleanup.
 
+Use block-safe containers for editable prose. Multi-paragraph explanations share one editing host; do not make each paragraph an isolated host or put block elements inside an editable p. Browser checks must type Enter/Backspace and confirm inserted text is still editable after export/reopen. Delegate formula/figure button clicks so reconstructed editing nodes remain interactive. Search opens details only to expose their own matches and restores prior detail state; section navigation retains the active query.
+
 Save success is reported only after the picker write closes. Anchor downloads receive an honest “download requested” message. Test cancellation, denied writes, Firefox fallback, repeated export size, and reopening with/without MathJax access. Math rendering follows the [MathJax 3.2 dynamic typesetting and cleanup API](https://docs.mathjax.org/en/v3.2/web/typeset.html).
