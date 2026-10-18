@@ -13,7 +13,7 @@ Last updated: 2026-10-18 (Europe/Istanbul).
 - Ran ten builder tests, JS syntax check, structural validation, Edge and Firefox local-file browser regression suites, and desktop/mobile visual inspection.
 - Fixed export bloat/empty styles, MathJax extension cleanup, heading synchronization, section-intro search and bottom-section scrollspy.
 - Completed the Argon-review implementation follow-up: block-safe text hosts, shared multi-paragraph editors, selective search expansion, query-preserving filtered navigation, optional-intro handling, and delegated formula/figure controls. The rebuilt demo and expanded Edge/Firefox tests pass, including typing more notes after reopening newly inserted paragraphs.
-- Updated usage/visual guidelines and verification documentation. A bounded Flash High follow-up review was attempted but the CLI returned no structured task output; no external approval is claimed. Local regression tests provide the executed verification.
+- Updated usage/visual guidelines and verification documentation. Investigated the failed Flash review: the official CLI hit its 300-second print timeout with the turn still in progress. A focused Flash High recheck subsequently completed in 389 seconds with structured output, gate_verified=true, and no findings in the supplied editing/search fixes. Report and metadata are in ignored work/followup-review/FLASH_REVIEW.md and FLASH_RESULT.json. Local regression tests remain the executed behavioral verification.
 - Created the private GitHub repository https://github.com/Gehrman-Sparrow42/study-suite, pushed main, and verified the remote SHA matches local implementation commit a5f8e1d4601fc7d40ecf02c91aa14652e5d2c326. GitHub reports isPrivate=true.
 
 ## Important architectural decisions
@@ -38,7 +38,7 @@ The requested prompt filename was not present; the supplied `Codex_Study_Suite_V
 
 ## Remaining tasks
 
-No remaining required implementation tasks. Optional print styling and math-startup performance improvements remain deferred. The independent follow-up review was unavailable (no structured CLI output), which is recorded as a review limit rather than a passing result.
+No remaining required implementation tasks. Optional print styling and math-startup performance improvements remain deferred. The follow-up review completed successfully after diagnosing the earlier timeout; its scope was the supplied editing/search fixes, not an audit of the whole system.
 
 A real course summary still awaits a separate user request.
 
