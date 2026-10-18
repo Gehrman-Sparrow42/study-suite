@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "course_id": "weekly-measurement-demo",
+  "sources": [
+    {
+      "path": "week-06.txt",
+      "sha256": "14e42a99850cff344c9a59e50bb336fe24a28541441418cfa2290c583f3103ab",
+      "week": 6
+    }
+  ],
+  "sections": [
+    {
+      "id": "week-06",
+      "week": 6,
+      "title": "Extend the same observation",
+      "source_files": [
+        "week-06.txt"
+      ],
+      "blocks": [
+        {
+          "id": "new-unit",
+          "type": "worked",
+          "title": "Extend the same observation",
+          "summary": "4 units per second equals 240 units per minute.",
+          "steps": [
+            "One minute contains 60 seconds.",
+            "Multiply 4 units per second by 60 seconds per minute.",
+            "Report 240 units per minute."
+          ],
+          "body": "Changing the reporting unit changes the numerical value, not the observation."
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,8 @@ import tomllib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from course_state import prepare_course, snapshot_json, validate_metadata
+
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = {'definition', 'process', 'formula', 'warning'}
 TYPES = {'concept', 'prose', 'process', 'formula', 'comparison', 'worked', 'figure', 'review', 'details'}
@@ -133,6 +135,7 @@ def validate_course(course: dict) -> None:
         raise ValueError('included_section_ids must list every selected section exactly once')
     if not course['synthetic'] and re.search(r'\b(synthetic demo|lorem ipsum|TODO|placeholder)\b', json.dumps(course), re.I):
         raise ValueError('Production content contains demo/placeholder markers')
+    validate_metadata(course)
 
 
 def embedded_asset(block: dict, content_dir: Path) -> str:
@@ -172,42 +175,46 @@ def rich_text(value: str) -> str:
     return ''.join(output)
 
 
-def paragraph(value: str, css='') -> str:
+def field_attr(pointer: str | None) -> str:
+    return f' data-field="{esc(pointer)}"' if pointer else ''
+
+
+def paragraph(value: str, css='', field=None) -> str:
     # Browsers may insert block children on Enter. A div keeps them valid and
     # editable after serialization and reparsing, unlike an editable p host.
     classes = 'editable-text' + (f' {css}' if css else '')
-    return f'<div class="{classes}"{EDIT}>{rich_text(value)}</div>'
+    return f'<div class="{classes}"{EDIT}{field_attr(field)}>{rich_text(value)}</div>'
 
 
-def render_block(block: dict, content_dir: Path, config: dict) -> str:
+def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> str:
     kind = block['type']
     if kind == 'figure' and (config['visuals'] == 'off' or (config['visuals'] == 'slide_only' and block['origin'] != 'slide') or (block['origin'] == 'web' and not config['allow_web_visuals'])):
         return ''
     category = block.get('category', {'process': 'process', 'worked': 'formula', 'formula': 'formula'}.get(kind, 'definition'))
     label = {'concept': category, 'worked': 'Worked example', 'comparison': 'Compare & distinguish', 'review': 'Section takeaway', 'details': 'Further explanation'}.get(kind, kind)
     classes = f'block {category}' + (' compact' if block.get('compact') and kind in {'concept', 'prose'} else '') + (' takeaway' if kind == 'review' else '')
-    out = [f'<article class="{classes}" data-type="{kind}"><div class="label">{esc(label)}</div><h3{EDIT}>{esc(block["title"])}</h3>']
+    out = [f'<article class="{classes}" data-type="{kind}" data-block-id="{esc(block.get("id", ""))}"><div class="label">{esc(label)}</div><h3{EDIT}{field_attr(pointer + "/title")}>{esc(block["title"])}</h3>']
     if block.get('summary'):
-        out.append(paragraph(block['summary'], 'lead'))
+        out.append(paragraph(block['summary'], 'lead', pointer + '/summary'))
     if kind == 'formula':
-        out.append(f'<div class="math-unit"><div class="equation-render" data-raw="{esc(block["latex"])}">{esc(block["latex"])}</div><button class="edit-formula">Edit formula</button></div>')
+        out.append(f'<div class="math-unit"><div class="equation-render" data-raw="{esc(block["latex"])}"{field_attr(pointer + "/latex")}>{esc(block["latex"])}</div><button class="edit-formula">Edit formula</button></div>')
     if kind == 'comparison':
         out.append('<div class="table-scroll" tabindex="0" role="region" aria-label="Comparison table"><table><thead><tr>')
-        out.extend(f'<th scope="col"{EDIT}>{rich_text(cell)}</th>' for cell in block['headers'])
+        out.extend(f'<th scope="col"{EDIT}{field_attr(pointer + "/headers/" + str(ci))}>{rich_text(cell)}</th>' for ci, cell in enumerate(block['headers']))
         out.append('</tr></thead><tbody>')
-        for row in block['rows']:
-            out.append('<tr>' + ''.join(f'<td{EDIT}>{rich_text(cell)}</td>' for cell in row) + '</tr>')
+        for ri, row in enumerate(block['rows']):
+            out.append('<tr>' + ''.join(f'<td{EDIT}{field_attr(pointer + f"/rows/{ri}/{ci}")}>{rich_text(cell)}</td>' for ci, cell in enumerate(row)) + '</tr>')
         out.append('</tbody></table></div>')
     if kind in {'process', 'worked', 'review'}:
         tag = 'ul' if kind == 'review' else 'ol'
-        out.append(f'<{tag}>' + ''.join(f'<li{EDIT}>{rich_text(step)}</li>' for step in block['steps']) + f'</{tag}>')
+        out.append(f'<{tag}>' + ''.join(f'<li{EDIT}{field_attr(pointer + "/steps/" + str(index))}>{rich_text(step)}</li>' for index, step in enumerate(block['steps'])) + f'</{tag}>')
     if kind == 'figure':
         uri = embedded_asset(block, content_dir)
         credit = block['credit'] + (f' · {block["source_url"]} · {block["license"]}' if block['origin'] == 'web' else '')
-        out.append(f'<figure><button class="figure-open" aria-label="Enlarge figure: {esc(block["alt"])}"><img src="{uri}" alt="{esc(block["alt"])}"></button><figcaption{EDIT}>{esc(block["caption"])}</figcaption><span class="credit">{esc(credit)}</span></figure>')
+        out.append(f'<figure><button class="figure-open" aria-label="Enlarge figure: {esc(block["alt"])}"><img src="{uri}" alt="{esc(block["alt"])}"></button><figcaption{EDIT}{field_attr(pointer + "/caption")}>{esc(block["caption"])}</figcaption><span class="credit">{esc(credit)}</span></figure>')
     if block.get('body'):
         paragraphs = ''.join(f'<p>{rich_text(p)}</p>' for p in block['body'].split('\n\n'))
-        body = f'<div class="explanation-body"{EDIT}>{paragraphs}</div>'
+        body = f'<div class="explanation-body"{EDIT}{field_attr(pointer + "/body")}>{paragraphs}</div>'
         out.append(f'<details class="explanation" open><summary>Read the explanation</summary>{body}</details>' if kind == 'details' else f'<div class="explanation">{body}</div>')
     if block.get('source') and config['source_labels'] == 'minimal':
         out.append(f'<details class="provenance"><summary>Source note</summary>{esc(block["source"])}</details>')
@@ -215,26 +222,31 @@ def render_block(block: dict, content_dir: Path, config: dict) -> str:
     return ''.join(out)
 
 
-def build(source: Path, output: Path | None = None, config_path: Path | None = None, overrides: dict | None = None) -> Path:
-    config = load_config(config_path, overrides)
-    course = json.loads(source.read_text(encoding='utf-8-sig'))
+def render_course(course: dict, content_dir: Path, config: dict) -> str:
     validate_course(course)
-    title = config['course_title'] or course['title']
+    course = prepare_course(course)
+    course['title'] = config['course_title'] or course['title']
+    validate_course(course)
+    title = course['title']
     nav, sections = [], []
     for number, section in enumerate(course['sections'], 1):
+        pointer = f'sections/{number - 1}'
         ident = 'section-' + section['id']
-        nav.append(f'<a href="#{ident}"><span>{number:02}</span><span class="nav-title">{esc(section["title"])}</span></a>')
-        blocks = ''.join(render_block(b, source.parent, config) for b in section['blocks'])
+        week = f'<small class="week-label">Week {section["week"]}</small>' if 'week' in section else ''
+        nav.append(f'<a href="#{ident}"><span>{number:02}</span><span>{week}<span class="nav-title">{esc(section["title"])}</span></span></a>')
+        blocks = ''.join(render_block(b, content_dir, config, pointer + f'/blocks/{bi}') for bi, b in enumerate(section['blocks']))
         if not blocks:
             raise ValueError(f'{ident}: no reading blocks remain under the chosen visual policy')
-        intro = paragraph(section['intro'], 'section-intro') if section.get('intro') else ''
-        sections.append(f'<section class="section" id="{ident}"><div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}>{esc(section["title"])}</h2></div>{intro}<div class="blocks">{blocks}</div></section>')
+        intro = paragraph(section['intro'], 'section-intro', pointer + '/intro') if section.get('intro') else ''
+        sections.append(f'<section class="section" id="{ident}">{week}<div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}{field_attr(pointer + "/title")}>{esc(section["title"])}</h2></div>{intro}<div class="blocks">{blocks}</div></section>')
     accent = ACCENTS.get(config['theme_accent'], config['theme_accent'])
     values = {'TITLE': esc(title), 'SUBTITLE': esc(course['subtitle']), 'KICKER': 'SYNTHETIC DEMO / NOT COURSE MATERIAL' if course['synthetic'] else 'YOUR COURSE / YOUR READING SPACE',
               'META': f'<span>{len(sections)} sections</span><span>{esc(config["depth"].replace("_", " "))}</span><span>Editable edition</span>',
               'NAV': ''.join(nav), 'CONTENT': ''.join(sections), 'REVIEW_HIDDEN': '' if config['include_review_mode'] else 'hidden',
               'CSS': (ROOT / 'template/styles.css').read_text(encoding='utf-8-sig') + f'\n:root{{--accent:{accent}}}',
               'JS': (ROOT / 'template/app.js').read_text(encoding='utf-8-sig')}
+    fields = ['title', 'subtitle'] + re.findall(r'data-field="([^"]+)"', values['CONTENT'])
+    values['STATE'] = snapshot_json(course, fields, config)
     template = (ROOT / 'template/base.html').read_text(encoding='utf-8-sig')
     # A single substitution pass prevents authored {{...}} text becoming a template instruction.
     result = re.sub(r'\{\{([A-Z_]+)\}\}', lambda m: values[m[1]], template)
@@ -242,6 +254,13 @@ def build(source: Path, output: Path | None = None, config_path: Path | None = N
     errors = validate_html(result, expected_sections=len(sections))
     if errors:
         raise ValueError('Output validation failed: ' + '; '.join(errors))
+    return result
+
+
+def build(source: Path, output: Path | None = None, config_path: Path | None = None, overrides: dict | None = None) -> Path:
+    config = load_config(config_path, overrides)
+    course = json.loads(source.read_text(encoding='utf-8-sig'))
+    result = render_course(course, source.parent, config)
     destination = output or ROOT / 'output' / config['output_filename']
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(result, encoding='utf-8')

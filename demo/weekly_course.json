@@ -1,0 +1,155 @@
+{
+  "schema_version": 3,
+  "course_id": "weekly-measurement-demo",
+  "language": "en",
+  "synthetic": true,
+  "title": "A course that grows with the semester",
+  "subtitle": "Synthetic weekly-update demonstration. Five completed weeks can be extended while retaining your own explanations.",
+  "included_section_ids": [
+    "week-01",
+    "week-02",
+    "week-03",
+    "week-04",
+    "week-05"
+  ],
+  "sources": [
+    {
+      "path": "week-01.txt",
+      "sha256": "5c4d6975bd44d42052d415de268398fcaa557a5e55200c79bb67b55aad6b0c3b",
+      "week": 1
+    },
+    {
+      "path": "week-02.txt",
+      "sha256": "f75a5681759a0237418ff3dfafb94ecd4705291c42518d65ff4daac21f5f4f59",
+      "week": 2
+    },
+    {
+      "path": "week-03.txt",
+      "sha256": "fb2c86943a8e1979785a19827fc5ef1fa1a5507dd74b52ea4f1267bb56514d0c",
+      "week": 3
+    },
+    {
+      "path": "week-04.txt",
+      "sha256": "94c90292f8bcfc9a0e49f12b601eaedfa6612784bd0e47e418d020f81648be4b",
+      "week": 4
+    },
+    {
+      "path": "week-05.txt",
+      "sha256": "d5e4f755c058096565dd7616f2b7b679fe7a6bf409f1f98a2d009db4e0c43573",
+      "week": 5
+    }
+  ],
+  "sections": [
+    {
+      "id": "week-01",
+      "week": 1,
+      "title": "Name the quantity",
+      "source_files": [
+        "week-01.txt"
+      ],
+      "blocks": [
+        {
+          "id": "quantity",
+          "type": "concept",
+          "title": "Name the quantity",
+          "category": "definition",
+          "summary": "Always read a value together with its unit.",
+          "body": "A measurement combines a numerical value with a unit.\n\nKeep the conditions beside the value so its meaning stays clear."
+        }
+      ]
+    },
+    {
+      "id": "week-02",
+      "week": 2,
+      "title": "Average rate",
+      "source_files": [
+        "week-02.txt"
+      ],
+      "blocks": [
+        {
+          "id": "average",
+          "type": "formula",
+          "title": "Average rate",
+          "summary": "Divide the measured change by the elapsed time.",
+          "latex": "\\bar{r}=\\frac{12}{3}=4\\;\\mathrm{units}\\,\\mathrm{s}^{-1}",
+          "body": "This is an interval average. It does not establish a constant instantaneous rate."
+        }
+      ]
+    },
+    {
+      "id": "week-03",
+      "week": 3,
+      "title": "Amount and rate",
+      "source_files": [
+        "week-03.txt"
+      ],
+      "blocks": [
+        {
+          "id": "compare",
+          "type": "comparison",
+          "title": "Amount and rate",
+          "summary": "An amount and a rate answer different descriptive needs.",
+          "headers": [
+            "Quantity",
+            "Unit",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Amount",
+              "units",
+              "Total observed amount"
+            ],
+            [
+              "Rate",
+              "units per second",
+              "Amount over an interval"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "week-04",
+      "week": 4,
+      "title": "Follow the workflow",
+      "source_files": [
+        "week-04.txt"
+      ],
+      "blocks": [
+        {
+          "id": "workflow",
+          "type": "figure",
+          "title": "Follow the workflow",
+          "asset": "measurement.svg",
+          "origin": "custom",
+          "alt": "Observe, divide, then interpret a measurement.",
+          "caption": "Carry the units through every stage.",
+          "credit": "Original synthetic Study Suite diagram."
+        }
+      ]
+    },
+    {
+      "id": "week-05",
+      "week": 5,
+      "title": "Connect the steps",
+      "source_files": [
+        "week-05.txt"
+      ],
+      "blocks": [
+        {
+          "id": "sequence",
+          "type": "process",
+          "title": "Connect the steps",
+          "summary": "Define, calculate, then interpret.",
+          "steps": [
+            "Define the observed amount.",
+            "Convert the interval into consistent units.",
+            "Divide and explain the average."
+          ],
+          "body": "State the scope of the observation alongside the result."
+        }
+      ]
+    }
+  ]
+}

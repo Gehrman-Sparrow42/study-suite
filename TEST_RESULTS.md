@@ -2,13 +2,16 @@
 
 ## Executed checks
 
-- Python 3.13.15: 12 deterministic builder tests passed, including paragraph-nesting rejection and omitted optional introductions.
+- Python 3.13.15: 28 deterministic tests passed (12 builder and 16 weekly-update tests), including paragraph-nesting rejection and omitted optional introductions.
 - Node JavaScript syntax check: passed.
 - Generated HTML structural validator: passed.
 - Microsoft Edge 155 (installed Chromium browser): full browser regression passed.
 - Playwright Firefox 153: full browser regression passed.
 - Actual local-file HTML download, reopen and second download passed in both browsers.
-- Final demo size: 38,326 bytes. The tested edited export and its second export were both 37,979 bytes in each browser: no accumulation between these cycles.
+- The demo includes the weekly snapshot and Auto-save runtime. Repeated edited export sizes remain equal in each tested browser; see ignored tests/artifacts/results.json for current measurements.
+- All three delivered demos pass structural validation: the general demo, Weeks 1–5 and Weeks 1–6.
+- Edge/Firefox weekly-update browser tests pass: six actual edited fields survive the Week 6 addition, then another edit survives the Week 7 addition.
+- Edge/Firefox autosave/recovery tests pass. The picker is mocked in both browsers to exercise identical queue behavior; this does not claim native Firefox file-write support. Writes go to a real backing HTML and its content is checked.
 
 ## Browser behavior covered
 
@@ -27,6 +30,27 @@
 - Picker cancellation produces no success claim; successful write confirmation follows write/close; denied write falls back to a real download.
 - No uncaught page JavaScript errors in the two main browser suites.
 
+## Weekly update coverage
+
+- Source hashing, new/changed/missing reports, renamed identical content and duplicate additions.
+- Numeric week sorting and stable section/block identity across reordered sections.
+- Browser/source three-way merge, same-change acceptance, conflict rejection, wrong-course/unrecognized-field rejection and untouched old inputs.
+- Exclusive output publication, existing output refusal, asset validation before publication, source hashes and week/source linkage checks.
+- Legacy HTML/incomplete snapshot refusal, script-ending escaping and a repeated Week 7 addition.
+- Real browser Enter-edited paragraphs, heading, raw formula, table cell, figure caption and calculation step are saved to a real download, reconciled and reopened in Edge/Firefox. Search and mobile navigation reach new content; embedded figures remain intact.
+
+## Auto-save and recovery coverage
+
+- Initial connection, immediate first write, subsequent debounced edits and one picker call per connection.
+- A deliberately held write followed by newer typing: serialized writes never overlap, and the final backing HTML contains the newest version.
+- Denied writes pause Auto-save; reload reveals explicit browser recovery and restores the latest unsaved heading.
+- Recovery restores paragraphs, raw inline math and a working formula editor. An undo back to baseline is recoverable even when it produces no remaining changed fields.
+- Actual Enter/Shift+Enter edits in core statements retain paragraphs and hard line breaks after recovery. A deliberately delayed failed manual write followed by newer typing produces a real fallback download containing that newest edit.
+- Picker cancellation keeps Auto-save off. Unsupported API reports recovery/manual export. Simulated storage quota failure reports recovery unavailable while text remains editable.
+- Explicit Save Progress while Auto-save is connected confirms the write. A successful manual write with newer concurrent typing reports that newer edits still need saving; fallback downloads report a request rather than disk completion.
+- Exported/reopened documents reset file connection state. File handles are not serialized. Mobile 390/320 px toolbar fits, with Auto-save and Save visible; the 390 px screenshot was inspected.
+- OS-native selection/permission behavior remains outside executed automation. Existing real downloads/reopen tests and mocked picker ordering/error tests complement the real backing-file autosave writes.
+
 ## Visual inspection and fixes
 
 Inspected desktop overview, dense mechanism/formula section, phone overview, dense phone section and phone formula screenshots. Kept wide mechanisms and derivations, narrow-screen stacking, contained table/math overflow, and restrained typography. Changed the toolbar from translucent to opaque after seeing text behind controls; made status feedback temporary so it does not permanently cover reading material.
@@ -38,6 +62,10 @@ The Argon review follow-up reproduced an Edge editing defect missed by text-repl
 The original Flash High follow-up review ended at the official CLI's 300-second print timeout while its turn was still in progress. The old runner hid this behind a generic missing-output error. After diagnosing it, a focused recheck with an explicit 600-second budget completed in 389 seconds: structured output received, finish gate verified, no findings in the supplied editing/search corrections. The full report and metadata are retained in ignored work/followup-review/FLASH_REVIEW.md and FLASH_RESULT.json. This static review supplements the executed browser regressions; it does not independently run them or cover the entire system.
 
 Flash High supplied a focused test checklist; Codex reviewed it, implemented tests, executed them locally and fixed confirmed issues. This was test-design assistance, not a claim that Flash executed tests. Local brief/result copies are under ignored work/.
+
+Flash High also reviewed the autosave runtime (structured result, gate verified). Codex confirmed visual paragraph/hard-break loss during recovery and a stale snapshot in delayed manual-save fallback; both were corrected and covered by executed Edge/Firefox tests. Manual write failure now flushes recovery immediately, and write completion no longer restarts the newer edit's debounce. The claimed critical RFC-pointer crash was rejected: the builder intentionally generates bare schema paths, not RFC 6901 pointers. The report overstated permanent text loss/severity: raw newline text was retained, but visual formatting needed reconstruction. Existing edit timers and beforeunload recovery also made its manual-failure loss scenario less general than claimed. Full report/metadata: ignored work/autosave-review/FLASH_REVIEW.md and FLASH_RESULT.json.
+
+A focused Flash High recheck also returned structured output with gate verified. Codex confirmed and corrected status clarity for concurrent manual edits, explicit saves while Auto-save is connected and failed-write fallback; the final browser tests exercise these paths. Added newline normalization and a DIV-only paragraph-wrapper guard. Rejected its assumed `h2.editable-text` structure because the template does not generate it; single paragraph prose does not require a p wrapper, other fields preserve breaks with BRs, and leading/trailing whitespace is already normalized by capture. Recheck artifacts: FLASH_RECHECK.md and FLASH_RECHECK_RESULT.json in the same ignored directory. These were bounded static reviews; the final status changes were verified locally, not independently re-reviewed a third time.
 
 ## Limits
 

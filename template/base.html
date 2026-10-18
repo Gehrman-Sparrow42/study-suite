@@ -13,17 +13,20 @@
  <button id="nav-toggle" aria-controls="sidebar" aria-expanded="true" aria-label="Toggle navigation">☰ <span>Contents</span></button>
  <label class="search"><span class="sr-only">Search course content</span><input id="search" type="search" placeholder="Find a concept…" autocomplete="off"></label>
  <div class="modes" aria-label="Reading mode"><button id="learn" aria-pressed="true">Learn</button><button id="review" aria-pressed="false" {{REVIEW_HIDDEN}}>Review</button></div>
- <button id="save" class="primary">Save Progress</button>
+ <button id="autosave" aria-pressed="false" title="Choose your HTML once to enable automatic file saves">Auto-save</button>
+ <button id="save" class="primary"><span class="save-long">Save Progress</span><span class="save-short">Save</span></button>
 </header>
 <button id="scrim" aria-label="Close navigation" hidden></button>
 <aside id="sidebar">
  <div class="brand"><span class="brand-mark">S / 3</span><span>STUDY SUITE<br><small>A focused reading space</small></span></div>
  <p class="eyebrow">IN THIS COURSE</p><nav aria-label="Sections">{{NAV}}</nav>
  <div class="legend"><p class="eyebrow">A VISUAL LANGUAGE</p><span class="definition">Definitions & structures</span><span class="process">Mechanisms & sequences</span><span class="formula">Formulas & rules</span><span class="warning">Pitfalls & limitations</span></div>
- <p class="sidebar-note">Read. Make it yours. Keep it.<br>Click text to edit; use Edit formula for equations. Save Progress exports your changes.</p>
+ <p class="sidebar-note">Read. Make it yours. Keep it.<br>Click text to edit; use Edit formula for equations. Enable Auto-save to choose an HTML file once per session, or use Save Progress to export.</p>
+ <p id="save-state" class="sidebar-note" role="status">Auto-save off · HTML not connected</p>
+ <button id="restore-recovery" hidden>Restore browser recovery</button>
 </aside>
 <main id="content" tabindex="-1">
- <div class="course-heading"><p class="eyebrow">{{KICKER}}</p><h1 contenteditable="true" spellcheck="false">{{TITLE}}</h1><div class="subtitle editable-text" contenteditable="true" spellcheck="false">{{SUBTITLE}}</div><div class="course-meta">{{META}}</div></div>
+ <div class="course-heading"><p class="eyebrow">{{KICKER}}</p><h1 contenteditable="true" spellcheck="false" data-field="title">{{TITLE}}</h1><div class="subtitle editable-text" contenteditable="true" spellcheck="false" data-field="subtitle">{{SUBTITLE}}</div><div class="course-meta">{{META}}</div></div>
  <p id="search-status" role="status" hidden></p>
  {{CONTENT}}
  <footer>STUDY SUITE / V3 <span>One document. Your own words.</span></footer>
@@ -31,6 +34,7 @@
 <div id="status" role="status" aria-live="polite"></div>
 <dialog id="image-dialog" aria-label="Enlarged figure"><div class="dialog-tools"><button id="zoom">Zoom in</button><button id="close-image">Close figure</button></div><div class="image-stage"></div></dialog>
 <dialog id="formula-dialog" aria-labelledby="formula-title"><h2 id="formula-title">Edit formula</h2><label for="formula-source">LaTeX source (without delimiters)</label><textarea id="formula-source" spellcheck="false" rows="5"></textarea><div class="dialog-tools"><button id="cancel-formula">Cancel</button><button id="apply-formula" class="primary">Apply formula</button></div></dialog>
+<script id="suite-state" type="application/json">{{STATE}}</script>
 <script id="suite-app">{{JS}}</script>
 </body>
 </html>

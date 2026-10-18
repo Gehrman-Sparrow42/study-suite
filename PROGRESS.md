@@ -15,13 +15,18 @@ Last updated: 2026-10-18 (Europe/Istanbul).
 - Completed the Argon-review implementation follow-up: block-safe text hosts, shared multi-paragraph editors, selective search expansion, query-preserving filtered navigation, optional-intro handling, and delegated formula/figure controls. The rebuilt demo and expanded Edge/Firefox tests pass, including typing more notes after reopening newly inserted paragraphs.
 - Updated usage/visual guidelines and verification documentation. Investigated the failed Flash review: the official CLI hit its 300-second print timeout with the turn still in progress. A focused Flash High recheck subsequently completed in 389 seconds with structured output, gate_verified=true, and no findings in the supplied editing/search fixes. Report and metadata are in ignored work/followup-review/FLASH_REVIEW.md and FLASH_RESULT.json. Local regression tests remain the executed behavioral verification.
 - Created the private GitHub repository https://github.com/Gehrman-Sparrow42/study-suite, pushed main, and verified the remote SHA matches local implementation commit a5f8e1d4601fc7d40ecf02c91aa14652e5d2c326. GitHub reports isPrivate=true.
+- Added first-class numeric week labels, stable course/section/block IDs, source hashes, portable changed-field snapshots and scripts/update.py scan/apply. New editions append authored weeks and reconcile personal notes without resummarizing prior weeks. Conflicting edits/revised sources stop; old editions are preserved.
+- Added opt-in Auto-save: select an HTML file once per browser session, then edits write after a 700 ms pause. Writes serialize; edits made during a write trigger another save. Failed writes pause saving and retain notes. Browser recovery after 300 ms supports explicit restore on matching baseline, paragraphs and inline/display math. Unsupported browsers keep recovery/manual export.
+- Added synthetic Weeks 1–5 and Weeks 1–6 demos and weekly workflow/schema documentation. New deterministic and browser tests pass at the current checkpoint.
+- Integrated the focused Flash autosave review and recheck: confirmed/repaired visual paragraph/hard-break recovery, stale manual fallback export and misleading manual-save status during concurrent edits. Flushed recovery on all failed writes, normalized recovered newlines and removed redundant debounce restart. Rejected assumptions about RFC pointers and heading classes against the actual builder/template. Review artifacts are in ignored work/autosave-review/; final behavioral checks are recorded in TEST_RESULTS.md.
 
 ## Important architectural decisions
 
 - Current user instructions override attached references: no quiz, flashcards, question banks, self-testing or practice-question sections. Worked calculations remain teaching components.
 - Codex reads and interprets future courses; the builder is deterministic and uses no API key.
 - Course JSON and selected local assets are separate from the reusable template. Final HTML embeds CSS, JS and images.
-- Browser-edited DOM and raw formula data are the export source of truth. Browser edits do not write back to course JSON; preserve edited editions separately from builds.
+- Browser-edited DOM and raw formula data are the export source of truth. Saved snapshots can merge text/formula edits into the next weekly JSON. Ordinary builds still start from JSON; preserve edited editions separately and use the updater.
+- Auto-save file handles stay in memory and require a user picker gesture each session. Browser recovery is separate local storage, never a claim that HTML was written. Downloads remain explicit and are not triggered on every edit.
 - MathJax 3.2.2 is optional for rendering; raw LaTeX remains usable if CDN access fails. Only MathJax-generated artifacts are stripped.
 - Depth/time/density settings guide authoring, not automatic summarization. English metadata is enforced; English prose is author-reviewed.
 - Search temporarily reveals matching explanations and restores detail state. Export clears search/modal state and preserves the reading mode.
@@ -30,7 +35,7 @@ Last updated: 2026-10-18 (Europe/Istanbul).
 
 ## Test results and known limitations
 
-See TEST_RESULTS.md for coverage and explicit limits. Twelve builder tests, JS syntax, HTML validation and expanded Edge/Firefox suites pass. Final clean demo is 38,326 bytes. Edited export and second export were exactly 37,979 bytes in both Edge and Firefox.
+Current checkpoint: 28 Python tests pass. Edge/Firefox existing regression, weekly save/update/reopen and autosave/recovery tests pass. Weekly tests preserve six edited fields into Week 6 and append Week 7 after another edit. Autosave tests write an actual backing HTML through a mocked picker, hold a write open while editing, deny permission, reload/restore and check 390/320 px toolbar layout. See TEST_RESULTS.md for final verification and review results.
 
 Native OS picker interaction is mocked in tests; actual download and reopen paths are tested. Mobile checks use 390/320 px browser viewports, not physical phones/Safari. Future real-course source coverage/scientific correctness and image permissions need authoring review.
 
@@ -38,7 +43,9 @@ The requested prompt filename was not present; the supplied `Codex_Study_Suite_V
 
 ## Remaining tasks
 
-No remaining required implementation tasks. Optional print styling and math-startup performance improvements remain deferred. The follow-up review completed successfully after diagnosing the earlier timeout; its scope was the supplied editing/search fixes, not an audit of the whole system.
+No required implementation components remain. At the final checkpoint, finish the current commit/push if publication has not yet completed; verify the remote as described below. Optional print styling and initial math-performance work remain deferred.
+
+Decisions: saved HTML contains a baseline course plus only changed editable fields; source JSON stays plain authored content. Weekly additions reuse prior sections. Updates write new files; old source/export editions remain intact. Legacy HTML without a snapshot must be explicitly reconciled once rather than guessed. Optional print styling and math-startup performance work remain deferred.
 
 A real course summary still awaits a separate user request.
 
@@ -46,5 +53,5 @@ A real course summary still awaits a separate user request.
 
 1. Work in `C:\Users\Berkay\Desktop\Ders\study-suite`; inspect `git status`, `git log -3 --oneline` and `git remote -v` first.
 2. Check publication state with `gh repo view Gehrman-Sparrow42/study-suite --json isPrivate,url` and `git ls-remote origin refs/heads/main`.
-3. The expanded browser suite has completed successfully; results are in tests/artifacts/results.json. The current demo is rebuilt and verified. Review context is in ignored work/argon-review/ and work/followup-review/. No core rebuild is needed unless implementation changes.
+3. Weekly + autosave implementation and two bounded Flash reviews are complete. Test artifacts: tests/artifacts/results.json, weekly-results.json and autosave-results.json. Reports and dispositions are in TEST_RESULTS.md and ignored work/autosave-review/. If interrupted before publication, review the staged diff, rerun only checks affected by further changes, commit intended files and push main; verify the remote SHA.
 4. For the next course, follow README.md's new-course prompt, save staged work in `work/<course>/`, and reuse the template.

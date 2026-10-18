@@ -13,7 +13,10 @@ Private source repository: [Gehrman-Sparrow42/study-suite](https://github.com/Ge
 - Click headings, paragraphs, list items, captions or table cells to edit. An expanded explanation is one editing area: Enter adds paragraphs, and Backspace can join adjacent paragraphs. Added text stays editable after export/reopen. Rich text pasted from elsewhere becomes plain text. Use **Edit formula** (or **Edit** beside inline math) to change raw LaTeX, then Apply formula.
 - Click a figure to enlarge it. Zoom in permits panning inside the figure window. Escape or Close figure dismisses it.
 - **Save Progress** exports your current edition, including edits and embedded figures. Chromium browsers may offer a file picker; Firefox and other browsers use a download. A fallback download message says only that the download was requested: check Downloads before closing the tab.
-- Reopen the exported HTML to continue. Edits are not automatically written to disk or synced to the authoring JSON. Rebuilding from JSON creates a fresh edition, so keep edited exports under separate names.
+- **Auto-save** connects your chosen HTML file in Edge/Chrome. Choose the HTML to overwrite once, then edits save after a 700 ms typing pause. You can choose a new edition instead. The first connection immediately saves the current page; later changes need no Save Progress click. Clicking Auto-save again turns it off. Reconnect after reopening the document; file permission is deliberately not embedded in exported HTML.
+- Browser recovery stores the latest text/formula changes locally after a 300 ms pause, even without Auto-save. If you reload with unsaved changes, **Restore browser recovery** appears in Contents for a matching document baseline. Restore is explicit. Browser storage can be blocked, cleared or full; the sidebar reports recovery failure. This recovery is local to the browser/profile and file location and does not synchronize devices. Embedded figures remain in the HTML rather than the recovery record.
+- Unsupported browsers such as Firefox use recovery and Save Progress downloads. Auto-save never simulates saving through repeated downloads. A denied automatic write pauses Auto-save, preserves edits/recovery and reports the failure. The sidebar distinguishes pending changes, browser recovery and confirmed HTML writes.
+- Reopen the saved HTML to continue. Browser edits are embedded in a portable snapshot; the weekly updater can reconcile them into the next course JSON. An ordinary rebuild still starts from JSON, so keep personal editions separate and use the update workflow below.
 - Cancelling a save keeps edits in the current tab. A close-tab warning protects unsaved changes where browsers permit it. After a fallback download the warning remains, because browser download completion cannot be confirmed by page JavaScript.
 
 MathJax 3.2.2 is a pinned, optional CDN dependency. Without network access, raw editable LaTeX remains visible and the reader still works. All diagrams are embedded. System fonts require no downloads.
@@ -65,6 +68,9 @@ Depth, days remaining and visual density are **authoring guidance**, recorded in
 | `template/` | Reusable HTML structure, CSS and reader JavaScript |
 | `scripts/build.py` | Strict structured-content renderer and asset bundler |
 | `scripts/validate.py` | Generated/exported HTML structural validator |
+| `scripts/update.py` | Source scan, conflict-aware reconciliation and weekly additions |
+| `scripts/course_state.py` | Stable course/block identities and portable edit snapshots |
+| `guidelines/WEEKLY_UPDATES.md` | Incremental new-week workflow and migration limits |
 | `demo/` | Synthetic authored content and original SVG diagram |
 | `output/Demo_Study_Suite.html` | Ready-to-open, portable demonstration |
 | `tests/` | Builder and real browser regression checks |
@@ -72,7 +78,7 @@ Depth, days remaining and visual density are **authoring guidance**, recorded in
 ## Verification
 
 ```powershell
-python -m unittest discover -s tests -p test_build.py -v
+python -m unittest discover -s tests -p 'test_*.py' -v
 node --check template/app.js
 ```
 
@@ -82,6 +88,8 @@ Browser testing is optional for people merely building a course, but expected wh
 python -m pip install playwright
 python -m playwright install firefox
 python -X utf8 tests/browser_smoke.py
+python -X utf8 tests/browser_updates.py
+python -X utf8 tests/browser_autosave.py
 ```
 
 The test saves screenshots, downloaded edited documents and `results.json` in ignored `tests/artifacts/`. It opens local files, edits text/formulas/table cells, downloads and reopens the actual result, checks repeated exports, tests mobile widths, and exercises offline math and save cancellation/failure. The OS picker itself is mocked; the download/reopen paths are real. `TEST_RESULTS.md` records the latest setup run.
@@ -89,5 +97,7 @@ The test saves screenshots, downloaded edited documents and `results.json` in ig
 The validator detects structural defects, missing anchors, duplicate IDs and non-embedded images. It is not an HTML standards conformance checker, a scientific auditor or proof that all source material was understood. Coverage and scientific accuracy require the authoring checks in the guidelines.
 
 ## Resuming or extending
+
+New weeks can be appended without summarizing Weeks 1–5 again. Numbered weeks sort numerically in the reader and Contents. Provide the latest course JSON, latest saved personal HTML and new source files; Codex authors only the new material as a delta. The updater imports browser text/formula edits, rejects conflicting source edits and writes new JSON/HTML editions. See [the weekly guide](guidelines/WEEKLY_UPDATES.md) for the full process. Ready-to-open synthetic examples are `output/Weekly_Weeks_1_to_5.html` and `output/Weekly_Weeks_1_to_6.html`.
 
 Read `PROGRESS.md` first. Reuse existing files and completed checks. New courses should ordinarily change only content, assets and course config. If interrupted, save authored sections and update the source inventory/coverage map so a later session can continue without repeating completed material. Never rebuild over an edited personal export.
