@@ -101,3 +101,10 @@ The validator detects structural defects, missing anchors, duplicate IDs and non
 New weeks can be appended without summarizing Weeks 1–5 again. Numbered weeks sort numerically in the reader and Contents. Provide the latest course JSON, latest saved personal HTML and new source files; Codex authors only the new material as a delta. The updater imports browser text/formula edits, rejects conflicting source edits and writes new JSON/HTML editions. See [the weekly guide](guidelines/WEEKLY_UPDATES.md) for the full process. Ready-to-open synthetic examples are `output/Weekly_Weeks_1_to_5.html` and `output/Weekly_Weeks_1_to_6.html`.
 
 Read `PROGRESS.md` first. Reuse existing files and completed checks. New courses should ordinarily change only content, assets and course config. If interrupted, save authored sections and update the source inventory/coverage map so a later session can continue without repeating completed material. Never rebuild over an edited personal export.
+
+
+### Expanded bullet explanations
+
+Use `learn_only: true` on a block containing expanded teaching material, including bullet lists. It hides the whole block in Review and labels it Further explanation. Search can reveal matching explanations temporarily. Leave formulas, their symbol guides, essential assumptions, worked steps and short takeaways in persistent blocks. Bullet formatting by itself does not determine whether content belongs in Review. The default is false, preserving existing course behavior.
+
+Run the focused regression with `python tests/browser_learn_review.py --browser edge` (or `firefox` / `all` with the corresponding Playwright browser installed).

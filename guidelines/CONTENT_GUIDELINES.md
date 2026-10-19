@@ -20,6 +20,8 @@ Remove redundant examples, administration, ornamental history and niche detail t
 
 Each block's `summary` is its core teaching statement, not a question or a vague teaser. `body` is expanded explanation; Review hides it. Essential formulas, process steps, limitations and short takeaways remain visible. Never place the only statement of a critical assumption exclusively in an optional explanation. Add takeaways at natural boundaries, without repeating the entire section.
 
+Bullet formatting does not make an explanation a takeaway. If an expanded explanation uses a separate bullet-list block, set `learn_only=true` so Review still provides a shorter reading mode. Check the actual visible content in both modes, not just the active toolbar button. Symbol guides may remain visible; short formula-reading rules should retain essential assumptions even when longer conceptual explanations are hidden.
+
 ## Depth presets and precedence
 
 - `cram`: trim secondary material aggressively, preserve central mechanisms and difficult foundations.

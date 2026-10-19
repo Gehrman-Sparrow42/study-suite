@@ -75,3 +75,11 @@ A focused Flash High recheck also returned structured output with gate verified.
 - Structural tests do not validate scientific truth, automatically detect English prose, prove complete source coverage or adjudicate image rights. Future course authoring includes those reviews.
 
 Reproduce with commands in README.md. Screenshots, edited downloads and machine-readable results are in ignored tests/artifacts/. The clean delivered demo has none of the test edits.
+
+
+## 2026-10-19 Learn-only bullet regression
+
+- `python -m unittest discover -s tests -p 'test_*.py'`: 30 pass, including strict boolean validation and rendered editable explanation bullets.
+- `python tests/browser_learn_review.py --browser edge`: pass. Learn reveals expanded bullets; Review hides them while retaining formulas, tables and genuine takeaways. Search reveals a matching hidden explanation and clearing restores Review. A real downloaded HTML preserves edited bullet text, editability and Review visibility after reopening. Mobile checks at 390 and 320 px pass without page overflow.
+- Firefox run blocked at launch by missing Playwright executable `firefox-1555`; no Firefox result claimed. Test supports `--browser firefox` or `--browser all` when installed.
+- Existing default blocks and template runtime are unchanged; block visibility uses existing explanation/search/export behavior.

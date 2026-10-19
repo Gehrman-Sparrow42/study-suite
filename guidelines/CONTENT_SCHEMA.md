@@ -45,6 +45,7 @@ Section IDs must be unique lowercase slugs matching `[a-z][a-z0-9-]*`. The gener
 - `category`: `definition`, `process`, `formula`, or `warning`. Defaults to process for process blocks, formula for formula/worked blocks, definition otherwise.
 - `source`: optional short provenance text, displayed in collapsed Source note details when source labels are enabled.
 - `compact`: optional boolean; pairs short concept/prose blocks on wide screens. Other types remain full width.
+- `learn_only`: optional boolean, default false. Hides the entire block in Review and labels it Further explanation. Use it for expanded bullet explanations that accompany a core block. Matching search results can reveal it temporarily, as with ordinary explanatory bodies. Keep essential formulas, symbol definitions, assumptions and short takeaways in persistent blocks.
 
 ## Weekly metadata and snapshots
 

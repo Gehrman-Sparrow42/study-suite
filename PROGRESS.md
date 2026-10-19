@@ -1,6 +1,6 @@
 # V3 Study Suite progress
 
-Last updated: 2026-10-18 (Europe/Istanbul).
+Last updated: 2026-10-19 (Europe/Istanbul).
 
 ## Completed components
 
@@ -55,3 +55,10 @@ A real course summary still awaits a separate user request.
 2. Check publication state with `gh repo view Gehrman-Sparrow42/study-suite --json isPrivate,url` and `git ls-remote origin refs/heads/main`.
 3. Weekly + autosave implementation and two bounded Flash reviews are complete. Test artifacts: tests/artifacts/results.json, weekly-results.json and autosave-results.json. Reports and dispositions are in TEST_RESULTS.md and ignored work/autosave-review/. If interrupted before publication, review the staged diff, rerun only checks affected by further changes, commit intended files and push main; verify the remote SHA.
 4. For the next course, follow README.md's new-course prompt, save staged work in `work/<course>/`, and reuse the template.
+
+
+## 2026-10-19: bullet explanations in Learn/Review
+
+Added optional validated block-level `learn_only` metadata. Expanded bullet explanations can now use the existing explanation visibility rules instead of being treated as persistent takeaways. They receive the Further explanation label, hide in Review, appear in matching search results and retain visibility behavior and editable notes after export/reopen. Existing blocks default to their previous behavior. Schema and authoring guidelines distinguish long bullet explanations from concise takeaways and keep essential assumptions visible.
+
+Validation: 30 Python tests pass; new Edge browser regression verifies actual block hiding, persistent formulas/tables/takeaways, matching search and clearing, edited bullet export/reopen and 390/320 px modes/layout. Firefox regression is available via tests/browser_learn_review.py, but could not run in this environment because the current Playwright Firefox binary is absent. No template CSS/JS changed.

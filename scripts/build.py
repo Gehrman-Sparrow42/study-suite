@@ -94,6 +94,8 @@ def validate_course(course: dict) -> None:
             text(block.get('title'), f'{ident}.block.title')
             if 'compact' in block and type(block['compact']) is not bool:
                 raise ValueError('compact must be true or false')
+            if 'learn_only' in block and type(block['learn_only']) is not bool:
+                raise ValueError('learn_only must be true or false')
             category = block.get('category', {'process': 'process', 'worked': 'formula', 'formula': 'formula'}.get(kind, 'definition'))
             if not isinstance(category, str) or category not in CATEGORIES:
                 raise ValueError(f'Unknown semantic category {category!r}')
@@ -192,7 +194,13 @@ def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> st
         return ''
     category = block.get('category', {'process': 'process', 'worked': 'formula', 'formula': 'formula'}.get(kind, 'definition'))
     label = {'concept': category, 'worked': 'Worked example', 'comparison': 'Compare & distinguish', 'review': 'Section takeaway', 'details': 'Further explanation'}.get(kind, kind)
+    if block.get('learn_only'):
+        label = 'Further explanation'
     classes = f'block {category}' + (' compact' if block.get('compact') and kind in {'concept', 'prose'} else '') + (' takeaway' if kind == 'review' else '')
+    if block.get('learn_only'):
+        # Reuse the reader's explanation visibility, search and export behavior.
+        # Bullet lists need the same author-controlled distinction as prose bodies.
+        classes += ' explanation'
     out = [f'<article class="{classes}" data-type="{kind}" data-block-id="{esc(block.get("id", ""))}"><div class="label">{esc(label)}</div><h3{EDIT}{field_attr(pointer + "/title")}>{esc(block["title"])}</h3>']
     if block.get('summary'):
         out.append(paragraph(block['summary'], 'lead', pointer + '/summary'))

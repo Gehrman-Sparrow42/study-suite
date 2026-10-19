@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import build, load_config, validate_course, embedded_asset
+from build import build, load_config, validate_course, embedded_asset, render_block
 from validate import validate_html
 
 
@@ -30,6 +30,25 @@ class BuilderTests(unittest.TestCase):
             load_config(overrides={'practice': 'quiz'})
         self.course['sections'][0]['blocks'][0]['type'] = 'flashcard'
         with self.assertRaises(ValueError):
+            validate_course(self.course)
+
+    def test_learn_only_bullets_use_explanation_visibility(self):
+        block = {'type': 'review', 'id': 'extra-context', 'title': 'More context',
+                 'summary': 'Expanded teaching points.', 'steps': ['First explanation.', 'Second explanation.'],
+                 'learn_only': True}
+        rendered = render_block(block, ROOT / 'demo', load_config(), 'sections/0/blocks/0')
+        self.assertIn('takeaway explanation', rendered)
+        self.assertIn('Further explanation', rendered)
+        self.assertIn('<ul>', rendered)
+        self.assertIn('data-field="sections/0/blocks/0/steps/0"', rendered)
+        block['learn_only'] = False
+        persistent = render_block(block, ROOT / 'demo', load_config())
+        self.assertNotIn('takeaway explanation', persistent)
+        self.assertIn('Section takeaway', persistent)
+
+    def test_learn_only_requires_boolean(self):
+        self.course['sections'][0]['blocks'][0]['learn_only'] = 'true'
+        with self.assertRaisesRegex(ValueError, 'learn_only must be true or false'):
             validate_course(self.course)
 
     def test_selection_and_duplicate_ids(self):
