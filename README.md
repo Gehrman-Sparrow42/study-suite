@@ -36,6 +36,8 @@ Paths also work from another directory if passed as absolute paths. With no `--o
 
 ## Use it for a new course
 
+Follow the [high-yield authoring checklist](guidelines/AUTHORING_CHECKLIST.md): concise English, useful bullets, compact domain-specific formula keys and a verified distinction between Learn and Review. The checklist also covers saved-edit preservation, source coverage and delivery checks for revisions.
+
 Put all PDFs, PPTX files, notes and other source materials for **one course** in one input directory. This may be an existing course folder; there is no need to move it. Optional course settings go in a TOML file. Intermediate notes, the topic map, JSON and selected images can go in `work/<course>/` (ignored by Git).
 
 Paste this instruction into Codex:

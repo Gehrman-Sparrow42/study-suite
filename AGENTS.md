@@ -3,7 +3,8 @@
 - Read PROGRESS.md before resuming setup; keep it current at coherent milestones.
 - This is a reading resource. No quiz, flashcard, question-bank, self-test or practice-question interface. Worked examples may explain concepts and calculations.
 - Use existing templates and scripts for future courses. Codex authors content from all supplied sources; no API-key summarizer.
-- Read guidelines/CONTENT_GUIDELINES.md, VISUAL_GUIDELINES.md and CONTENT_SCHEMA.md before authoring a course.
+- Read guidelines/CONTENT_GUIDELINES.md, VISUAL_GUIDELINES.md, CONTENT_SCHEMA.md and AUTHORING_CHECKLIST.md before authoring a course.
+- Use concise, simple English and useful bullets. Formula keys explain domain variables, units, signs and assumptions, not elementary arithmetic. Verify that Review actually hides expanded explanations while retaining essential conditions.
 - Use English throughout. Default balanced_high_yield; preserve major concepts and source vocabulary. Current user instructions override course config, which overrides defaults.
 - Inventory every input and save a topic coverage map with source locations and inclusion/omission decisions. Process in batches if needed, but produce one final HTML.
 - Save intermediate course work and a course-specific progress log in work/<course>/; do not commit private course inputs or generated course exports unless requested.

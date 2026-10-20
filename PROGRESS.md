@@ -1,6 +1,6 @@
 # V3 Study Suite progress
 
-Last updated: 2026-10-19 (Europe/Istanbul).
+Last updated: 2026-10-20 (Europe/Istanbul).
 
 ## Completed components
 
@@ -67,3 +67,8 @@ Validation: 30 Python tests pass; new Edge browser regression verifies actual bl
 ## 2026-10-19: concise authoring guidance
 
 Clarified that high-yield course prose assumes basic algebra, logarithms and standard unit notation. Formula keys focus on domain variables, units, signs and model scope. Avoid duplicate explanations and elementary operator tutorials. This documentation-only change does not alter the reader/runtime.
+
+
+## 2026-10-20: reusable high-yield authoring checklist
+
+Added guidelines/AUTHORING_CHECKLIST.md and linked it from AGENTS.md, README.md and CONTENT_GUIDELINES.md. Consolidates simple concise English, useful bullets, compact domain-specific formula keys, shared definitions within formula families, no elementary math tutorials, actual Learn/Review visibility checks, save/reopen verification and personal-edit/source preservation. No renderer/runtime change. Applied and browser-verified in a local course revision; private source/output remains excluded from Git.
