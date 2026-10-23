@@ -78,3 +78,8 @@ Added guidelines/AUTHORING_CHECKLIST.md and linked it from AGENTS.md, README.md 
 ## 2026-10-23: private source-aligned course delivery
 
 Applied the existing reader and authoring guidelines to a separately requested real course. Kept private inputs, generated HTML, coverage/source records, selected figures and independent scientific review in ignored work and the user-designated course folder. No reusable renderer or interaction changes. Course-specific Edge checks covered actual Learn/Review visibility, search restoration, MathJax, editable text/formula export/reopen, embedded images, offline reading and 390/320 px layouts. Detailed records remain with the private course source bundle.
+
+
+## 2026-10-23: concise alternate reading path
+
+Created a separately requested shorter private edition using the unchanged renderer. Preserved the detailed reference and source snapshot, used a distinct course ID, and recorded inclusion/omission decisions beside the course. Actual Learn/Review visibility, search restoration, text edit/export/reopen, offline reading and 390/320 px layout checks passed. Course files remain outside tracked changes.
