@@ -1,5 +1,13 @@
 # Adding another week
 
+The normal new-course delivery has focused_learning and balanced_high_yield
+editions. Apply the workflow below to each edition independently: author an
+appropriate delta, reconcile that edition's latest saved HTML, retain its stable
+course ID and save new dated outputs. Reuse the common input inventory and checked
+facts, but keep each edition's coverage decisions and personal edits distinct.
+Do not merge edits across editions or recreate the focused version by changing a
+depth label. Explicit user requests can limit an update to one edition.
+
 Keep one course JSON, its selected assets, a source registry and your latest saved HTML. The JSON is the authored version; the HTML snapshot records personal text and formula edits. Codex reads the new source and writes a delta. The updater reuses the earlier sections and rebuilds one portable reading document with all weeks.
 
 ## Normal workflow

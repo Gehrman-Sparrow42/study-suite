@@ -42,18 +42,28 @@ Put all PDFs, PPTX files, notes and other source materials for **one course** in
 
 Paste this instruction into Codex:
 
-> Use the existing V3 Study Suite system at C:\Users\Berkay\Desktop\Ders\study-suite and all course materials in [COURSE FOLDER]. Read its AGENTS.md and content/visual guidelines. Produce one unified English study HTML using the existing template and deterministic builder. Default to balanced_high_yield: near-complete major-topic coverage, clear teaching explanations, source vocabulary, selective slide-first visuals, and worked examples where useful. No quizzes, flashcards, question banks or dedicated practice sections. Keep a source inventory, topic coverage map, uncertainties and progress checkpoints. Do not regenerate the reusable template. Validate the result and test edit/save/reopen. Report the output path and any important unreadable sources or omissions.
+> Use the existing V3 Study Suite system at C:\Users\Berkay\Desktop\Ders\study-suite and all course materials in [COURSE FOLDER]. Read its AGENTS.md and content/visual guidelines. Produce two English editions together with the existing template: focused_learning for complete, manageable first reading, and balanced_high_yield as the detailed reference. Use one source inventory but separate authored JSON/config, coverage decisions, stable course IDs and dated HTML filenames. Preserve major concepts, source vocabulary and essential explanations; remove secondary catalogues from the focused edition. Let length follow course density, without word quotas or fixed reduction ratios. No quizzes, flashcards, question banks or dedicated practice sections. Preserve existing editions and personal edits. Do not regenerate the reusable template. Validate both editions and check actual Learn/Review, editing and save/reopen. Report both output paths, recommend focused first, and disclose important source gaps.
 
 Optional natural-language additions: “I have two days; compress secondary detail,” “Keep obscure definitions because the instructor emphasizes them,” or “Use violet as this course's accent.” Codex translates these into content decisions and course config; **the deterministic builder does not interpret natural language or choose exam topics**.
 
 Configuration precedence: current user instruction → explicit `--set` task override → course TOML → `config/defaults.toml`. For normal use, ask Codex to write overrides into the course TOML, then run:
 
 ```powershell
-python scripts/build.py work/my-course/course.json --config work/my-course/course.toml --output output/My_Course.html
-python scripts/validate.py output/My_Course.html
+python scripts/build.py work/my-course/focused/course.json --config work/my-course/focused/course.toml --output output/My_Course_Focused.html
+python scripts/build.py work/my-course/detailed/course.json --config work/my-course/detailed/course.toml --output output/My_Course_Detailed.html
+python scripts/validate.py output/My_Course_Focused.html
+python scripts/validate.py output/My_Course_Detailed.html
 ```
 
 `--set` accepts a TOML assignment for scripted workflows. Example without shell quoting ambiguities: `--set include_review_mode=false`.
+
+The two JSON files must be authored separately before these commands run. Use
+`config/focused.example.toml` for `depth="focused_learning"` and
+`depth="balanced_high_yield"` for the reference edition. The builder's standalone
+default stays balanced_high_yield for compatibility; the normal agent authoring
+workflow delivers both. Core/cram is optional. See the depth and paired-delivery
+rules in [CONTENT_GUIDELINES.md](guidelines/CONTENT_GUIDELINES.md). These are
+separate reading scopes, each with its own Learn/Review modes and saved edits.
 
 Depth, days remaining and visual density are **authoring guidance**, recorded in configuration; they do not mechanically delete paragraphs or generate images. The author applies them before building. Visual policy, web-image permission, accent, title, filename, source-label visibility and Review availability are applied by the builder. `theme_accent="auto"` uses the calm teal default; Codex may select a named accent from the subject. Semantic colors always stay fixed. `language="en"` is required; the author must inspect the prose for English because the builder checks language metadata, not language detection. `practice="off"` is the only accepted practice setting.
 

@@ -1,6 +1,8 @@
 # Later task instructions > course config > these defaults.
 language = "en"
-depth = "balanced_high_yield" # cram | balanced_high_yield | thorough; authoring guidance
+depth = "balanced_high_yield" # cram | focused_learning | balanced_high_yield | thorough
+# A standalone build defaults to the detailed edition. Agent authoring normally
+# delivers both focused_learning and balanced_high_yield; see the guidelines.
 visuals = "smart" # off | slide_only | smart
 visual_density = "adaptive" # low | adaptive | high; authoring guidance, never a quota
 allow_web_visuals = true # only locally downloaded, credited, permitted assets

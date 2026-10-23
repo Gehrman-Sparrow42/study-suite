@@ -29,10 +29,33 @@ Bullet formatting does not make an explanation a takeaway. If an expanded explan
 ## Depth presets and precedence
 
 - `cram`: trim secondary material aggressively, preserve central mechanisms and difficult foundations.
+- `focused_learning`: the normal first-reading edition, between core/cram and the detailed reference. Cover the major ideas with enough explanation to understand what happens, why, and under which important conditions. Retain essential terms, meaningful comparisons and a worked method when the course requires it. Remove secondary component/method catalogues, specialist subtypes, tangential examples and repeated explanations. It must read coherently from beginning to end in Learn; Review is a refresher, not a way to escape an oversized Learn edition.
 - `balanced_high_yield`: nearly complete major-topic coverage, useful explanations, aggressive removal of redundancy and minor detail.
 - `thorough`: add secondary concepts and examples; remain selective and structured.
 
 Current task instructions override course config and defaults. Time remaining is a prioritization hint, not a word/token/page quota. Length scales with information density. The author applies these policies; the builder does not summarize or automatically cut content.
+
+### Default delivery: focused learning plus detailed reference
+
+Unless the user asks for another scope, author both `focused_learning` and
+`balanced_high_yield` from one source inventory and deliver them together as
+separate HTML files. Recommend the focused edition for first reading and the
+detailed edition for lookup or deeper study. A core/cram edition is optional.
+
+Do not impose word targets, maximum lengths or fixed reduction percentages. A
+2,000–3,000-word focused reader can fit one introductory lecture set, but that is
+only an illustration, not a preset rule. Dense mechanisms, required calculations
+and prerequisites may need more space; simpler material may need less. Instructor
+emphasis guides selection but does not prove the complete exam scope. Do not
+reduce the course to a cheat sheet or omit essential conditions to hit a number.
+
+Reuse checked facts and source processing; select and author each edition's
+content deliberately. Merely changing `depth` on identical JSON does not create a
+shorter edition. Keep a coverage map for each, recording which details remain only
+in the reference. Each edition gets a distinct stable course ID, independent
+source JSON/config, dated filename and edit snapshot. Browser edits are not
+automatically synchronized between editions. For later updates reconcile each
+edition's latest saved HTML separately, following WEEKLY_UPDATES.md.
 
 ## Accuracy and uncertainty
 

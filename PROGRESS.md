@@ -83,3 +83,10 @@ Applied the existing reader and authoring guidelines to a separately requested r
 ## 2026-10-23: concise alternate reading path
 
 Created a separately requested shorter private edition using the unchanged renderer. Preserved the detailed reference and source snapshot, used a distinct course ID, and recorded inclusion/omission decisions beside the course. Actual Learn/Review visibility, search restoration, text edit/export/reopen, offline reading and 390/320 px layout checks passed. Course files remain outside tracked changes.
+
+
+## 2026-10-23: focused_learning preset and paired authoring
+
+Added validated focused_learning depth metadata and an example config. Agent guidance, new-course prompt, authoring checklist and weekly-update workflow now default to delivering separately authored focused_learning and balanced_high_yield editions together. No word quota or compression ratio; source processing is shared, content selection, course IDs and edit snapshots are edition-specific. Core/cram stays optional, and standalone builder defaults remain compatible. No template/runtime change.
+
+Validation: 31 Python tests pass, including a focused config build and preservation of authored content; changed Python compiles and Ruff checks pass. Private intermediate course example passes structure, actual Learn/Review, retained process steps, search reveal/restore, real edit/download/reopen, offline-reader and 390/320 px browser checks. Existing editions verified unchanged. Course files stay outside commits.

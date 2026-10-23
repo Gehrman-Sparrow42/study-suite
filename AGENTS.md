@@ -5,8 +5,10 @@
 - Use existing templates and scripts for future courses. Codex authors content from all supplied sources; no API-key summarizer.
 - Read guidelines/CONTENT_GUIDELINES.md, VISUAL_GUIDELINES.md, CONTENT_SCHEMA.md and AUTHORING_CHECKLIST.md before authoring a course.
 - Use concise, simple English and useful bullets. Formula keys explain domain variables, units, signs and assumptions, not elementary arithmetic. Verify that Review actually hides expanded explanations while retaining essential conditions.
-- Use English throughout. Default balanced_high_yield; preserve major concepts and source vocabulary. Current user instructions override course config, which overrides defaults.
-- Inventory every input and save a topic coverage map with source locations and inclusion/omission decisions. Process in batches if needed, but produce one final HTML.
+- Use English throughout. For a new course, normally author and deliver two separate editions together: focused_learning (recommended first reading) and balanced_high_yield (detailed reference). Core/cram is optional, not a third mandatory output. Current user instructions override this pair, then course config, then builder defaults.
+- focused_learning keeps major concepts, causal explanations, important distinctions and essential applications while removing secondary catalogues, specialist detail and repeated examples. Learn must be a complete manageable reading path; Review is its refresher. Length follows course density, never a word count or fixed compression ratio. See guidelines/CONTENT_GUIDELINES.md.
+- Inventory every input once and save edition-specific topic coverage maps with source locations and inclusion/omission decisions. Process in batches if needed, but produce one unified HTML per edition. Different depth labels require separately authored content; the builder does not summarize it.
+- Give the two editions distinct stable course IDs, dated filenames and source JSON/config files. Preserve each edition's own saved edits separately. Never overwrite a detailed or personal edition to create the focused one.
 - Save intermediate course work and a course-specific progress log in work/<course>/; do not commit private course inputs or generated course exports unless requested.
 - Preserve true-black design, stable semantic colors, Learn/Review, browser text/formula edits, clean single-file export, embedded images and mobile navigation.
 - Do not rewrite or delete original references or source materials. Keep browser-edited exports separate from rebuilt files.

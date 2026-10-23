@@ -83,3 +83,8 @@ Reproduce with commands in README.md. Screenshots, edited downloads and machine-
 - `python tests/browser_learn_review.py --browser edge`: pass. Learn reveals expanded bullets; Review hides them while retaining formulas, tables and genuine takeaways. Search reveals a matching hidden explanation and clearing restores Review. A real downloaded HTML preserves edited bullet text, editability and Review visibility after reopening. Mobile checks at 390 and 320 px pass without page overflow.
 - Firefox run blocked at launch by missing Playwright executable `firefox-1555`; no Firefox result claimed. Test supports `--browser firefox` or `--browser all` when installed.
 - Existing default blocks and template runtime are unchanged; block visibility uses existing explanation/search/export behavior.
+
+
+## 23 October 2026 — focused learning depth
+
+31 unittest tests passed. New test builds a complete valid synthetic reader with config/focused.example.toml and confirms depth metadata does not cut authored content. py_compile and Ruff passed for changed Python files. No template or runtime interaction change. A private real-course focused edition additionally passed actual Learn/Review hiding, persistent process steps, search restoration, text edit/download/reopen, offline reading and 390/320 px layout checks in installed Edge; no page errors. Private coverage/verification records remain outside Git.

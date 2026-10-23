@@ -1,5 +1,4 @@
 """Focused deterministic builder checks; run with unittest discovery."""
-import copy
 import json
 import sys
 import tempfile
@@ -8,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import build, load_config, validate_course, embedded_asset, render_block
+from build import build, embedded_asset, load_config, render_block, validate_course
 from validate import validate_html
 
 
@@ -31,6 +30,16 @@ class BuilderTests(unittest.TestCase):
         self.course['sections'][0]['blocks'][0]['type'] = 'flashcard'
         with self.assertRaises(ValueError):
             validate_course(self.course)
+
+    def test_focused_learning_build_preserves_authored_content(self):
+        # Depth is validated authoring metadata, not an automatic text cutter.
+        with tempfile.TemporaryDirectory() as directory:
+            output = build(ROOT / 'demo/sample_course.json', Path(directory) / 'focused.html',
+                           ROOT / 'config/focused.example.toml')
+            value = output.read_text(encoding='utf-8')
+            self.assertFalse(validate_html(value, 3))
+            self.assertIn('focused learning', value)
+            self.assertIn(self.course['sections'][0]['blocks'][0]['summary'], value)
 
     def test_learn_only_bullets_use_explanation_visibility(self):
         block = {'type': 'review', 'id': 'extra-context', 'title': 'More context',

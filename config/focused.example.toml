@@ -1,0 +1,11 @@
+# Pair with a separately authored detailed JSON and its own course config.
+# This setting records authoring intent; the builder does not shorten content.
+language = "en"
+depth = "focused_learning"
+visuals = "smart"
+allow_web_visuals = false
+theme_accent = "auto"
+include_review_mode = true
+practice = "off"
+source_labels = "minimal"
+output_filename = "Course_Focused_Learning.html"

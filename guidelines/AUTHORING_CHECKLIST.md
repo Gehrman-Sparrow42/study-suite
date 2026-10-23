@@ -29,6 +29,8 @@ Use this before delivering or revising any course. Current user instructions tak
 
 ## Preservation and delivery
 
+- Unless current instructions request a different scope, deliver both focused_learning and balanced_high_yield editions. Focused Learn is the complete first-reading path; detailed is the reference. Use the same inventory but separate authored JSON/config, coverage decisions, stable course IDs and HTML filenames. Do not derive depth by a word limit or a label-only config change.
+
 - Inventory the supplied material and retain a coverage/omission record. Preserve original source files and existing HTML editions.
 - Inspect the latest saved HTML snapshot before revising. Reconcile personal notes; stop for conflicting edits rather than replacing them.
 - Preserve stable IDs and source provenance. Do not publish private course materials or generated exports with reusable project changes.

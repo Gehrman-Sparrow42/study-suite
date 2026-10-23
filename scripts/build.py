@@ -7,10 +7,10 @@ import html
 import json
 import re
 import sys
-import tomllib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import tomllib
 from course_state import prepare_course, snapshot_json, validate_metadata
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,7 +40,7 @@ def load_config(path: Path | None = None, overrides: dict | None = None) -> dict
     config.update(overrides or {})
     if set(config) - allowed:
         raise ValueError(f'Unknown configuration keys: {sorted(set(config) - allowed)}')
-    choices = {'language': {'en'}, 'depth': {'cram', 'balanced_high_yield', 'thorough'},
+    choices = {'language': {'en'}, 'depth': {'cram', 'focused_learning', 'balanced_high_yield', 'thorough'},
                'visuals': {'off', 'slide_only', 'smart'}, 'visual_density': {'low', 'adaptive', 'high'},
                'practice': {'off'}, 'source_labels': {'minimal', 'off'}}
     for key, values in choices.items():
@@ -76,7 +76,7 @@ def validate_course(course: dict) -> None:
     identifiers = set()
     for section in sections:
         if not isinstance(section, dict):
-            raise ValueError('Each section must be an object')
+            raise ValueError('Each section must be an object')  # noqa: TRY004 - keep the public validation error contract
         ident = section.get('id', '')
         if not isinstance(ident, str) or not re.fullmatch(r'[a-z][a-z0-9-]*', ident) or ident in identifiers:
             raise ValueError(f'Invalid or duplicate section id: {ident!r}')
@@ -87,7 +87,7 @@ def validate_course(course: dict) -> None:
             raise ValueError(f'{ident}: blocks must be a nonempty list')
         for block in section['blocks']:
             if not isinstance(block, dict):
-                raise ValueError('Each block must be an object')
+                raise ValueError('Each block must be an object')  # noqa: TRY004 - keep the public validation error contract
             kind = block.get('type')
             if not isinstance(kind, str) or kind not in TYPES:
                 raise ValueError(f'{ident}: unsupported block type {kind!r}; no question or quiz blocks')
@@ -135,7 +135,7 @@ def validate_course(course: dict) -> None:
     expected = course.get('included_section_ids', [])
     if not isinstance(expected, list) or not all(isinstance(x, str) for x in expected) or len(set(expected)) != len(expected) or set(expected) != identifiers:
         raise ValueError('included_section_ids must list every selected section exactly once')
-    if not course['synthetic'] and re.search(r'\b(synthetic demo|lorem ipsum|TODO|placeholder)\b', json.dumps(course), re.I):
+    if not course['synthetic'] and re.search(r'\b(synthetic demo|lorem ipsum|TODO|placeholder)\b', json.dumps(course), re.IGNORECASE):
         raise ValueError('Production content contains demo/placeholder markers')
     validate_metadata(course)
 
@@ -166,7 +166,7 @@ def embedded_asset(block: dict, content_dir: Path) -> str:
 
 def rich_text(value: str) -> str:
     """Plain text with optional explicit \\(LaTeX\\) spans; never arbitrary HTML."""
-    pieces = re.split(r'(\\\(.*?\\\))', value, flags=re.S)
+    pieces = re.split(r'(\\\(.*?\\\))', value, flags=re.DOTALL)
     output = []
     for piece in pieces:
         if piece.startswith('\\(') and piece.endswith('\\)'):
