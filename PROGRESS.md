@@ -1,6 +1,6 @@
 # V3 Study Suite progress
 
-Last updated: 2026-10-20 (Europe/Istanbul).
+Last updated: 2026-10-23 (Europe/Istanbul).
 
 ## Completed components
 
@@ -47,7 +47,8 @@ No required implementation components remain. At the final checkpoint, finish th
 
 Decisions: saved HTML contains a baseline course plus only changed editable fields; source JSON stays plain authored content. Weekly additions reuse prior sections. Updates write new files; old source/export editions remain intact. Legacy HTML without a snapshot must be explicitly reconciled once rather than guessed. Optional print styling and math-startup performance work remain deferred.
 
-A real course summary still awaits a separate user request.
+Real course authoring is performed only on a separate user request. Private
+course sources, coverage records and exports remain outside tracked files.
 
 ## Exact next steps for resuming
 
@@ -72,3 +73,8 @@ Clarified that high-yield course prose assumes basic algebra, logarithms and sta
 ## 2026-10-20: reusable high-yield authoring checklist
 
 Added guidelines/AUTHORING_CHECKLIST.md and linked it from AGENTS.md, README.md and CONTENT_GUIDELINES.md. Consolidates simple concise English, useful bullets, compact domain-specific formula keys, shared definitions within formula families, no elementary math tutorials, actual Learn/Review visibility checks, save/reopen verification and personal-edit/source preservation. No renderer/runtime change. Applied and browser-verified in a local course revision; private source/output remains excluded from Git.
+
+
+## 2026-10-23: private source-aligned course delivery
+
+Applied the existing reader and authoring guidelines to a separately requested real course. Kept private inputs, generated HTML, coverage/source records, selected figures and independent scientific review in ignored work and the user-designated course folder. No reusable renderer or interaction changes. Course-specific Edge checks covered actual Learn/Review visibility, search restoration, MathJax, editable text/formula export/reopen, embedded images, offline reading and 390/320 px layouts. Detailed records remain with the private course source bundle.
