@@ -43,3 +43,5 @@ Use this before delivering or revising any course. Current user instructions tak
 - Deliver a clearly named final edition plus its rebuildable JSON, config, selected assets and concise resume/coverage notes beside the course.
 - Build and structurally validate. Browser-check actual Learn/Review content, formula rendering, text/formula edits, an edited bullet if applicable, real save/reopen, and a dense mobile section.
 - Keep the final report brief: link the recommended edition, state meaningful changes/checks, and disclose only material limitations.
+
+- Check the overall reading experience against the Bionano direction: meaningful topic groups, clear semantic titles, readable paired concepts, appropriate wide tables/callouts, quiet metadata, no clipped content, and full-window widescreen/mobile evidence.

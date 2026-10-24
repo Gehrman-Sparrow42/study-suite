@@ -106,3 +106,6 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 
 2026-10-24 layout correction: 32 unit tests passed. Real detailed reader checked in Edge at 2559/1440/1000/768/390/320px: no page overflow, bounded main width, matching caption/image widths, readable 640px desktop image. Figure enlargement and sidebar closure passed. Layout detector returned no findings. Three existing private editions updated by replacing only suite-styles; snapshots/content retained.
 
+
+2026-10-24 reference-led fluid layout: six viewport sizes including actual 2560x1440 widescreen, desktop navigation open/closed, no horizontal overflow or unused outer workspace strip; intrinsic grid reflows. 32 unit tests and browser_readability edit/recovery/download/reopen/rebuild passed. Full-window screenshots inspected. CSS-only export updates preserve snapshots.
+
