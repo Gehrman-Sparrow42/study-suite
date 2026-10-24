@@ -203,7 +203,8 @@ def paragraph(value: str, css='', field=None) -> str:
     # Browsers may insert block children on Enter. A div keeps them valid and
     # editable after serialization and reparsing, unlike an editable p host.
     classes = 'editable-text' + (f' {css}' if css else '')
-    return f'<div class="{classes}"{EDIT}{field_attr(field)}>{rich_text(value)}</div>'
+    content = explanation_html(value) if '\n\n' in value else rich_text(value)
+    return f'<div class="{classes}"{EDIT}{field_attr(field)}>{content}</div>'
 
 
 def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> str:
@@ -214,7 +215,7 @@ def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> st
     label = {'concept': category, 'worked': 'Worked example', 'comparison': 'Compare & distinguish', 'review': 'Section takeaway', 'details': 'Further explanation'}.get(kind, kind)
     if block.get('learn_only'):
         label = 'Further explanation'
-    classes = f'block {category}' + (' compact' if block.get('compact') and kind in {'concept', 'prose'} else '') + (' takeaway' if kind == 'review' else '')
+    classes = f'block {category}' + (' compact' if block.get('compact') and kind in {'concept', 'prose', 'comparison'} else '') + (' takeaway' if kind == 'review' else '')
     if block.get('learn_only'):
         # Reuse the reader's explanation visibility, search and export behavior.
         # Bullet lists need the same author-controlled distinction as prose bodies.
@@ -271,7 +272,7 @@ def render_course(course: dict, content_dir: Path, config: dict) -> str:
             if block['type'] == 'figure' and block.get('placement') == 'alongside' and cards:
                 pieces.append('<div class="illustrated-group"><div class="card-stack">' + ''.join(cards) + '</div>' + rendered + '</div>')
                 cards = []
-            elif block['type'] in {'comparison', 'review'}:
+            elif block['type'] == 'review' or (block['type'] == 'comparison' and not block.get('compact')):
                 if cards:
                     pieces.append('<div class="card-group">' + ''.join(cards) + '</div>')
                     cards = []

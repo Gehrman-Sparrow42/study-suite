@@ -16,11 +16,17 @@ from validate import validate_html
 def run():
     course = json.loads((ROOT / 'demo/sample_course.json').read_text(encoding='utf-8'))
     host = course['sections'][0]['blocks'][0]
+    host['summary'] = '**Problem:** Interpret a synthetic rate.\n\n**Given:** Two illustrative quantities.\n\n**Find:** The rate and its units.'
     host['body'] = 'Useful **products**.\n\n- **Light:** a condition.\n- **Rate:** \\(x=2\\) is illustrative.\n\nConditions remain important.'
     course['sections'][0]['blocks'].append({
         'id': 'flow-example', 'type': 'process', 'title': 'Synthetic process',
         'summary': 'Input becomes output.', 'presentation': 'flow',
         'steps': ['**Input** enters.', 'Output leaves.'],
+    })
+    course['sections'][0]['blocks'].append({
+        'id': 'compact-table', 'type': 'comparison', 'compact': True,
+        'title': 'Small comparison', 'summary': 'Two related meanings.',
+        'headers': ['Term', 'Meaning'], 'rows': [['Input', 'Feed'], ['Output', 'Product']],
     })
     with tempfile.TemporaryDirectory() as directory:
         target = Path(directory) / 'reader.html'
@@ -33,6 +39,8 @@ def run():
             page = context.new_page()
             page.goto(target.as_uri())
             body = page.locator('.explanation-body').first
+            expect(page.locator('.lead').first.locator('p')).to_have_count(3)
+            expect(page.locator('.card-group>.compact[data-type="comparison"]')).to_have_count(1)
             expect(body.locator('li')).to_have_count(2)
             expect(body.locator('strong')).to_have_count(3)
             disclosure = body.locator('..')

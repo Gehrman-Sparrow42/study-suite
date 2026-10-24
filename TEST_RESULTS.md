@@ -115,3 +115,6 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 
 2026-10-24 composition correction: browser_layout.py passes unequal-height adjacency (24px follow-on gap), no overlaps across six viewport sizes, sidebar resize, disclosure resize, companion image alignment, and export stripping viewport-specific spans/reopen. 33 unit tests; browser_readability and existing Edge smoke, picker/offline, weekly, autosave and Learn/Review suites passed. Python compile, Ruff, JS syntax and layout scan passed. Full-window real-course composition inspected, not inferred from overflow checks. Firefox not rerun.
 
+
+2026-10-24 Bioeng presentation remake: 33 unit tests; browser_readability (now includes multi-paragraph persistent summaries and compact comparisons), browser_layout passed. Both real editions checked at 2560/1920/1366/1000/390/320 with no page overflow/card overlap; full-window screenshots inspected. All worked summaries remain visible in Review. Clean export produced zero false snapshot edits; text/formula edits survived real download/offline reopen. MathJax online rendered four containers. Raw equations, worked steps and numeric tokens preserved against authored source. Firefox not rerun.
+

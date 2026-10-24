@@ -26,7 +26,7 @@ main,body.nav-closed main{max-width:none}.section-intro{max-width:75ch}
 .illustrated-group>.block[data-type=figure]{padding-top:0}
 .illustrated-group>.block[data-type=figure] figure,.illustrated-group>.block[data-type=figure] h3{max-width:none}
 .block,.block.compact{grid-column:auto}
-.block[data-type=table],.block:has(.table-scroll),.block.takeaway{grid-column:1/-1}
+.block[data-type=table],.block:has(.table-scroll):not(.compact),.block.takeaway{grid-column:1/-1}
 .block[data-type=figure]{align-self:start}
 /* Reference-led hierarchy: topic boundaries, semantic titles, quiet supporting chrome. */
 .section-heading{padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:24px}

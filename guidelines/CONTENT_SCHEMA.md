@@ -111,3 +111,9 @@ A `process` block can set `"presentation": "flow"` to render its existing ordere
 ### Companion figure placement
 
 A figure may set `"placement": "alongside"`. It groups the preceding consecutive ordinary cards in the section (since the last comparison/review boundary) into a text stack beside the figure. Use only for a meaningful topic relationship. At narrow widths, text then figure follow the same DOM order. The field is rejected on other block types or with other values. It does not alter editable fields or source content. Without preceding cards the figure uses ordinary layout.
+
+### Persistent structured summaries and compact comparisons
+
+A summary can contain blank-line-separated paragraphs or simple bullet groups using the same safe formatting as body text. They stay inside one editable host and remain visible in Review; this is useful for separate Problem, Given/Assume, Find and Boundary paragraphs before a worked solution. Retain essential inputs here rather than placing them in foldable body text.
+
+A comparison can set `"compact": true` to share a responsive card group with related explanations or process flows. Use it for a small, readable table (often two columns). Omit it for a wide comparison that should separate topic groups. This is an authoring decision based on the table's content, not a blanket rule to shrink all tables.
