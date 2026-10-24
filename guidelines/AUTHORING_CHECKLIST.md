@@ -47,3 +47,5 @@ Use this before delivering or revising any course. Current user instructions tak
 - Check the overall reading experience against the Bionano direction: meaningful topic groups, clear semantic titles, readable paired concepts, appropriate wide tables/callouts, quiet metadata, no clipped content, and full-window widescreen/mobile evidence.
 
 - Treat Bionano as the primary future-output reference, not a minor styling influence. Use visual process chains where the mechanism warrants one; verify editable steps, final-stage emphasis, individual explanation folding, section folding, search reveal/restore, and export/reopen. Preserve essential content outside optional detail.
+
+- Reject large empty lanes caused by unequal card rows or orphan figures, even when overflow tests pass. Check meaningful companion placement and actual full-viewport balance after resizing, folding and editing; do not move the hole to the opposite side.

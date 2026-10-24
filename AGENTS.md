@@ -22,3 +22,5 @@
 - Build with scripts/build.py and validate with scripts/validate.py. After template/runtime changes run unit and browser tests, including export/reopen and mobile layouts.
 - Review scientific content appropriately when a real course warrants it; setup's synthetic measurement demo does not constitute scientific course analysis.
 - The private repository contains reusable source, tests, docs and the intentional synthetic demo. Keep logs, test downloads, screenshots, work/, credentials and real course materials out.
+
+- Visual acceptance includes full-viewport balance: reject large empty lanes under unequal cards and orphan figures. Group related diagrams alongside explanation stacks when appropriate. Measured card packing must react to resize/disclosure/editing, stay within topic boundaries, and discard viewport-specific measurements on export. Passing overflow checks does not establish a good composition.

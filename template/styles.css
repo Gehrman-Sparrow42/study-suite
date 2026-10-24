@@ -17,7 +17,14 @@ figure .figure-open{display:block;width:100%;max-width:100%;background:transpare
 .block[data-type=figure]{border:0;background:transparent;padding:12px 25px 20px}.block[data-type=figure] .label{display:none}.block[data-type=figure] figure,.block[data-type=figure] h3{max-width:75ch}figcaption,.credit{max-width:100%}
 /* The workspace fills available space; readable cards reflow without fixed offsets. */
 main,body.nav-closed main{max-width:none}.section-intro{max-width:75ch}
-.blocks{grid-template-columns:repeat(auto-fit,minmax(min(100%,45rem),1fr));align-items:start;gap:24px}
+.blocks{display:block;--card-gap:24px}
+.card-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,45rem),1fr));align-items:start;gap:var(--card-gap)}
+.card-group.packed{grid-auto-rows:1px;row-gap:0;grid-auto-flow:row dense}
+.blocks>.block{margin-bottom:var(--card-gap)}
+.illustrated-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,45rem),1fr));gap:var(--card-gap);align-items:start;margin-bottom:var(--card-gap)}
+.card-stack{display:flex;flex-direction:column;gap:var(--card-gap);min-width:0}
+.illustrated-group>.block[data-type=figure]{padding-top:0}
+.illustrated-group>.block[data-type=figure] figure,.illustrated-group>.block[data-type=figure] h3{max-width:none}
 .block,.block.compact{grid-column:auto}
 .block[data-type=table],.block:has(.table-scroll),.block.takeaway{grid-column:1/-1}
 .block[data-type=figure]{align-self:start}
@@ -46,5 +53,5 @@ details.explanation>summary:hover{color:var(--accent)}
 .block .process-flow>li:last-child{margin-bottom:0;background:#21322b;border-color:#496759}
 .block .process-flow>li strong{color:var(--green)}
 .block:has(.process-flow){border-color:#293c34;border-left-color:var(--green)}
-@media print{.section-toggle{display:none}.blocks,.section-folded>.blocks{display:block}.section-folded>.section-intro{display:block}.block{margin-bottom:16px}details.explanation>.explanation-body{display:block!important}}
+@media print{.section-toggle{display:none}.blocks,.section-folded>.blocks,.card-group{display:block!important}.section-folded>.section-intro{display:block}.block{margin-bottom:16px;grid-row-end:auto!important}details.explanation>.explanation-body{display:block!important}}
 @media(max-width:720px){.block[data-type=figure]{padding:8px 18px 16px}}

@@ -3,6 +3,30 @@
 'use strict';
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
+// Pack unequal-height cards within topic groups. Natural card height remains
+// authoritative; resize observation covers images, math, edits and disclosures.
+let packingFrame;
+function schedulePacking() {
+ if (packingFrame) return;
+ packingFrame = requestAnimationFrame(() => {
+   packingFrame = null;
+   $$('.card-group').forEach(group => {
+     if (!group.getClientRects().length) return;
+     group.classList.add('packed');
+     const gap = parseFloat(getComputedStyle(group).getPropertyValue('--card-gap')) || 0;
+     [...group.children].forEach(card => {
+       if (card.hidden) { card.style.removeProperty('grid-row-end'); return; }
+       const span = Math.ceil(card.getBoundingClientRect().height + gap);
+       const value = `span ${span}`;
+       if (card.style.gridRowEnd !== value) card.style.gridRowEnd = value;
+     });
+   });
+ });
+}
+const cardSizes = new ResizeObserver(schedulePacking);
+$$('.card-group>.block').forEach(card => cardSizes.observe(card));
+window.addEventListener('resize', schedulePacking, {passive:true});
+schedulePacking();
 let dirty = false, activeFormula = null, mathQueue = Promise.resolve(), statusTimer;
 let editVersion = 0, fileHandle = null, autoEnabled = false, autoTimer, recoveryTimer;
 let writeQueue = Promise.resolve();
@@ -44,6 +68,7 @@ function sectionExpanded(section, expanded) {
  const button = section.querySelector('.section-toggle');
  button.setAttribute('aria-expanded', String(expanded));
  button.setAttribute('aria-label', expanded ? 'Collapse section' : 'Expand section');
+ schedulePacking();
 }
 document.addEventListener('click', event => {
  const button = event.target.closest('.section-toggle');
@@ -214,6 +239,12 @@ function exportHTML() {
    if (e.getAttribute('contenteditable') === 'true') e.setAttribute('spellcheck', 'false');
  });
  clone.querySelectorAll('[style]').forEach(e => { if (!e.getAttribute('style').trim()) e.removeAttribute('style'); });
+ // Measurements belong to this viewport, never to a saved portable document.
+ clone.querySelectorAll('.card-group').forEach(group => group.classList.remove('packed'));
+ clone.querySelectorAll('.card-group>.block').forEach(card => {
+   card.style.removeProperty('grid-row-end');
+   if (!card.getAttribute('style')?.trim()) card.removeAttribute('style');
+ });
  clone.querySelectorAll('.section,.block,nav a').forEach(e => e.removeAttribute('hidden'));
  clone.querySelectorAll('details[data-before-search]').forEach(e => { e.open = e.dataset.beforeSearch === 'true'; delete e.dataset.beforeSearch; });
  clone.querySelectorAll('.section[data-before-search]').forEach(section => {

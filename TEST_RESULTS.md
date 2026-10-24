@@ -112,3 +112,6 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 
 2026-10-24 expanded Bionano overhaul: 33 unit tests, Python compile, Ruff, JS syntax and layout detector passed. New flow-step/edit/rebuild and native-disclosure tests passed. Topic folding/search restore and actual export/reopen while search was active passed. Existing Edge smoke, picker/offline, weekly source merges, autosave/recovery and Learn/Review/mobile regression suites passed; OS picker mocked with real backing writes/downloads. Actual three course editions checked at 2560/1920/1366/1000/390/320 widths. Firefox not rerun. Science unchanged beyond formatting/emphasis.
 
+
+2026-10-24 composition correction: browser_layout.py passes unequal-height adjacency (24px follow-on gap), no overlaps across six viewport sizes, sidebar resize, disclosure resize, companion image alignment, and export stripping viewport-specific spans/reopen. 33 unit tests; browser_readability and existing Edge smoke, picker/offline, weekly, autosave and Learn/Review suites passed. Python compile, Ruff, JS syntax and layout scan passed. Full-window real-course composition inspected, not inferred from overflow checks. Firefox not rerun.
+

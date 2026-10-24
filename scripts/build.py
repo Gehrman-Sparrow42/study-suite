@@ -98,6 +98,8 @@ def validate_course(course: dict) -> None:
                 raise ValueError('learn_only must be true or false')
             if 'presentation' in block and (kind != 'process' or block['presentation'] not in ('list', 'flow')):
                 raise ValueError('presentation is supported only for process blocks: list or flow')
+            if 'placement' in block and (kind != 'figure' or block['placement'] != 'alongside'):
+                raise ValueError('placement is supported only for figures: alongside')
             category = block.get('category', {'process': 'process', 'worked': 'formula', 'formula': 'formula'}.get(kind, 'definition'))
             if not isinstance(category, str) or category not in CATEGORIES:
                 raise ValueError(f'Unknown semantic category {category!r}')
@@ -259,7 +261,26 @@ def render_course(course: dict, content_dir: Path, config: dict) -> str:
         ident = 'section-' + section['id']
         week = f'<small class="week-label">Week {section["week"]}</small>' if 'week' in section else ''
         nav.append(f'<a href="#{ident}"><span>{number:02}</span><span>{week}<span class="nav-title">{esc(section["title"])}</span></span></a>')
-        blocks = ''.join(render_block(b, content_dir, config, pointer + f'/blocks/{bi}') for bi, b in enumerate(section['blocks']))
+        # Wide teaching structures separate groups. Packing stays inside each
+        # group, so a later figure cannot jump ahead of a comparison/takeaway.
+        pieces, cards = [], []
+        for bi, block in enumerate(section['blocks']):
+            rendered = render_block(block, content_dir, config, pointer + f'/blocks/{bi}')
+            if not rendered:
+                continue
+            if block['type'] == 'figure' and block.get('placement') == 'alongside' and cards:
+                pieces.append('<div class="illustrated-group"><div class="card-stack">' + ''.join(cards) + '</div>' + rendered + '</div>')
+                cards = []
+            elif block['type'] in {'comparison', 'review'}:
+                if cards:
+                    pieces.append('<div class="card-group">' + ''.join(cards) + '</div>')
+                    cards = []
+                pieces.append(rendered)
+            else:
+                cards.append(rendered)
+        if cards:
+            pieces.append('<div class="card-group">' + ''.join(cards) + '</div>')
+        blocks = ''.join(pieces)
         if not blocks:
             raise ValueError(f'{ident}: no reading blocks remain under the chosen visual policy')
         intro = paragraph(section['intro'], 'section-intro', pointer + '/intro') if section.get('intro') else ''

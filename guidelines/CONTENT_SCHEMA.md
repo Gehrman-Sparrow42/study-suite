@@ -107,3 +107,7 @@ Save/export, recovery and weekly snapshots preserve these authored markers. When
 ### Visual process chains
 
 A `process` block can set `"presentation": "flow"` to render its existing ordered `steps` as an arrow-connected vertical chain. Omit this field (or use `"list"`) for a normal numbered sequence. Other block types reject this field. Example: `{"type":"process","title":"Conversion chain","summary":"An input becomes a useful output.","presentation":"flow","steps":["**Input:** collect the feed.","**Conversion:** transform the feed.","**Output:** recover the product."]}`. These are synthetic authoring examples, not course facts. Every step retains its editable pointer and is visible in Review unless the whole block is explicitly learn-only. Body explanations use native disclosures, open by default; no new body field or schema version is required.
+
+### Companion figure placement
+
+A figure may set `"placement": "alongside"`. It groups the preceding consecutive ordinary cards in the section (since the last comparison/review boundary) into a text stack beside the figure. Use only for a meaningful topic relationship. At narrow widths, text then figure follow the same DOM order. The field is rejected on other block types or with other values. It does not alter editable fields or source content. Without preceding cards the figure uses ordinary layout.
