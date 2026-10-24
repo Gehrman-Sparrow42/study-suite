@@ -24,6 +24,24 @@ Remove redundant examples, administration, ornamental history and niche detail t
 
 Each block's `summary` is its core teaching statement, not a question or a vague teaser. `body` is expanded explanation; Review hides it. Essential formulas, process steps, limitations and short takeaways remain visible. Never place the only statement of a critical assumption exclusively in an optional explanation. Add takeaways at natural boundaries, without repeating the entire section.
 
+Worked examples are the exception to the summary's statement-only wording: their
+persistent summary must clearly state the task to be solved, rather than just
+announce its answer. Before the first calculation, provide the relevant scenario,
+supplied numerical data and units, required result(s), time/cost boundary and
+conditions needed to interpret the task. Keep essential givens and the task visible
+in Review; an expanded body that disappears is not sufficient. A longer data list
+may use a clearly associated persistent table before the solution. Shared data
+must be explicitly restated or precisely identified, never left for the student to
+infer from arithmetic or another example.
+
+Separate the problem from the worked solution in reading order. A short heading
+such as "Problem:" in the summary is sufficient with the existing renderer. Make
+multi-part requests explicit and ensure each part has a matching solution. Retain
+missing inputs, ambiguous source units and added assumptions as labeled limits;
+do not invent a price, exchange rate, date or condition to make the task appear
+complete. Label invented teaching examples as illustrations. A solved example with
+a stated task remains a teaching explanation, not a quiz or practice interface.
+
 Bullet formatting does not make an explanation a takeaway. If an expanded explanation uses a separate bullet-list block, set `learn_only=true` so Review still provides a shorter reading mode. Check the actual visible content in both modes, not just the active toolbar button. Symbol guides may remain visible; short formula-reading rules should retain essential assumptions even when longer conceptual explanations are hidden.
 
 ## Depth presets and precedence

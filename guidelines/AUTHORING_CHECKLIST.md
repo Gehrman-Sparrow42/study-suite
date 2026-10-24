@@ -9,6 +9,7 @@ Use this before delivering or revising any course. Current user instructions tak
 - Assume basic algebra, logarithms, percentages, powers and routine unit notation. Do not explain fraction bars, multiplication or obvious arithmetic.
 - Prefer compact bullets for parallel facts, distinctions and cautions; numbered steps for mechanisms and worked methods. Avoid creating another card merely to repeat its parent's summary.
 - Each sentence should add a definition, mechanism, implication, condition, distinction or necessary source qualification. Cut instructions such as “read these points with the explanation above.”
+- Read every worked example without its solution or neighboring cards: can the student identify the scenario, all supplied data/units, the requested result(s) and essential assumptions? State the problem before calculations; an answer-only summary fails this check. Check every example, including added illustrations and continuations of multi-part tasks.
 - A shorter revision is not a fixed percentage target. Report measured word changes only when useful; do not claim measured study-time savings from a word count.
 
 ## Formula keys
@@ -25,6 +26,7 @@ Use this before delivering or revising any course. Current user instructions tak
 - Ordinary explanatory `body` text already hides in Review. Plain-text bullet paragraphs can stay in that editable host without adding cards.
 - When an explanation needs a separate structured bullet block, use `learn_only: true`. A list is not automatically a persistent takeaway.
 - Verify what disappears and what stays visible. An active Review button alone is not proof that the shorter mode works.
+- In Review, verify the actual problem statement and essential givens remain visible before the worked steps; move them out of any Learn-only body. Preserve missing-input/ambiguity notes rather than silently completing the source.
 - Search may temporarily reveal a matching explanation; clearing search must restore Review visibility.
 
 ## Preservation and delivery

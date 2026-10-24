@@ -40,7 +40,7 @@ Section IDs must be unique lowercase slugs matching `[a-z][a-z0-9-]*`. The gener
 
 - `type`: one of the types below. Unknown types are rejected, including quizzes and flashcards.
 - `title`: required, editable heading.
-- `summary`: required for every type except figure; visible in both reading modes. Keep essential assumptions here or in persistent steps.
+- `summary`: required for every type except figure; visible in both reading modes. Keep essential assumptions here or in persistent steps. For `worked`, explicitly state the problem and required output, not merely the answer; supply essential givens here or in a clearly associated persistent component before the first calculation.
 - `body`: optional expanded explanation. Two newlines separate paragraphs. Hidden in Review, temporarily visible when searching.
 - `category`: `definition`, `process`, `formula`, or `warning`. Defaults to process for process blocks, formula for formula/worked blocks, definition otherwise.
 - `source`: optional short provenance text, displayed in collapsed Source note details when source labels are enabled.
@@ -66,7 +66,7 @@ Built HTML includes a versioned JSON baseline and changed-field snapshot in `scr
 | `process` | `steps`: nonempty array of strings | Persistent numbered mechanism/sequence |
 | `formula` | `latex`: raw LaTeX string | Rendered display formula, source editor, explanatory body |
 | `comparison` | `headers`: strings; `rows`: arrays of strings | Table with matching row widths and editable cells |
-| `worked` | `steps`: nonempty array of strings | Fully explained calculation or application; no answer interaction |
+| `worked` | `steps`: nonempty array of strings | Problem/required result in summary, supplied data before calculations, then fully explained solution; no answer interaction |
 | `figure` | asset, origin, alt, caption, credit | Embedded image and zoomable lightbox |
 | `review` | `steps`: nonempty array of strings | Section takeaway with persistent bullet points |
 | `details` | optional body | Supplementary explanation, open in Learn by default |

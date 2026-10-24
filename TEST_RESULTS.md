@@ -88,3 +88,8 @@ Reproduce with commands in README.md. Screenshots, edited downloads and machine-
 ## 23 October 2026 — focused learning depth
 
 31 unittest tests passed. New test builds a complete valid synthetic reader with config/focused.example.toml and confirms depth metadata does not cut authored content. py_compile and Ruff passed for changed Python files. No template or runtime interaction change. A private real-course focused edition additionally passed actual Learn/Review hiding, persistent process steps, search restoration, text edit/download/reopen, offline reading and 390/320 px layout checks in installed Edge; no page errors. Private coverage/verification records remain outside Git.
+
+
+## 24 October 2026 — worked-problem authoring checks
+
+Documentation-only rule change using existing summary/steps rendering. In the real course revision, 12/12 worked blocks passed problem-before-solution and Review-visibility checks. Structural validation, existing math rendering, problem-text edit/download/reopen, zero page errors and 390/320 px overflow checks passed. A structured source comparison confirmed that only worked summaries changed; all equations, solution steps, IDs and other content remained unchanged. No renderer code changed, so no unrelated runtime regression rerun.

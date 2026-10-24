@@ -1,6 +1,6 @@
 # V3 Study Suite progress
 
-Last updated: 2026-10-23 (Europe/Istanbul).
+Last updated: 2026-10-24 (Europe/Istanbul).
 
 ## Completed components
 
@@ -90,3 +90,10 @@ Created a separately requested shorter private edition using the unchanged rende
 Added validated focused_learning depth metadata and an example config. Agent guidance, new-course prompt, authoring checklist and weekly-update workflow now default to delivering separately authored focused_learning and balanced_high_yield editions together. No word quota or compression ratio; source processing is shared, content selection, course IDs and edit snapshots are edition-specific. Core/cram stays optional, and standalone builder defaults remain compatible. No template/runtime change.
 
 Validation: 31 Python tests pass, including a focused config build and preservation of authored content; changed Python compiles and Ruff checks pass. Private intermediate course example passes structure, actual Learn/Review, retained process steps, search reveal/restore, real edit/download/reopen, offline-reader and 390/320 px browser checks. Existing editions verified unchanged. Course files stay outside commits.
+
+
+## 2026-10-24: worked-example problem statements
+
+Authoring rules now require each worked example to state its task, essential givens/units and requested results before calculations, visibly in both Learn and Review. Answer-only leads and implied tasks fail the authoring checklist. Missing inputs and illustrative assumptions must remain explicit. The content schema documentation clarifies this use of the existing summary field; no renderer or schema behavior changed.
+
+Applied to all 12 worked blocks in a privately delivered course revision, preserving earlier HTML/source editions and stable IDs. Course-specific checks verified actual Review visibility/order, unchanged equations and solution steps, MathJax, edited-problem save/reopen, and 390/320 px layouts. Private source and verification records remain outside Git.
