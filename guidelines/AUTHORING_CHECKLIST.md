@@ -2,6 +2,8 @@
 
 Use this before delivering or revising any course. Current user instructions take precedence.
 
+For a batch refresh, inventory every delivered edition and bind it to its exact source/baseline, not only its course ID: historical normal/high-yield editions can share an ID. Preserve their independent edits and intended scope. Inspect specialized legacy readers for interactive tools and storage behavior before replacing a runtime; use a presentation adapter when a generic reader would discard those features. Do not redo already-current content merely to count it as refreshed.
+
 ## Content and language
 
 - Use bullets for parallel information and selective bold terms/lead-ins; keep connected reasoning in prose. Verify real list and emphasis rendering, not literal markup, and preserve it through saved edits and recovery.
