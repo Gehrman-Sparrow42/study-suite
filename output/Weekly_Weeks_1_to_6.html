@@ -17,6 +17,11 @@ main{margin-left:258px;padding:42px clamp(24px,4vw,68px) 20px;max-width:1400px}.
 .inline-math{display:inline-flex;align-items:baseline;gap:4px;max-width:100%;vertical-align:middle}.inline-math .equation-render{display:inline-block;white-space:normal;padding:0 2px;font-family:inherit}.inline-math .edit-formula{font-size:10px;padding:1px 4px;opacity:.65}.inline-math:hover .edit-formula,.inline-math:focus-within .edit-formula{opacity:1}
 .week-label{display:block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}.section>.week-label{margin-bottom:10px}
 .save-short{display:none}#autosave[aria-pressed="true"]{border-color:#62cba2;color:#89e7bf}#restore-recovery{font-size:12px;max-width:100%}@media(max-width:720px){.save-long{display:none}.save-short{display:inline}.toolbar button{padding:7px 8px;font-size:12px}.modes button{padding:7px 8px}#nav-toggle{margin-right:0}.modes{margin-left:auto}.toolbar{gap:6px}}
+/* Reading emphasis stays inside the existing editable explanation host. */
+.block strong{color:var(--heading);font-weight:650}.block .lead,.explanation-body{max-width:75ch}.explanation-body ul{margin:10px 0;padding-left:22px}.explanation-body li{margin:6px 0}
+/* Supporting figures should not become full-width empty image panels. */
+figure .figure-open{display:block;width:fit-content;max-width:100%;background:transparent;border:0}figure img{width:auto;max-width:100%;max-height:320px}
+.block[data-type=figure]{border:0;background:transparent;padding:4px 0 12px}.block[data-type=figure] .label{display:none}figcaption,.credit{max-width:75ch}
 
 :root{--accent:#88b9ae}</style>
 </head>
@@ -196,6 +201,9 @@ function authoredText(element) {
    if (node.matches('.math-unit')) return '\\(' + node.querySelector('[data-raw]').dataset.raw + '\\)';
    if (node.tagName === 'BR') return '\n';
    const value = [...node.childNodes].map(child => visit(child)).join('');
+   if (['STRONG', 'B'].includes(node.tagName)) return '**' + value + '**';
+   if (!root && node.tagName === 'LI') return '- ' + value.trim() + '\n';
+   if (!root && node.tagName === 'UL') return '\n\n' + value.trim() + '\n\n';
    return !root && ['P', 'DIV'].includes(node.tagName) ? '\n\n' + value + '\n\n' : value;
  }
  return visit(element, true).replace(/\n{3,}/g, '\n\n').replace(/^\n+|\n+$/g, '').replace(/\u00a0/g, ' ');
@@ -283,10 +291,14 @@ function restoreText(element, text) {
    });
  }
  function appendText(parent, value) {
-   const pattern = /\\\(([\s\S]*?)\\\)/g;
+   const pattern = /\\\(([\s\S]*?)\\\)|\*\*([^*\n]+)\*\*/g;
    let end = 0;
    for (const match of value.matchAll(pattern)) {
      appendLiteral(parent, value.slice(end, match.index));
+     if (match[2] !== undefined) {
+       const strong = document.createElement('strong'); strong.textContent = match[2];
+       parent.append(strong); end = match.index + match[0].length; continue;
+     }
      const unit = document.createElement('span'); unit.className = 'math-unit inline-math'; unit.contentEditable = 'false';
      const equation = document.createElement('span'); equation.className = 'equation-render'; equation.dataset.raw = match[1]; equation.dataset.display = 'inline';
      const button = document.createElement('button'); button.className = 'edit-formula'; button.textContent = 'Edit'; button.setAttribute('aria-label', 'Edit inline formula');
@@ -295,7 +307,14 @@ function restoreText(element, text) {
    appendLiteral(parent, value.slice(end));
  }
  if (element.tagName === 'DIV' && (element.classList.contains('explanation-body') || (element.classList.contains('editable-text') && text.includes('\n\n')))) {
-   text.split(/\n\n+/).forEach(value => { const p = document.createElement('p'); appendText(p, value); fragment.append(p); });
+   text.split(/\n\n+/).forEach(value => {
+     const lines = value.split('\n');
+     if (lines.length && lines.every(line => line.startsWith('- '))) {
+       const list = document.createElement('ul');
+       lines.forEach(line => { const item = document.createElement('li'); appendText(item, line.slice(2)); list.append(item); });
+       fragment.append(list);
+     } else { const p = document.createElement('p'); appendText(p, value); fragment.append(p); }
+   });
  } else appendText(fragment, text);
  element.replaceChildren(fragment);
  element.querySelectorAll('.equation-render').forEach(renderMath);

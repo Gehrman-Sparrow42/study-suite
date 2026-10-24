@@ -16,6 +16,21 @@ Apply [AUTHORING_CHECKLIST.md](AUTHORING_CHECKLIST.md) at authoring and delivery
 
 ## Teaching and selection
 
+Use short semantic bullets for parallel properties, advantages, limitations,
+alternatives and criteria. Highlight a few meaningful terms or short lead-ins with
+`**bold**`; avoid whole-sentence emphasis and repeated highlighting. Retain prose
+for connected mechanisms and reasoning. Structure must help understanding without
+adding another layer of cards or repetition. Expanded lists belong in the editable
+body and hide in Review; essential conditions stay in persistent content.
+
+Teach the subject directly. Remove routine narration such as "the instructor
+explains", "the lecture discusses" or "the useful conclusion is" when the same
+fact can be stated directly. Keep attribution only to distinguish a course-specific
+convention, an ambiguous/disputed source statement, or actual exam guidance. Normal
+provenance belongs in Source notes. Do not remove qualifications while removing
+attribution, and do not turn an instructor's nonstandard definition into a universal
+fact.
+
 For an important topic explain what it is, how it works, why the mechanism leads to the outcome, when it applies, and relevant distinctions. Define variables, units, assumptions, signs and boundary conditions. Preserve critical numbers and professor-specific steps. Use a representative worked calculation when it teaches a method; provide every reasoning step without turning the reader into a question platform.
 
 Evidence of importance may include learning objectives, repetition, explicit instructor guidance, recurring diagrams and assigned exercises. Do not invent exam probabilities. If prior questions are supplied, use them as evidence of scope or convert useful reasoning into worked explanations; never generate a question bank.

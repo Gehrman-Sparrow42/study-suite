@@ -146,6 +146,9 @@ function authoredText(element) {
    if (node.matches('.math-unit')) return '\\(' + node.querySelector('[data-raw]').dataset.raw + '\\)';
    if (node.tagName === 'BR') return '\n';
    const value = [...node.childNodes].map(child => visit(child)).join('');
+   if (['STRONG', 'B'].includes(node.tagName)) return '**' + value + '**';
+   if (!root && node.tagName === 'LI') return '- ' + value.trim() + '\n';
+   if (!root && node.tagName === 'UL') return '\n\n' + value.trim() + '\n\n';
    return !root && ['P', 'DIV'].includes(node.tagName) ? '\n\n' + value + '\n\n' : value;
  }
  return visit(element, true).replace(/\n{3,}/g, '\n\n').replace(/^\n+|\n+$/g, '').replace(/\u00a0/g, ' ');
@@ -233,10 +236,14 @@ function restoreText(element, text) {
    });
  }
  function appendText(parent, value) {
-   const pattern = /\\\(([\s\S]*?)\\\)/g;
+   const pattern = /\\\(([\s\S]*?)\\\)|\*\*([^*\n]+)\*\*/g;
    let end = 0;
    for (const match of value.matchAll(pattern)) {
      appendLiteral(parent, value.slice(end, match.index));
+     if (match[2] !== undefined) {
+       const strong = document.createElement('strong'); strong.textContent = match[2];
+       parent.append(strong); end = match.index + match[0].length; continue;
+     }
      const unit = document.createElement('span'); unit.className = 'math-unit inline-math'; unit.contentEditable = 'false';
      const equation = document.createElement('span'); equation.className = 'equation-render'; equation.dataset.raw = match[1]; equation.dataset.display = 'inline';
      const button = document.createElement('button'); button.className = 'edit-formula'; button.textContent = 'Edit'; button.setAttribute('aria-label', 'Edit inline formula');
@@ -245,7 +252,14 @@ function restoreText(element, text) {
    appendLiteral(parent, value.slice(end));
  }
  if (element.tagName === 'DIV' && (element.classList.contains('explanation-body') || (element.classList.contains('editable-text') && text.includes('\n\n')))) {
-   text.split(/\n\n+/).forEach(value => { const p = document.createElement('p'); appendText(p, value); fragment.append(p); });
+   text.split(/\n\n+/).forEach(value => {
+     const lines = value.split('\n');
+     if (lines.length && lines.every(line => line.startsWith('- '))) {
+       const list = document.createElement('ul');
+       lines.forEach(line => { const item = document.createElement('li'); appendText(item, line.slice(2)); list.append(item); });
+       fragment.append(list);
+     } else { const p = document.createElement('p'); appendText(p, value); fragment.append(p); }
+   });
  } else appendText(fragment, text);
  element.replaceChildren(fragment);
  element.querySelectorAll('.equation-render').forEach(renderMath);

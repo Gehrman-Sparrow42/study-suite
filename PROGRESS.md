@@ -102,3 +102,10 @@ Applied to all 12 worked blocks in a privately delivered course revision, preser
 ## 2026-10-24: audit other delivered worked examples
 
 Inspected the existing real-course readers for answer-first or incomplete worked problems. Corrected affected HTML and authored sources in place at the user's explicit request, preserving renderer/runtime and calculations. Short editions without worked blocks needed no change. Removed the redundant prior fix-specific HTML after confirming no unique saved edits and equal baseline content in the corrected original. No new HTML editions were created. Detailed inventory, per-block decisions and actual browser checks remain in ignored authoring work and private course records.
+
+
+## 2026-10-24: readable explanations and direct subject prose
+
+Added restricted safe **bold** emphasis and semantic body bullet groups inside the existing editable host. Saved-text capture and recovery preserve emphasis, lists and inline math; exported snapshots remain rebuildable. Text measure capped at 75ch and supporting figures made compact and zoomable. Authoring/visual rules now require structure chosen for comprehension, direct subject explanations without routine instructor narration, and actual screenshots after presentation improvements. Existing course-specific conventions and source uncertainties remain qualified.
+
+Applied to the three existing private reader editions in place. Selected parallel information uses labelled bullets; the diagram precedes a two-column methods table, with secondary risks separated. No new controls or decorative redesign. Validation: 32 Python tests, syntax/Ruff checks, new browser formatting/edit/recovery/export/rebuild test, existing Edge editing/search/picker/offline, weekly update, autosave/recovery and Learn/Review regressions passed. Three actual readers pass 390/320 px layout, semantic-list/emphasis visibility and compact figure zoom checks. Screenshots and private source logs remain in ignored course work. Mechanical design warnings were checked against actual computed styles and the required semantic-border design; no unrelated style overhaul.

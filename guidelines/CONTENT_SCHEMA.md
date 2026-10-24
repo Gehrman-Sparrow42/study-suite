@@ -1,6 +1,6 @@
 # Content schema · version 3
 
-Use UTF-8 JSON. All text is English. Text fields are **plain text**, not Markdown or arbitrary HTML. The builder escapes markup. Within summaries, bodies, steps and table cells, explicit `\(LaTeX\)` denotes editable inline mathematics. In JSON, escape each backslash: `"The quantity is \\(q=12\\)."`. For display math, use a `formula` block with raw `latex` and no delimiters. Unicode symbols are also useful in prose.
+Use UTF-8 JSON. All text is English. Text fields are escaped prose with restricted emphasis and list syntax, not arbitrary HTML or general Markdown. The builder escapes HTML. Within summaries, bodies, steps and table cells, explicit `\(LaTeX\)` denotes editable inline mathematics. In JSON, escape each backslash: `"The quantity is \\(q=12\\)."`. For display math, use a `formula` block with raw `latex` and no delimiters. Unicode symbols are also useful in prose.
 
 ## Course object
 
@@ -92,3 +92,14 @@ Figure example:
 The schema is deliberately narrow. It does not accept arbitrary executable HTML, custom widget code, question banks or review quizzes. For additional teaching patterns, first express the material through the existing components. Extend the reusable renderer only when the learning benefit justifies new maintenance and tests.
 
 Browser edits modify the exported HTML, not this JSON. To incorporate those edits into a future rebuild, explicitly reconcile them into the authored source; never silently overwrite an edited edition.
+
+
+## Restricted reading formatting
+
+Use `**term or short lead-in**` for selective bold emphasis in summaries, bodies, steps and table cells. General HTML and Markdown are not accepted. Do not nest bold around inline mathematics or use unmatched markers intentionally.
+
+In `body`, separate prose paragraphs and bullet groups with a blank line. Each simple bullet begins with `- ` on its own line; a group consists entirely of those lines. The builder produces a semantic ul/li list inside the same editable explanation host, not another card. Nested lists, ordered Markdown lists and multiline bullet syntax are not supported; use existing process/worked steps for numbered mechanisms.
+
+Example body: `Useful products:\n\n- **Lipids:** a possible fuel feedstock.\n- **Carbohydrates:** another possible conversion feedstock.\n\nSuitability depends on the organism and process.` In JSON these newline escapes become real line breaks. The full body still hides in Review. Essential limitations must remain in persistent content.
+
+Save/export, recovery and weekly snapshots preserve these authored markers. When updating an older HTML to use this formatting, also update its reader runtime through a deliberate rebuild from reconciled source; changing DOM alone does not give old recovery code the new syntax.

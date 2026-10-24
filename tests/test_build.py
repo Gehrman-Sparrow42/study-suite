@@ -7,7 +7,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import build, embedded_asset, load_config, render_block, validate_course
+from build import (
+    build,
+    embedded_asset,
+    explanation_html,
+    load_config,
+    render_block,
+    rich_text,
+    validate_course,
+)
 from validate import validate_html
 
 
@@ -30,6 +38,14 @@ class BuilderTests(unittest.TestCase):
         self.course['sections'][0]['blocks'][0]['type'] = 'flashcard'
         with self.assertRaises(ValueError):
             validate_course(self.course)
+
+    def test_safe_bold_and_bullet_explanations(self):
+        value = explanation_html('Short introduction.\n\n- **Photosynthesis:** light and carbon.\n- **Lipids:** a conditional feedstock.\n\nConditions still apply.')
+        self.assertIn('<ul><li><strong>Photosynthesis:</strong>', value)
+        self.assertIn('</ul><p>Conditions still apply.</p>', value)
+        self.assertIn('&lt;script&gt;', rich_text('**<script>**'))
+        self.assertNotIn('<script>', rich_text('**<script>**'))
+        self.assertIn('data-raw="x=2"', rich_text(r'**Rate** and \(x=2\)'))
 
     def test_focused_learning_build_preserves_authored_content(self):
         # Depth is validated authoring metadata, not an automatic text cutter.

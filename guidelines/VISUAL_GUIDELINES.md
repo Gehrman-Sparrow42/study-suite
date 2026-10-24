@@ -17,6 +17,13 @@ A separate course accent affects heading metadata and navigation. Named themes: 
 
 ## Choose components by teaching value
 
+Optimize comprehension and scanning: a clear core statement, short explanatory
+paragraphs, labelled parallel points, visible conditions, and a readable text
+measure. Use existing processes for sequences and comparisons for real contrasts.
+Choose structure for the information; do not add decoration, dashboard controls,
+extra cards or emphasis merely to make a page look busy. Body and lead text have
+a 75ch maximum measure; figures, formulas and tables retain their useful width.
+
 - Short definitions can pair using `compact=true`; do not pair long mechanisms.
 - Processes and worked calculations use a full-width numbered sequence.
 - Formula blocks show a core statement, editable LaTeX and variable/assumption explanation. Inline math is supported using explicit `\(...\)` tokens in text.
@@ -25,6 +32,8 @@ A separate course accent affects heading metadata and navigation. Named themes: 
 - Details are open by default in Learn; reserve them for supplementary expansion.
 - Reviews give a short takeaway at natural boundaries. They do not ask the reader to answer questions.
 - Figures have informative captions, alt text and a tap-to-enlarge modal with zoom/pan.
+- Keep supporting figures compact and left-aligned rather than filling a wide empty panel. Put a useful diagram before the comparison it explains; group related information in reading order without duplicate captions. A methods table should compare methods, while hazards belong in a short associated list rather than an unrelated extra column.
+- Deliver actual rendered screenshots after presentation changes so the user can assess the result immediately. Update these guides with reusable presentation improvements. Visual inspection complements behavior checks; an image alone does not verify editing or saving.
 
 Do not add decorative charts, stock photography, giant hero banners, unrelated animation, card quotas or dashboard widgets. Keep headings and controls familiar. Test dense and short sections at desktop and phone widths.
 

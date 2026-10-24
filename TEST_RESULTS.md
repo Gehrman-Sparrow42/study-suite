@@ -98,3 +98,8 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 ## 24 October 2026 — in-place worked-example audit
 
 11 delivered course HTMLs inspected; 9 affected files corrected, comprising 69 worked-block instances. All 11 passed structural checks and 390/320 px layout checks in Edge. Affected files passed task-before-solution and actual Review visibility checks for every worked block, plus problem-text edit/download/offline reopen. Existing suite-app and suite-styles contents were checked byte-for-byte unchanged; baseline comparisons allowed only worked-summary changes. No renderer or mathematical method was changed. No new independent scientific audit claimed for this editorial restatement.
+
+
+## 24 October 2026 — readable lists and emphasis
+
+32 unit tests passed, including escaped bold input and paragraph/list grouping. tests/browser_readability.py passes clean export without false edits, actual strong/list editing, Enter-created list items, Review/search behavior, browser recovery, real export/reopen and snapshot reconcile/rebuild with inline math. Existing Edge smoke/editing, failure/picker/offline, weekly update, autosave/recovery and Learn/Review tests pass. JavaScript syntax, Python compilation and Ruff checks pass. Actual course screenshots inspected at desktop and 390/320 px widths; compact figures remain zoomable. Firefox was not run. Private course outputs stay untracked.

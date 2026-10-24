@@ -165,15 +165,29 @@ def embedded_asset(block: dict, content_dir: Path) -> str:
 
 
 def rich_text(value: str) -> str:
-    """Plain text with optional explicit \\(LaTeX\\) spans; never arbitrary HTML."""
-    pieces = re.split(r'(\\\(.*?\\\))', value, flags=re.DOTALL)
+    """Escaped prose with restricted bold and inline math; never arbitrary HTML."""
+    pieces = re.split(r'(\\\(.*?\\\)|\*\*[^*\n]+\*\*)', value, flags=re.DOTALL)
     output = []
     for piece in pieces:
         if piece.startswith('\\(') and piece.endswith('\\)'):
             raw = esc(piece[2:-2])
             output.append(f'<span class="math-unit inline-math" contenteditable="false"><span class="equation-render" data-display="inline" data-raw="{raw}">{raw}</span><button class="edit-formula" aria-label="Edit inline formula">Edit</button></span>')
+        elif piece.startswith('**') and piece.endswith('**'):
+            output.append(f'<strong>{esc(piece[2:-2])}</strong>')
         else:
             output.append(esc(piece))
+    return ''.join(output)
+
+
+def explanation_html(value: str) -> str:
+    """Keep authored paragraphs and simple bullet groups in one editable host."""
+    output = []
+    for group in value.split('\n\n'):
+        lines = group.split('\n')
+        if lines and all(line.startswith('- ') for line in lines):
+            output.append('<ul>' + ''.join(f'<li>{rich_text(line[2:])}</li>' for line in lines) + '</ul>')
+        else:
+            output.append(f'<p>{rich_text(group)}</p>')
     return ''.join(output)
 
 
@@ -221,7 +235,7 @@ def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> st
         credit = block['credit'] + (f' · {block["source_url"]} · {block["license"]}' if block['origin'] == 'web' else '')
         out.append(f'<figure><button class="figure-open" aria-label="Enlarge figure: {esc(block["alt"])}"><img src="{uri}" alt="{esc(block["alt"])}"></button><figcaption{EDIT}{field_attr(pointer + "/caption")}>{esc(block["caption"])}</figcaption><span class="credit">{esc(credit)}</span></figure>')
     if block.get('body'):
-        paragraphs = ''.join(f'<p>{rich_text(p)}</p>' for p in block['body'].split('\n\n'))
+        paragraphs = explanation_html(block['body'])
         body = f'<div class="explanation-body"{EDIT}{field_attr(pointer + "/body")}>{paragraphs}</div>'
         out.append(f'<details class="explanation" open><summary>Read the explanation</summary>{body}</details>' if kind == 'details' else f'<div class="explanation">{body}</div>')
     if block.get('source') and config['source_labels'] == 'minimal':
