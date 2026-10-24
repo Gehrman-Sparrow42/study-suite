@@ -96,6 +96,8 @@ def validate_course(course: dict) -> None:
                 raise ValueError('compact must be true or false')
             if 'learn_only' in block and type(block['learn_only']) is not bool:
                 raise ValueError('learn_only must be true or false')
+            if 'presentation' in block and (kind != 'process' or block['presentation'] not in ('list', 'flow')):
+                raise ValueError('presentation is supported only for process blocks: list or flow')
             category = block.get('category', {'process': 'process', 'worked': 'formula', 'formula': 'formula'}.get(kind, 'definition'))
             if not isinstance(category, str) or category not in CATEGORIES:
                 raise ValueError(f'Unknown semantic category {category!r}')
@@ -229,7 +231,8 @@ def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> st
         out.append('</tbody></table></div>')
     if kind in {'process', 'worked', 'review'}:
         tag = 'ul' if kind == 'review' else 'ol'
-        out.append(f'<{tag}>' + ''.join(f'<li{EDIT}{field_attr(pointer + "/steps/" + str(index))}>{rich_text(step)}</li>' for index, step in enumerate(block['steps'])) + f'</{tag}>')
+        flow = ' class="process-flow" aria-label="Process sequence"' if kind == 'process' and block.get('presentation') == 'flow' else ''
+        out.append(f'<{tag}{flow}>' + ''.join(f'<li{EDIT}{field_attr(pointer + "/steps/" + str(index))}>{rich_text(step)}</li>' for index, step in enumerate(block['steps'])) + f'</{tag}>')
     if kind == 'figure':
         uri = embedded_asset(block, content_dir)
         credit = block['credit'] + (f' · {block["source_url"]} · {block["license"]}' if block['origin'] == 'web' else '')
@@ -237,7 +240,7 @@ def render_block(block: dict, content_dir: Path, config: dict, pointer='') -> st
     if block.get('body'):
         paragraphs = explanation_html(block['body'])
         body = f'<div class="explanation-body"{EDIT}{field_attr(pointer + "/body")}>{paragraphs}</div>'
-        out.append(f'<details class="explanation" open><summary>Read the explanation</summary>{body}</details>' if kind == 'details' else f'<div class="explanation">{body}</div>')
+        out.append(f'<details class="explanation" open><summary>Explanation</summary>{body}</details>')
     if block.get('source') and config['source_labels'] == 'minimal':
         out.append(f'<details class="provenance"><summary>Source note</summary>{esc(block["source"])}</details>')
     out.append('</article>')
@@ -260,7 +263,8 @@ def render_course(course: dict, content_dir: Path, config: dict) -> str:
         if not blocks:
             raise ValueError(f'{ident}: no reading blocks remain under the chosen visual policy')
         intro = paragraph(section['intro'], 'section-intro', pointer + '/intro') if section.get('intro') else ''
-        sections.append(f'<section class="section" id="{ident}">{week}<div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}{field_attr(pointer + "/title")}>{esc(section["title"])}</h2></div>{intro}<div class="blocks">{blocks}</div></section>')
+        toggle = f'<button class="section-toggle" aria-expanded="true" aria-controls="{ident}-blocks" aria-label="Collapse section"><span aria-hidden="true">▾</span></button>'
+        sections.append(f'<section class="section" id="{ident}">{week}<div class="section-heading"><span class="section-number">{number:02}</span><h2{EDIT}{field_attr(pointer + "/title")}>{esc(section["title"])}</h2>{toggle}</div>{intro}<div class="blocks" id="{ident}-blocks">{blocks}</div></section>')
     accent = ACCENTS.get(config['theme_accent'], config['theme_accent'])
     values = {'TITLE': esc(title), 'SUBTITLE': esc(course['subtitle']), 'KICKER': 'SYNTHETIC DEMO / NOT COURSE MATERIAL' if course['synthetic'] else 'YOUR COURSE / YOUR READING SPACE',
               'META': f'<span>{len(sections)} sections</span><span>{esc(config["depth"].replace("_", " "))}</span><span>Editable edition</span>',

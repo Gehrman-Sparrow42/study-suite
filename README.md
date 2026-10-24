@@ -8,6 +8,9 @@ Private source repository: [Gehrman-Sparrow42/study-suite](https://github.com/Ge
 
 ## Read, edit, save
 
+- The primary design reference is the user-selected Bionano reader: responsive concept groups, semantic-colour headings, wide comparisons and visual process chains. Future courses should follow that experience rather than the earlier prose-heavy composition.
+- Fold a section using its heading button, or fold an individual Explanation. Both begin expanded. Contents opens the selected section; search temporarily reveals matches and restores the previous fold state when cleared. There is no fixed-height clipping.
+- Process chains can display ordered editable stages linked by arrows. They remain visible in Review and preserve edits through saving and rebuilding.
 - Read top to bottom or jump using Contents. On phones, Contents opens a drawer.
 - Learn shows the teaching explanations. Review hides explanatory bodies while retaining core statements, formulas, sequences, comparisons and takeaways. Search temporarily exposes matching explanations in either mode. Only matching sections appear in Contents while searching; section jumps retain the query. Clear the search to restore the full course. Unrelated source notes stay closed.
 - Explanations can combine short paragraphs, labelled bullets and selective bold terms. The reader preserves emphasis and lists in exported HTML, browser recovery and update snapshots. Authors should explain the subject directly and place routine provenance in Source notes.

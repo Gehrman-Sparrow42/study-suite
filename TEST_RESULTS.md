@@ -109,3 +109,6 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 
 2026-10-24 reference-led fluid layout: six viewport sizes including actual 2560x1440 widescreen, desktop navigation open/closed, no horizontal overflow or unused outer workspace strip; intrinsic grid reflows. 32 unit tests and browser_readability edit/recovery/download/reopen/rebuild passed. Full-window screenshots inspected. CSS-only export updates preserve snapshots.
 
+
+2026-10-24 expanded Bionano overhaul: 33 unit tests, Python compile, Ruff, JS syntax and layout detector passed. New flow-step/edit/rebuild and native-disclosure tests passed. Topic folding/search restore and actual export/reopen while search was active passed. Existing Edge smoke, picker/offline, weekly source merges, autosave/recovery and Learn/Review/mobile regression suites passed; OS picker mocked with real backing writes/downloads. Actual three course editions checked at 2560/1920/1366/1000/390/320 widths. Firefox not rerun. Science unchanged beyond formatting/emphasis.
+

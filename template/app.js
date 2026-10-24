@@ -39,6 +39,17 @@ function mode(value) {
 }
 $('#learn').onclick = () => mode('learn');
 $('#review').onclick = () => mode('review');
+function sectionExpanded(section, expanded) {
+ section.classList.toggle('section-folded', !expanded);
+ const button = section.querySelector('.section-toggle');
+ button.setAttribute('aria-expanded', String(expanded));
+ button.setAttribute('aria-label', expanded ? 'Collapse section' : 'Expand section');
+}
+document.addEventListener('click', event => {
+ const button = event.target.closest('.section-toggle');
+ if (!button) return;
+ sectionExpanded(button.closest('.section'), button.getAttribute('aria-expanded') !== 'true');
+});
 function matchesContent(element, query) {
  return element.textContent.toLowerCase().includes(query) || [...element.querySelectorAll('[data-raw]')].some(e => e.dataset.raw.toLowerCase().includes(query)) || [...element.querySelectorAll('img')].some(e => e.alt.toLowerCase().includes(query));
 }
@@ -47,7 +58,7 @@ function search() {
  document.body.classList.toggle('searching', Boolean(query));
  let count = 0;
  $$('.section').forEach(section => {
-   const headingMatch = [...section.querySelectorAll('.section-heading, .section-intro')].some(e => matchesContent(e, query));
+   const headingMatch = [...section.querySelectorAll('.section-heading h2, .section-intro')].some(e => matchesContent(e, query));
    let found = false;
    section.querySelectorAll('.block').forEach(block => {
      const match = !query || headingMatch || matchesContent(block, query);
@@ -56,6 +67,12 @@ function search() {
    });
    section.hidden = !found;
    document.querySelector(`nav a[href="#${section.id}"]`).hidden = !found;
+   // Search temporarily reveals folded topics; clearing it restores the reader's state.
+   if (query && !section.hasAttribute('data-before-search')) section.dataset.beforeSearch = String(!section.classList.contains('section-folded'));
+   if (query && found) sectionExpanded(section, true);
+   else if (!query && section.hasAttribute('data-before-search')) {
+     sectionExpanded(section, section.dataset.beforeSearch === 'true'); delete section.dataset.beforeSearch;
+   }
    // Search may reveal text inside a closed explanation without altering saved preference.
    section.querySelectorAll('details').forEach(detail => {
      if (query && !detail.hasAttribute('data-before-search')) detail.dataset.beforeSearch = String(detail.open);
@@ -71,6 +88,7 @@ $('#search').addEventListener('input', search);
 $$('nav a').forEach(link => link.onclick = () => {
  if (mobile()) setNavigation(false);
  const section = document.getElementById(link.hash.slice(1));
+ sectionExpanded(section, true);
  section.setAttribute('tabindex', '-1'); section.focus({preventScroll:true});
 });
 let scrollScheduled = false;
@@ -198,6 +216,14 @@ function exportHTML() {
  clone.querySelectorAll('[style]').forEach(e => { if (!e.getAttribute('style').trim()) e.removeAttribute('style'); });
  clone.querySelectorAll('.section,.block,nav a').forEach(e => e.removeAttribute('hidden'));
  clone.querySelectorAll('details[data-before-search]').forEach(e => { e.open = e.dataset.beforeSearch === 'true'; delete e.dataset.beforeSearch; });
+ clone.querySelectorAll('.section[data-before-search]').forEach(section => {
+   const expanded = section.dataset.beforeSearch === 'true';
+   section.classList.toggle('section-folded', !expanded);
+   const button = section.querySelector('.section-toggle');
+   button.setAttribute('aria-expanded', String(expanded));
+   button.setAttribute('aria-label', expanded ? 'Collapse section' : 'Expand section');
+   delete section.dataset.beforeSearch;
+ });
  clone.querySelectorAll('dialog').forEach(e => e.removeAttribute('open'));
  clone.querySelector('.image-stage').replaceChildren();
  clone.querySelector('#formula-source').textContent = '';

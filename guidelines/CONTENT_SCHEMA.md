@@ -103,3 +103,7 @@ In `body`, separate prose paragraphs and bullet groups with a blank line. Each s
 Example body: `Useful products:\n\n- **Lipids:** a possible fuel feedstock.\n- **Carbohydrates:** another possible conversion feedstock.\n\nSuitability depends on the organism and process.` In JSON these newline escapes become real line breaks. The full body still hides in Review. Essential limitations must remain in persistent content.
 
 Save/export, recovery and weekly snapshots preserve these authored markers. When updating an older HTML to use this formatting, also update its reader runtime through a deliberate rebuild from reconciled source; changing DOM alone does not give old recovery code the new syntax.
+
+### Visual process chains
+
+A `process` block can set `"presentation": "flow"` to render its existing ordered `steps` as an arrow-connected vertical chain. Omit this field (or use `"list"`) for a normal numbered sequence. Other block types reject this field. Example: `{"type":"process","title":"Conversion chain","summary":"An input becomes a useful output.","presentation":"flow","steps":["**Input:** collect the feed.","**Conversion:** transform the feed.","**Output:** recover the product."]}`. These are synthetic authoring examples, not course facts. Every step retains its editable pointer and is visible in Review unless the whole block is explicitly learn-only. Body explanations use native disclosures, open by default; no new body field or schema version is required.

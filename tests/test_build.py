@@ -47,6 +47,19 @@ class BuilderTests(unittest.TestCase):
         self.assertNotIn('<script>', rich_text('**<script>**'))
         self.assertIn('data-raw="x=2"', rich_text(r'**Rate** and \(x=2\)'))
 
+    def test_process_flow_preserves_ordered_editable_steps(self):
+        block = {'type': 'process', 'title': 'Conversion', 'summary': 'A sequence.',
+                 'presentation': 'flow', 'steps': ['**Input** enters.', 'Output leaves.'],
+                 'body': 'An optional explanation.'}
+        rendered = render_block(block, ROOT / 'demo', load_config(), 'sections/0/blocks/0')
+        self.assertIn('<ol class="process-flow"', rendered)
+        self.assertIn('data-field="sections/0/blocks/0/steps/0"', rendered)
+        self.assertIn('<strong>Input</strong> enters.', rendered)
+        self.assertIn('<details class="explanation" open>', rendered)
+        self.course['sections'][0]['blocks'][0]['presentation'] = 'flow'
+        with self.assertRaisesRegex(ValueError, 'presentation'):
+            validate_course(self.course)
+
     def test_focused_learning_build_preserves_authored_content(self):
         # Depth is validated authoring metadata, not an automatic text cutter.
         with tempfile.TemporaryDirectory() as directory:

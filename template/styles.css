@@ -24,6 +24,8 @@ main,body.nav-closed main{max-width:none}.section-intro{max-width:75ch}
 /* Reference-led hierarchy: topic boundaries, semantic titles, quiet supporting chrome. */
 .section-heading{padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:24px}
 .section-heading h2{color:var(--accent)}
+.section-heading h2{flex:1;min-width:0}.section-toggle{flex:none;padding:7px 12px;background:transparent;border-color:transparent;color:var(--muted);min-height:44px;min-width:44px}.section-toggle[aria-expanded=false] span{display:inline-block;transform:rotate(-90deg)}
+.section-folded>.blocks,.section-folded>.section-intro{display:none}
 .block .label{display:none}.block h3{color:var(--semantic,var(--heading));font-size:19px;margin-bottom:12px}
 .block{border-radius:12px;padding:24px;line-height:1.65}
 .block .lead{margin-top:0}.block .explanation-body{margin-top:14px}
@@ -32,5 +34,17 @@ main,body.nav-closed main{max-width:none}.section-intro{max-width:75ch}
 .table-scroll{border-radius:8px}th{background:#101e2c}tbody tr:nth-child(even){background:#080c10}
 .course-heading{padding-bottom:24px;margin-bottom:32px}h1{font-size:clamp(28px,2.2vw,36px)}
 *{scrollbar-width:thin;scrollbar-color:#344d46 var(--bg)}::selection{background:#28473e;color:var(--heading)}
-@media print{.blocks{display:block}.block{margin-bottom:16px}}
+/* Native disclosure keeps individual depth optional without clipping editable content. */
+details.explanation{margin-top:16px;border-top:1px solid var(--line);padding-top:6px}
+details.explanation>summary{font-size:12px;color:var(--muted);width:fit-content;padding:7px 0}
+details.explanation>summary:hover{color:var(--accent)}
+.block details.explanation .explanation-body{margin-top:6px}
+/* Ordered, editable process diagrams: connector arrows are presentation only. */
+.block .process-flow{list-style:none;padding:0;margin:20px 0 0;max-width:75ch}
+.block .process-flow>li{position:relative;text-align:center;padding:12px 16px;margin:0 0 30px;background:#111c19;border:1px solid #293c34;border-radius:8px}
+.block .process-flow>li:not(:last-child)::after{content:"↓" / "";position:absolute;top:100%;left:calc(50% - .5em);width:1em;line-height:30px;color:var(--accent)}
+.block .process-flow>li:last-child{margin-bottom:0;background:#21322b;border-color:#496759}
+.block .process-flow>li strong{color:var(--green)}
+.block:has(.process-flow){border-color:#293c34;border-left-color:var(--green)}
+@media print{.section-toggle{display:none}.blocks,.section-folded>.blocks{display:block}.section-folded>.section-intro{display:block}.block{margin-bottom:16px}details.explanation>.explanation-body{display:block!important}}
 @media(max-width:720px){.block[data-type=figure]{padding:8px 18px 16px}}

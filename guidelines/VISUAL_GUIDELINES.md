@@ -4,7 +4,7 @@ The workspace uses available width beside navigation and expands when navigation
 
 ## Design direction
 
-The reference suites establish true black, semantic color, top-to-bottom reading, direct editing, navigation and clean export. V3 keeps these habits while replacing heavy glows, oversized fixed card grids, collapsed mobile sidebars and brittle fixed-height accordions. Use a restrained editorial hierarchy: compact course heading, numbered sections, readable prose, full-width mechanisms/derivations, optional paired short concepts. Default text uses local Segoe UI/Arial; no external font dependency.
+The user-selected Bionano L 1 to 10 reader is the primary experience reference. Future suites should be substantially closer to that reader than the earlier prose-heavy V3 pages. Use its compact topic grouping, distinct semantic titles, expandable depth, visual sequences and varied information structures. Preserve true black, direct editing, accessible navigation and reliable export. Refine implementation weaknesses such as fixed-height clipping while retaining the reference experience. Default text uses local Segoe UI/Arial; no external font dependency.
 
 The canvas is #000000. Charcoal panels separate content without flooding an OLED display. Semantic colors never vary with course accent:
 
@@ -15,7 +15,7 @@ The canvas is #000000. Charcoal panels separate content without flooding an OLED
 | formula | Equations, hard rules, parameters | #e1bd7e amber |
 | warning | Inhibitors, failure states, pitfalls | #e2a0a0 red |
 
-A separate course accent affects heading metadata and navigation. Named themes: teal/auto, violet, blue, green; custom #RRGGBB accepted. Check contrast when using custom colors. Labels carry meaning in addition to color.
+A separate course accent affects heading metadata and navigation. Named themes: teal/auto, violet, blue, green; custom #RRGGBB accepted. Check contrast when using custom colors. Titles and written statements carry meaning in addition to color; avoid a redundant category label above each title.
 
 ## Choose components by teaching value
 
@@ -26,8 +26,8 @@ Choose structure for the information; do not add decoration, dashboard controls,
 extra cards or emphasis merely to make a page look busy. Body and lead text have
 a 75ch maximum measure; figures, formulas and tables retain their useful width.
 
-- Short definitions can pair using `compact=true`; do not pair long mechanisms.
-- Processes and worked calculations use a full-width numbered sequence.
+- Related concepts share a responsive topic-local grid. Width determines column count, not a hardcoded screen coordinate. Keep a coherent row-major reading order; avoid dense multi-column layouts for long derivations.
+- Use `presentation="flow"` for process blocks that represent a real chain. Present short named stages connected by arrows, with a visually distinct final stage. Use a normal numbered list for procedural analysis, branching steps or long worked calculations. Never draw arrows between merely related facts.
 - Formula blocks show a core statement, editable LaTeX and variable/assumption explanation. Inline math is supported using explicit `\(...\)` tokens in text.
 - Comparisons use a table with horizontal scrolling at narrow widths.
 - Prose supplies conceptual connections without extra visual ornament.
@@ -59,6 +59,10 @@ Save success is reported only after the picker write closes. Anchor downloads re
 
 ## Reference direction: Bionano viewing experience
 
-The user selected the supplied Bionano L 1 to 10 reader as a broader experience reference, beyond a single spacing correction. Carry forward its clear section/topic hierarchy, semantic-colour concept titles, compact labelled facts, paired related explanations, wide comparison tables and distinct synthesis callouts. Use quiet secondary metadata and avoid a repeated category label above every heading. Keep the true-black palette and a restrained type scale. Make the layout adapt to available space with intrinsic grid sizing; use a single column when reading width demands it. Tables and synthesis may span their topic group; a figure should sit near its explanation. Do not copy the reference's fixed-height clipping, hover movement, inaccessible toggles, or unrelated content/features. Learn/Review already provides progressive depth. Preserve readable prose, complete qualifications, keyboard access, editing and export.
+The user selected the supplied Bionano L 1 to 10 reader as a broader experience reference, beyond a single spacing correction. Carry forward its clear section/topic hierarchy, semantic-colour concept titles, compact labelled facts, paired related explanations, wide comparison tables and distinct synthesis callouts. Use quiet secondary metadata and avoid a repeated category label above every heading. Keep the true-black palette and a restrained type scale. Make the layout adapt to available space with intrinsic grid sizing; use a single column when reading width demands it. Tables and synthesis may span their topic group; a figure should sit near its explanation. Do not copy the reference's fixed-height clipping, hover movement, inaccessible toggles, or unrelated content/features. Learn/Review controls overall depth; native explanation disclosures and accessible section folding let the reader control individual topics. All start expanded and use natural content height. Preserve readable prose, complete qualifications, keyboard access, editing and export.
 
 Author concise topic-local groups: related definitions can be compared side by side; mechanisms should read in order; wide tables should compare consistent dimensions; a short takeaway should synthesize rather than repeat an entire section. The goal is an easy reading path, not a dashboard or maximum card count. Future courses should be authored for this structure rather than styling long transcripts as cards.
+
+### Process flows and disclosure behavior
+
+`process` blocks accept optional `presentation: "flow"` (or `"list"`, the default). Steps remain ordered, fully editable text with stable snapshot pointers. Short bold stage names aid scanning; preserve essential qualifications. The last stage is distinguished visually without fabricating an output or changing the science. Explanations use native details/summary, open in Learn and hidden in Review. Section buttons fold a topic group; navigation opens its destination, search reveals matches and restores prior fold/disclosure state when cleared. Export must not accidentally save a temporary search expansion. No fixed maximum content heights.
