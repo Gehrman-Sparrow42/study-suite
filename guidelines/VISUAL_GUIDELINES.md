@@ -1,5 +1,7 @@
 # Visual and interaction guidelines
 
+Keep a coherent reading column at wide desktop sizes: anchor it beside the sidebar, cap the main container at 1040px, and do not introduce viewport-dependent empty gutters between navigation and content. Cards, figure headings and figure content share an aligned text inset. Supporting images and captions share a bounded measure (up to 640px), with images large enough to read and an enlargement control. Do not shrink images independently while leaving captions or surrounding cards stretched across the page. Check full-window screenshots at ultrawide, ordinary desktop, intermediate and mobile widths; isolated card crops can hide layout problems.
+
 ## Design direction
 
 The reference suites establish true black, semantic color, top-to-bottom reading, direct editing, navigation and clean export. V3 keeps these habits while replacing heavy glows, oversized fixed card grids, collapsed mobile sidebars and brittle fixed-height accordions. Use a restrained editorial hierarchy: compact course heading, numbered sections, readable prose, full-width mechanisms/derivations, optional paired short concepts. Default text uses local Segoe UI/Arial; no external font dependency.

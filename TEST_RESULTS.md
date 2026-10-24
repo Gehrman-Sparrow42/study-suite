@@ -103,3 +103,6 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 ## 24 October 2026 — readable lists and emphasis
 
 32 unit tests passed, including escaped bold input and paragraph/list grouping. tests/browser_readability.py passes clean export without false edits, actual strong/list editing, Enter-created list items, Review/search behavior, browser recovery, real export/reopen and snapshot reconcile/rebuild with inline math. Existing Edge smoke/editing, failure/picker/offline, weekly update, autosave/recovery and Learn/Review tests pass. JavaScript syntax, Python compilation and Ruff checks pass. Actual course screenshots inspected at desktop and 390/320 px widths; compact figures remain zoomable. Firefox was not run. Private course outputs stay untracked.
+
+2026-10-24 layout correction: 32 unit tests passed. Real detailed reader checked in Edge at 2559/1440/1000/768/390/320px: no page overflow, bounded main width, matching caption/image widths, readable 640px desktop image. Figure enlargement and sidebar closure passed. Layout detector returned no findings. Three existing private editions updated by replacing only suite-styles; snapshots/content retained.
+
