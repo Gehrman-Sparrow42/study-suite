@@ -97,3 +97,8 @@ Validation: 31 Python tests pass, including a focused config build and preservat
 Authoring rules now require each worked example to state its task, essential givens/units and requested results before calculations, visibly in both Learn and Review. Answer-only leads and implied tasks fail the authoring checklist. Missing inputs and illustrative assumptions must remain explicit. The content schema documentation clarifies this use of the existing summary field; no renderer or schema behavior changed.
 
 Applied to all 12 worked blocks in a privately delivered course revision, preserving earlier HTML/source editions and stable IDs. Course-specific checks verified actual Review visibility/order, unchanged equations and solution steps, MathJax, edited-problem save/reopen, and 390/320 px layouts. Private source and verification records remain outside Git.
+
+
+## 2026-10-24: audit other delivered worked examples
+
+Inspected the existing real-course readers for answer-first or incomplete worked problems. Corrected affected HTML and authored sources in place at the user's explicit request, preserving renderer/runtime and calculations. Short editions without worked blocks needed no change. Removed the redundant prior fix-specific HTML after confirming no unique saved edits and equal baseline content in the corrected original. No new HTML editions were created. Detailed inventory, per-block decisions and actual browser checks remain in ignored authoring work and private course records.

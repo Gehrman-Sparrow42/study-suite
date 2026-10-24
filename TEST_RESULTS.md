@@ -93,3 +93,8 @@ Reproduce with commands in README.md. Screenshots, edited downloads and machine-
 ## 24 October 2026 — worked-problem authoring checks
 
 Documentation-only rule change using existing summary/steps rendering. In the real course revision, 12/12 worked blocks passed problem-before-solution and Review-visibility checks. Structural validation, existing math rendering, problem-text edit/download/reopen, zero page errors and 390/320 px overflow checks passed. A structured source comparison confirmed that only worked summaries changed; all equations, solution steps, IDs and other content remained unchanged. No renderer code changed, so no unrelated runtime regression rerun.
+
+
+## 24 October 2026 — in-place worked-example audit
+
+11 delivered course HTMLs inspected; 9 affected files corrected, comprising 69 worked-block instances. All 11 passed structural checks and 390/320 px layout checks in Edge. Affected files passed task-before-solution and actual Review visibility checks for every worked block, plus problem-text edit/download/offline reopen. Existing suite-app and suite-styles contents were checked byte-for-byte unchanged; baseline comparisons allowed only worked-summary changes. No renderer or mathematical method was changed. No new independent scientific audit claimed for this editorial restatement.

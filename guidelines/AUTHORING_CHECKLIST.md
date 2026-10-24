@@ -36,6 +36,7 @@ Use this before delivering or revising any course. Current user instructions tak
 - Inventory the supplied material and retain a coverage/omission record. Preserve original source files and existing HTML editions.
 - Inspect the latest saved HTML snapshot before revising. Reconcile personal notes; stop for conflicting edits rather than replacing them.
 - Preserve stable IDs and source provenance. Do not publish private course materials or generated exports with reusable project changes.
+- For an explicitly requested in-place correction, inspect the saved snapshot, change only intended fields in the existing HTML and its source, and verify edit/export behavior. Do not force a new fix-specific HTML filename. New weeks and alternate reading scopes still preserve separate editions.
 - Deliver a clearly named final edition plus its rebuildable JSON, config, selected assets and concise resume/coverage notes beside the course.
 - Build and structurally validate. Browser-check actual Learn/Review content, formula rendering, text/formula edits, an edited bullet if applicable, real save/reopen, and a dense mobile section.
 - Keep the final report brief: link the recommended edition, state meaningful changes/checks, and disclose only material limitations.
