@@ -6,6 +6,7 @@ For a batch refresh, inventory every delivered edition and bind it to its exact 
 
 ## Content and language
 
+- For laboratory/process courses, use one useful end-to-end overview linking preparation, measurement-based decisions, cultivation/operation, recovery and reported outputs. Preserve final-volume and denominator conditions. When expanding or merging a flow, audit each stage label against its actual action; never assign labels by position alone.
 - Use bullets for parallel information and selective bold terms/lead-ins; keep connected reasoning in prose. Verify real list and emphasis rendering, not literal markup, and preserve it through saved edits and recovery.
 - State facts directly. Remove routine instructor/lecture narration; retain attribution only where it resolves a source-specific convention, ambiguity, disagreement or exam instruction. Source notes carry normal provenance.
 
