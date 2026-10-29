@@ -2,6 +2,8 @@
 
 Use this before delivering or revising any course. Current user instructions take precedence.
 
+Do not launch a scientific-review subagent for Study Suite creation or updates. Perform source-grounded factual checks in the authoring workflow; an explicit user request is required to add that reviewer to a Study Suite task.
+
 For a batch refresh, inventory every delivered edition and bind it to its exact source/baseline, not only its course ID: historical normal/high-yield editions can share an ID. Preserve their independent edits and intended scope. Inspect specialized legacy readers for interactive tools and storage behavior before replacing a runtime; use a presentation adapter when a generic reader would discard those features. Do not redo already-current content merely to count it as refreshed.
 
 ## Content and language
