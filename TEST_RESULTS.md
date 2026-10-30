@@ -141,3 +141,7 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 - One specialized guide: hidden text/JSON checked and original code/markup preserved exactly; no native HTML-export claim.
 - 16 matching JSON source renders retain correct edition-specific briefs. Standard source-bundle renderer copies updated only after matching known shared versions.
 - Helper Python syntax and Ruff pass. Private inventory, preservation manifest and verification live in ignored work/study-brief-retrofit. External upload extraction remains unverified.
+
+## 2026-10-30: context-only study briefs
+
+Removed the tutor-behavior field and rendered instruction section from all 14 delivered readers and the reusable builder/demo. Course context, reported exam boundaries, evidence/uncertainty and labelled topic-priority opinions remain; imperative priority wording is now descriptive. Receiving assistants choose their own teaching approach. Updated 16 matching source JSONs, three bundled builders and future-authoring rules. Checks: 37 unit tests, helper syntax/lint, all source renders, exact visible-content preservation and the existing 14-reader Edge/13-export verification. Private artifacts stay outside tracked files.

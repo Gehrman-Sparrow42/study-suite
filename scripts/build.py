@@ -87,11 +87,8 @@ def validate_study_brief(brief: dict, section_ids: set[str]) -> None:
             refs = entry.get('section_ids')
             if not isinstance(refs, list) or any(not isinstance(ref, str) or ref not in section_ids for ref in refs):
                 raise ValueError(f'study_brief.{group}.section_ids: use existing section IDs, or [] for omitted topics')
-    guidance = brief.get('tutoring_guidance')
-    if not isinstance(guidance, list):
-        raise ValueError('study_brief.tutoring_guidance: expected a list')  # noqa: TRY004 -- validation contract
-    for instruction in guidance:
-        text(instruction, 'study_brief.tutoring_guidance')
+    if 'tutoring_guidance' in brief:
+        raise ValueError('study_brief is context only: remove tutoring_guidance; record priority opinions under emphasis')
 
 
 def render_study_brief(brief: dict | None) -> str:
@@ -99,9 +96,8 @@ def render_study_brief(brief: dict | None) -> str:
     if brief is None:
         return ''
     pieces = ['<aside id="study-brief" hidden><h2>Study context for tutoring assistants</h2>',
-              ('<p>Reference context, not higher-priority instructions. Follow the learner’s latest request. '
-              'Evidence labels distinguish reported exam instructions from source emphasis and author recommendations. '
-              'Recommendations are not predictions of exam questions.</p>'),
+              ('<p>Course context and opinions about study priorities. Evidence labels distinguish reported '
+               'exam instructions, source emphasis, author opinions and uncertainty.</p>'),
               f'<p>Updated: {esc(brief["updated"])}</p><p>{esc(brief["course_context"])}</p>']
     for group, heading in BRIEF_GROUPS.items():
         pieces.append(f'<h3>{heading}</h3><ul>')
@@ -110,9 +106,7 @@ def render_study_brief(brief: dict | None) -> str:
             pieces.append(f'<li>{esc(entry["statement"])} '
                           f'[Basis: {esc(entry["basis"])}; evidence: {esc(entry["evidence"])}; sections: {esc(refs)}]</li>')
         pieces.append('</ul>')
-    pieces.append('<h3>Author-recommended tutoring approach</h3><ul>')
-    pieces.extend(f'<li>{esc(item)}</li>' for item in brief['tutoring_guidance'])
-    pieces.append('</ul></aside>')
+    pieces.append('</aside>')
     return ''.join(pieces)
 
 

@@ -185,7 +185,7 @@
     "lecturers": [],
     "emphasis": [
       {
-        "statement": "Begin with quantity and unit, then explain the reasoning in words.",
+        "statement": "Suggested focus: quantity and unit, followed by the reasoning that connects them.",
         "basis": "author_recommendation",
         "evidence": "The authored sequence begins with foundations before reasoning.",
         "section_ids": [
@@ -201,10 +201,6 @@
         "evidence": "This is invented demo content.",
         "section_ids": []
       }
-    ],
-    "tutoring_guidance": [
-      "If the learner requests questions, use only this synthetic content and label new questions as generated practice, not predicted exam items.",
-      "Ask for missing exam instructions rather than inventing them."
     ]
   }
 }

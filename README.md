@@ -32,7 +32,7 @@ The HTML embeds its CSS, JavaScript, and selected figures. **MathJax 3.2.2 is an
 - **Clear visual structure:** True-black background, semantic heading colors, short labelled explanations, comparisons, process chains, and related figures. Responsive groups react to viewport changes, disclosure changes, and editing.
 - **Editable content:** Click headings, prose, lists, captions, or table cells to edit. Formula controls edit raw LaTeX. Export preserves the supported structure; pasted rich text becomes plain text.
 - **Embedded figures:** Open a figure to enlarge it, zoom, and pan. Figures travel with the saved file.
-- **Embedded study context:** Newly authored courses include a hidden study brief with exam scope, lecturer/topic mapping, evidence-labelled priorities, uncertainty, and recommended tutoring depth. It travels in saved HTML for use with another assistant. Upload processors may omit hidden content; if necessary, provide the brief separately.
+- **Embedded study context:** Newly authored courses include a hidden study brief with exam scope, lecturer/topic mapping, evidence-labelled priorities, uncertainty, course depth, and opinions about topics worth more attention. It contains no tutor-behavior instructions. It travels in saved HTML for use with another assistant. The brief is embedded in the HTML source and preserved in saved files.
 - **Portable progress:** Save your edited reader as HTML and reopen that file to continue. The weekly update workflow can reconcile its text and formula edits with newly authored material.
 
 This is an explanation-based reading resource. It has no quiz, flashcard, self-test, or question-bank interface. Worked examples and explanations of supplied course questions are supported.

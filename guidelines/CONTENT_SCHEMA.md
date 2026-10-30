@@ -47,7 +47,7 @@ Fields:
 - `scope`, `lecturers`, `emphasis`, `uncertainties`: lists of evidence-labelled entries; use an empty list when appropriate and record consequential missing information under uncertainties.
 - Each entry has `statement`, `basis`, `evidence`, and `section_ids`. Statements and evidence must be nonempty. `section_ids` points to actual authored section IDs; use `[]` for excluded/unrepresented topics. Evidence should identify a source/page, user message/date, or the reasoning behind a recommendation/inference. It is a location/basis, not fabricated proof.
 - `basis` is one of `user_report`, `source_statement`, `source_emphasis`, `author_recommendation`, `inference`, `unconfirmed`.
-- `tutoring_guidance`: a list of plain-text author recommendations about explanation depth and requested preparation questions. These remain subordinate to the learner's latest instructions.
+- The brief is context-only. `emphasis` may contain clearly labelled opinions about which topics deserve more attention and why. Tutor-behavior directives are not part of this schema; the former `tutoring_guidance` field is rejected. No prescribed teaching method, response style, study sequence, question-generation rules or restrictions on the receiving assistant belong in the brief.
 
 Example entry in `scope`:
 
@@ -57,7 +57,7 @@ Example entry in `scope`:
 
 Use the real date and existing section ID when authoring. The complete synthetic example is in `demo/sample_course.json`. Unknown exam format, lecturer identity or emphasis must remain unknown; presence in the HTML or PDF alone does not prove exam importance. Scope statements must distinguish excluded, pending and merely lower-priority topics. Preserve necessary prerequisite explanations, labelling their role.
 
-The brief contains no secrets or contact information; hidden content is readable in the file source and travels when shared. It is not a backend, access control, or a guarantee that any upload processor will extract it. Some services discard hidden content or scripts. If a tutoring assistant cannot state the brief's scope and uncertainty, provide its plain text separately instead of assuming it was read.
+The brief contains no secrets or contact information; hidden content is readable in the file source and travels when shared. It is not a backend, access control, or a guarantee that any upload processor will extract it. Some services discard hidden content or scripts. The user has verified that their web ChatGPT workflow reads the embedded context; extraction by other services is outside the renderer’s checks.
 
 ## Common block fields
 

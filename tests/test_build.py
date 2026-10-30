@@ -48,6 +48,14 @@ class BuilderTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'study_brief'):
                     validate_course(self.course)
 
+    def test_study_brief_contains_context_without_tutor_behavior_directives(self):
+        value = render_course(self.course, ROOT / 'demo', load_config())
+        self.assertNotIn('Author-recommended tutoring approach', value)
+        self.assertNotIn('Follow the learner', value)
+        self.course['study_brief']['tutoring_guidance'] = ['Use a fixed tutoring method.']
+        with self.assertRaisesRegex(ValueError, 'context only'):
+            validate_course(self.course)
+
     def test_portable_deterministic_build(self):
         with tempfile.TemporaryDirectory() as directory:
             a, b = Path(directory) / 'a.html', Path(directory) / 'b.html'
