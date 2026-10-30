@@ -174,3 +174,9 @@ Edge checks passed for all 14 hidden briefs and exact rendered text/editable fie
 ## 2026-10-30: context-only study briefs
 
 Removed the tutor-behavior field and rendered instruction section from all 14 delivered readers and the reusable builder/demo. Course context, reported exam boundaries, evidence/uncertainty and labelled topic-priority opinions remain; imperative priority wording is now descriptive. Receiving assistants choose their own teaching approach. Updated 16 matching source JSONs, three bundled builders and future-authoring rules. Checks: 37 unit tests, helper syntax/lint, all source renders, exact visible-content preservation and the existing 14-reader Edge/13-export verification. Private artifacts stay outside tracked files.
+
+## 2026-10-30: second mixed-scope course with two matched question sets
+
+Delivered one requested focused reader and standalone source bundle from five supplied files. Teacher introduction covered normally after text reading and all-page visual survey; ten exact supplied prompts matched by topic/title to two presentations. Third deck is inventoried but pending its question set. Context-only brief includes source-labelled scope, teacher emphasis, lecturer mapping, priority opinions and uncertainties; no tutor-behavior directives. Source conflicts and proposed/validated distinctions retained. No scientific-review agent.
+
+Validation: actual Edge six-width layout/navigation, all ten Review prompts/core answers, source-discrepancy visibility, folding/search restoration, two edited fields, real download/offline reopen and context persistence passed. Standalone source rebuild byte-identical; all five original hashes unchanged; 37 shared unit tests, JS syntax, authoring helper compilation and Ruff passed. Private sources/output/screenshots remain ignored. Added reusable guidance for question-set matching when group identifiers repeat.

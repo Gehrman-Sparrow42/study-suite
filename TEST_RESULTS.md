@@ -145,3 +145,12 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 ## 2026-10-30: context-only study briefs
 
 Removed the tutor-behavior field and rendered instruction section from all 14 delivered readers and the reusable builder/demo. Course context, reported exam boundaries, evidence/uncertainty and labelled topic-priority opinions remain; imperative priority wording is now descriptive. Receiving assistants choose their own teaching approach. Updated 16 matching source JSONs, three bundled builders and future-authoring rules. Checks: 37 unit tests, helper syntax/lint, all source renders, exact visible-content preservation and the existing 14-reader Edge/13-export verification. Private artifacts stay outside tracked files.
+
+## 2026-10-30 — mixed-scope new-course delivery
+
+- Five inputs inventoried and preserved; 86 teacher pages visually surveyed, question-relevant PDF parameters checked and native PPTX question evidence matched.
+- One reader, 18 sections/29 blocks: teacher introduction, two exact five-question sets, third set pending.
+- Edge at 2560/1920/1366/1000/390/320: no page overflow/card overlap; mobile navigation, Learn/Review, ten prompts/answers, search restoration, folding and source-condition note pass.
+- Actual clean export has zero false edits; bullet and table edits survive a real download and offline reopening. Hidden context-only study brief preserved; no page errors.
+- All original hashes unchanged; standalone source bundle rebuild equals actual delivered HTML byte-for-byte.
+- 37 unit tests, JS syntax and helper Python syntax/Ruff pass. Full-window screenshots and private evidence retained in ignored work/microbial. Temporary QA exports removed.
