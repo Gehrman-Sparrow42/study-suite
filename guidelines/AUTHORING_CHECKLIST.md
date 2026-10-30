@@ -59,3 +59,5 @@ For a batch refresh, inventory every delivered edition and bind it to its exact 
 - Reject large empty lanes caused by unequal card rows or orphan figures, even when overflow tests pass. Check meaningful companion placement and actual full-viewport balance after resizing, folding and editing; do not move the hole to the opposite side.
 
 - For dense worked problems, separate persistent Problem/Given/Find/Boundary paragraphs before calculations. For small tables, consider compact=true to pair them with their related process/explanation; inspect actual readability.
+
+- For a metadata-only retrofit, bind each delivered HTML to its exact baseline and preserve visible markup, runtime and saved edits. Specialized guides may need hidden text/JSON without a generic-template rebuild. Update matching source JSON and verified source-bundle renderers, retain historical baselines, and test actual export/reopen where supported.

@@ -132,3 +132,12 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 - Rebuilt synthetic demo passes structural validation. Modified Python files compile and Ruff checks pass with E402 enabled for path-bootstrap imports.
 - Full dual-browser smoke invocation reached unavailable Playwright Firefox executable; Firefox not verified. Explicit Edge smoke completed successfully.
 - External ChatGPT upload extraction was not tested. The hidden plain HTML brief and structured baseline are in the file, but receiving services may omit hidden text/scripts.
+
+## 2026-10-30 — retrospective study-brief delivery
+
+- 14 existing delivered readers updated in place; exact hidden-only reverse comparison passes.
+- Edge compares rendered reading text, editable fields and images before/after: all identical. Hidden metadata remains hidden.
+- 13 standard reader actual Save Progress/download/offline reopen checks preserve the brief and prior edit maps; Learn/Review and 2560/390/320 widths pass without page overflow. No page errors.
+- One specialized guide: hidden text/JSON checked and original code/markup preserved exactly; no native HTML-export claim.
+- 16 matching JSON source renders retain correct edition-specific briefs. Standard source-bundle renderer copies updated only after matching known shared versions.
+- Helper Python syntax and Ruff pass. Private inventory, preservation manifest and verification live in ignored work/study-brief-retrofit. External upload extraction remains unverified.
