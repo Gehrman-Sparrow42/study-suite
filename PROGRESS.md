@@ -152,3 +152,9 @@ Updated the README for public use: portable clone/ZIP quick start, current reade
 
 Added an authoring check to keep recognition tables at the course's intended depth: one plain-language identifying behaviour per item, with application catalogues and secondary distinctions omitted unless required. Applied to the requested existing reader and its rebuildable source. Structural validation, six-width browser layout, Learn/Review, edited export/reopen, helper syntax/lint and byte-identical bundle rebuild passed. Real course outputs remain untracked.
 
+
+## 2026-10-30: incremental update with a separate new-content reader
+
+Applied the requested limited delivery scope: one updated normal course and one standalone reader containing only newly supplied material. Visually processed a 33-page image-only PDF alongside a machine transcript, retained earlier source/HTML editions and all 14 existing sections/66 blocks, and used the conflict-aware updater. New-only recap is deliberately omitted from the full reader where the original course already teaches it. Unverified teaching-week labels are not displayed. Source registry, coverage, selected figures and independent edit identities remain in the private source bundle.
+
+Actual outputs passed structural validation, byte-identical source rebuilds, six-width Edge overflow/overlap checks, Learn/Review/search restoration, figure zoom, and real edited download/offline reopening. No renderer or runtime changes. Course inputs, outputs, screenshots and verification stay outside tracked files. Companion figures group with their related explanation stacks; wave mechanisms use a compact comparison. Temporary extraction renders and QA exports are cleaned after acceptance.
