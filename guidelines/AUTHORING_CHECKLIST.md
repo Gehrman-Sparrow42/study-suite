@@ -14,6 +14,7 @@ For a batch refresh, inventory every delivered edition and bind it to its exact 
 
 - Retain the major concepts, source terminology, essential mechanisms and useful worked calculations. Reduce repetition and peripheral detail before removing teaching substance.
 - Use simple English and short, direct sentences. Easier English should lower reading effort, not add beginner-level explanations.
+- For introductory recognition tables, give each item one plain-language identifying behaviour (for example, trigger → response). Omit application catalogues and secondary technical distinctions unless required by the course scope. Retain conditions that prevent a misleading statement; do not give every accuracy caveat equal prominence as a learning target.
 - Assume basic algebra, logarithms, percentages, powers and routine unit notation. Do not explain fraction bars, multiplication or obvious arithmetic.
 - Prefer compact bullets for parallel facts, distinctions and cautions; numbered steps for mechanisms and worked methods. Avoid creating another card merely to repeat its parent's summary.
 - Each sentence should add a definition, mechanism, implication, condition, distinction or necessary source qualification. Cut instructions such as “read these points with the explanation above.”

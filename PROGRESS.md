@@ -147,3 +147,8 @@ During the task the user disabled scientific-review subagents for Study Suite wo
 ## 2026-10-30: public repository and README refresh
 
 Updated the README for public use: portable clone/ZIP quick start, current reader interactions, save/recovery behavior, scoped authoring and paired editions, primary-author factual checks, source privacy, and development instructions. Publication changes repository visibility to public; real course inputs and generated readers remain outside tracked files. Historical private-repository entries above describe the state at the time.
+
+## 2026-10-30: simpler introductory recognition tables
+
+Added an authoring check to keep recognition tables at the course's intended depth: one plain-language identifying behaviour per item, with application catalogues and secondary distinctions omitted unless required. Applied to the requested existing reader and its rebuildable source. Structural validation, six-width browser layout, Learn/Review, edited export/reopen, helper syntax/lint and byte-identical bundle rebuild passed. Real course outputs remain untracked.
+
