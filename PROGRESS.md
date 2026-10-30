@@ -143,3 +143,7 @@ Delivered one concise English reader in the Smart Material course folder (11 sec
 
 During the task the user disabled scientific-review subagents for Study Suite work. Global guidance, reviewer skill and project rules now exclude automatic invocation; factual checks stay with the primary author. The earlier draft review had already completed; no further reviewer was launched. Personal guidance/skill synced, validated, checked and pushed to the private backup (5d75eb6). Mixed-scope/pending-question authoring rule documented.
 
+
+## 2026-10-30: public repository and README refresh
+
+Updated the README for public use: portable clone/ZIP quick start, current reader interactions, save/recovery behavior, scoped authoring and paired editions, primary-author factual checks, source privacy, and development instructions. Publication changes repository visibility to public; real course inputs and generated readers remain outside tracked files. Historical private-repository entries above describe the state at the time.
