@@ -55,3 +55,7 @@ python scripts/update.py apply demo/weekly_course.json demo/week_06.delta.json -
 ```
 
 The generated filenames above must not exist. This example intentionally omits `--edited-html`; supply your saved Weeks 1–5 HTML to import personal notes. The delivered clean Weeks 1–6 demo contains synthetic teaching material only. Browser tests additionally import six actual edited fields, add Week 6, make another note and append Week 7.
+
+## Tutoring context across revisions
+
+If the course has `study_brief`, revise that field in the current source JSON before applying a weekly delta when exam scope, lecturer mapping or emphasis changes. Preserve valid section references and label newly uncertain claims. The updater carries this metadata forward; it does not infer changes from uploaded slides or browser edits. Verify the brief in the saved next edition.

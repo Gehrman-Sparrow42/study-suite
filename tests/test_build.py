@@ -1,4 +1,5 @@
 """Focused deterministic builder checks; run with unittest discovery."""
+import copy
 import json
 import sys
 import tempfile
@@ -7,21 +8,45 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import (
+from build import (  # noqa: E402 -- local scripts after path bootstrap
     build,
     embedded_asset,
     explanation_html,
     load_config,
     render_block,
+    render_course,
     rich_text,
     validate_course,
 )
-from validate import validate_html
+from validate import validate_html  # noqa: E402 -- local scripts after path bootstrap
 
 
 class BuilderTests(unittest.TestCase):
     def setUp(self):
         self.course = json.loads((ROOT / 'demo/sample_course.json').read_text(encoding='utf-8-sig'))
+
+    def test_study_brief_is_escaped_hidden_and_preserved_in_snapshot(self):
+        from course_state import read_snapshot
+
+        self.course['study_brief']['course_context'] += ' <script>alert(1)</script>'
+        value = render_course(self.course, ROOT / 'demo', load_config())
+        self.assertIn('<aside id="study-brief" hidden>', value)
+        self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', value)
+        self.assertNotIn('<script>alert(1)</script>', value)
+        self.assertEqual(read_snapshot(value)['baseline']['study_brief'], self.course['study_brief'])
+        self.assertFalse(validate_html(value))
+        del self.course['study_brief']
+        self.assertNotIn('id="study-brief"', render_course(self.course, ROOT / 'demo', load_config()))
+
+    def test_study_brief_rejects_unlabelled_claims_and_stale_section_references(self):
+        valid = copy.deepcopy(self.course)
+        for field, bad_value in [('basis', 'certain_exam_prediction'), ('section_ids', ['missing-section']),
+                                 ('evidence', ''), ('statement', '')]:
+            with self.subTest(field=field):
+                self.course = copy.deepcopy(valid)
+                self.course['study_brief']['scope'][0][field] = bad_value
+                with self.assertRaisesRegex(ValueError, 'study_brief'):
+                    validate_course(self.course)
 
     def test_portable_deterministic_build(self):
         with tempfile.TemporaryDirectory() as directory:

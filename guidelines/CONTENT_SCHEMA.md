@@ -36,6 +36,29 @@ Use UTF-8 JSON. All text is English. Text fields are escaped prose with restrict
 
 Section IDs must be unique lowercase slugs matching `[a-z][a-z0-9-]*`. The generated anchor is `section-<id>`, preventing collisions with reader controls. `included_section_ids` must contain each section ID exactly once: reconcile it with the saved topic coverage map. Every section needs a nonempty `blocks` list. `intro` is optional.
 
+## Embedded study brief for tutoring
+
+`study_brief` is an optional course-level object for backward compatibility; author it for every new reader. It is reference context for a tutoring assistant, outside the visible reading UI. The renderer embeds escaped plain HTML text in `<aside id="study-brief" hidden>` and retains the object in the `suite-state` baseline JSON. Exports preserve both. It is not editable through the reading UI; revise source JSON when scope changes.
+
+Fields:
+
+- `updated`: date in `YYYY-MM-DD` form, referring to the latest context review.
+- `course_context`: short English description of level, purpose, edition depth and source coverage.
+- `scope`, `lecturers`, `emphasis`, `uncertainties`: lists of evidence-labelled entries; use an empty list when appropriate and record consequential missing information under uncertainties.
+- Each entry has `statement`, `basis`, `evidence`, and `section_ids`. Statements and evidence must be nonempty. `section_ids` points to actual authored section IDs; use `[]` for excluded/unrepresented topics. Evidence should identify a source/page, user message/date, or the reasoning behind a recommendation/inference. It is a location/basis, not fabricated proof.
+- `basis` is one of `user_report`, `source_statement`, `source_emphasis`, `author_recommendation`, `inference`, `unconfirmed`.
+- `tutoring_guidance`: a list of plain-text author recommendations about explanation depth and requested preparation questions. These remain subordinate to the learner's latest instructions.
+
+Example entry in `scope`:
+
+```json
+{"statement":"Only the five supplied questions from this presentation are in the requested study scope.","basis":"user_report","evidence":"User message giving the exam boundary and question set, YYYY-MM-DD.","section_ids":["presentation-overview"]}
+```
+
+Use the real date and existing section ID when authoring. The complete synthetic example is in `demo/sample_course.json`. Unknown exam format, lecturer identity or emphasis must remain unknown; presence in the HTML or PDF alone does not prove exam importance. Scope statements must distinguish excluded, pending and merely lower-priority topics. Preserve necessary prerequisite explanations, labelling their role.
+
+The brief contains no secrets or contact information; hidden content is readable in the file source and travels when shared. It is not a backend, access control, or a guarantee that any upload processor will extract it. Some services discard hidden content or scripts. If a tutoring assistant cannot state the brief's scope and uncertainty, provide its plain text separately instead of assuming it was read.
+
 ## Common block fields
 
 - `type`: one of the types below. Unknown types are rejected, including quizzes and flashcards.

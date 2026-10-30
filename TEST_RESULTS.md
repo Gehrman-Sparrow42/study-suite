@@ -124,3 +124,11 @@ Documentation-only rule change using existing summary/steps rendering. In the re
 
 2026-10-29 Smart Materials: single-file reader structure passed; six viewport widths (2560/1920/1366/1000/390/320), no overlap/page overflow, mobile nav, five supplied question prompts/answers visible in Review, search reveal/reset, embedded SVG enlargement/zoom, zero-false-edit clean snapshot, text edit and actual download/offline reopen passed with zero page errors. No display equations required. Source-bundle rebuild byte-identical; original four source hashes unchanged. 33 unit tests; Python compile and Ruff for authoring/QA helpers passed. Scientific-review delegation is now explicitly excluded from Study Suite tasks unless the user asks.
 
+## 2026-10-30 — embedded study brief
+
+- 36 unit tests pass, including HTML escaping, optional legacy compatibility, evidence/section-reference validation and weekly metadata preservation.
+- Edge browser_learn_review.py passes hidden brief preservation through actual edited export/reopen, unchanged snapshot metadata, Learn/Review/search and mobile checks.
+- Edge smoke and offline/picker-failure branches pass; actual downloads/reopen exercised, OS picker mocked. Evidence: ignored tests/artifacts/study-brief-smoke-results.json.
+- Rebuilt synthetic demo passes structural validation. Modified Python files compile and Ruff checks pass with E402 enabled for path-bootstrap imports.
+- Full dual-browser smoke invocation reached unavailable Playwright Firefox executable; Firefox not verified. Explicit Edge smoke completed successfully.
+- External ChatGPT upload extraction was not tested. The hidden plain HTML brief and structured baseline are in the file, but receiving services may omit hidden text/scripts.

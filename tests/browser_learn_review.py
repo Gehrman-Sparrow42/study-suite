@@ -9,8 +9,11 @@ from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import load_config, render_course
-from validate import validate_html
+from build import (  # noqa: E402 -- local scripts after path bootstrap
+    load_config,
+    render_course,
+)
+from validate import validate_html  # noqa: E402 -- local scripts after path bootstrap
 
 
 def run(browser_type, name, **launch_options):
@@ -31,6 +34,8 @@ def run(browser_type, name, **launch_options):
         errors = []
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(source.as_uri())
+        expect(page.locator('#study-brief')).to_be_hidden()
+        brief_text = page.locator('#study-brief').text_content()
         extra = page.locator('[data-block-id="expanded-bullets"]')
         expect(extra).to_be_visible()
         expect(extra.locator('.label')).to_have_text('Further explanation')
@@ -53,6 +58,10 @@ def run(browser_type, name, **launch_options):
         reopened = context.new_page()
         reopened.on('pageerror', lambda error: errors.append(str(error)))
         reopened.goto(saved.as_uri())
+        expect(reopened.locator('#study-brief')).to_be_hidden()
+        assert reopened.locator('#study-brief').text_content() == brief_text
+        state = reopened.locator('#suite-state').evaluate('(e) => JSON.parse(e.textContent)')
+        assert state['baseline']['study_brief'] == course['study_brief']
         expect(reopened.locator('body')).to_have_attribute('data-mode', 'review')
         saved_extra = reopened.locator('[data-block-id="expanded-bullets"]')
         expect(saved_extra).to_be_hidden()

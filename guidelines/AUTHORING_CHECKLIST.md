@@ -40,6 +40,8 @@ For a batch refresh, inventory every delivered edition and bind it to its exact 
 
 ## Preservation and delivery
 
+- Include and verify `study_brief`: course level, source/lecturer mapping, exam boundaries, emphasis with evidence labels, omissions/pending topics, uncertainty and recommended tutoring depth. Distinguish reported facts, inferences and author recommendations. Refresh it when scope changes, preserve it through exports/updates, and never put credentials or contact details in hidden metadata.
+
 - Unless current instructions request a different scope, deliver both focused_learning and balanced_high_yield editions. Focused Learn is the complete first-reading path; detailed is the reference. Use the same inventory but separate authored JSON/config, coverage decisions, stable course IDs and HTML filenames. Do not derive depth by a word limit or a label-only config change.
 
 - Inventory the supplied material and retain a coverage/omission record. Preserve original source files and existing HTML editions.

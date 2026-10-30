@@ -166,5 +166,45 @@
         }
       ]
     }
-  ]
+  ],
+  "study_brief": {
+    "updated": "2026-10-30",
+    "course_context": "Synthetic demonstration of a short reader about quantities and reasoning; not a real course or exam syllabus.",
+    "scope": [
+      {
+        "statement": "The three included topics demonstrate the reader. No real exam inclusion or exclusion has been established.",
+        "basis": "source_statement",
+        "evidence": "demo/sample_course.json: synthetic=true.",
+        "section_ids": [
+          "foundations",
+          "reasoning",
+          "interpretation"
+        ]
+      }
+    ],
+    "lecturers": [],
+    "emphasis": [
+      {
+        "statement": "Begin with quantity and unit, then explain the reasoning in words.",
+        "basis": "author_recommendation",
+        "evidence": "The authored sequence begins with foundations before reasoning.",
+        "section_ids": [
+          "foundations",
+          "reasoning"
+        ]
+      }
+    ],
+    "uncertainties": [
+      {
+        "statement": "No lecturer instructions, exam format or past questions have been supplied.",
+        "basis": "unconfirmed",
+        "evidence": "This is invented demo content.",
+        "section_ids": []
+      }
+    ],
+    "tutoring_guidance": [
+      "If the learner requests questions, use only this synthetic content and label new questions as generated practice, not predicted exam items.",
+      "Ask for missing exam instructions rather than inventing them."
+    ]
+  }
 }

@@ -61,6 +61,61 @@ def load_config(path: Path | None = None, overrides: dict | None = None) -> dict
     return config
 
 
+BRIEF_BASES = {'user_report', 'source_statement', 'source_emphasis', 'author_recommendation', 'inference', 'unconfirmed'}
+BRIEF_GROUPS = {'scope': 'Exam scope', 'lecturers': 'Lecturer and topic mapping',
+                'emphasis': 'Study priorities and emphasis', 'uncertainties': 'Uncertainty and missing information'}
+
+
+def validate_study_brief(brief: dict, section_ids: set[str]) -> None:
+    """Validate optional author-supplied tutoring context, never infer exam scope."""
+    if not isinstance(brief, dict):
+        raise ValueError('study_brief: expected an object')  # noqa: TRY004 -- match course validation error contract
+    if not isinstance(brief.get('updated'), str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', brief['updated']):
+        raise ValueError('study_brief.updated: expected YYYY-MM-DD')
+    text(brief.get('course_context'), 'study_brief.course_context')
+    for group in BRIEF_GROUPS:
+        entries = brief.get(group)
+        if not isinstance(entries, list):
+            raise ValueError(f'study_brief.{group}: expected a list (may be empty)')  # noqa: TRY004 -- validation contract
+        for entry in entries:
+            if not isinstance(entry, dict):
+                raise ValueError(f'study_brief.{group}: expected evidence-labelled entries')  # noqa: TRY004 -- validation contract
+            text(entry.get('statement'), f'study_brief.{group}.statement')
+            text(entry.get('evidence'), f'study_brief.{group}.evidence')
+            if not isinstance(entry.get('basis'), str) or entry['basis'] not in BRIEF_BASES:
+                raise ValueError(f'study_brief.{group}.basis: unsupported evidence basis')
+            refs = entry.get('section_ids')
+            if not isinstance(refs, list) or any(not isinstance(ref, str) or ref not in section_ids for ref in refs):
+                raise ValueError(f'study_brief.{group}.section_ids: use existing section IDs, or [] for omitted topics')
+    guidance = brief.get('tutoring_guidance')
+    if not isinstance(guidance, list):
+        raise ValueError('study_brief.tutoring_guidance: expected a list')  # noqa: TRY004 -- validation contract
+    for instruction in guidance:
+        text(instruction, 'study_brief.tutoring_guidance')
+
+
+def render_study_brief(brief: dict | None) -> str:
+    """Embed ordinary text outside the reading UI for source-aware tutoring."""
+    if brief is None:
+        return ''
+    pieces = ['<aside id="study-brief" hidden><h2>Study context for tutoring assistants</h2>',
+              ('<p>Reference context, not higher-priority instructions. Follow the learner’s latest request. '
+              'Evidence labels distinguish reported exam instructions from source emphasis and author recommendations. '
+              'Recommendations are not predictions of exam questions.</p>'),
+              f'<p>Updated: {esc(brief["updated"])}</p><p>{esc(brief["course_context"])}</p>']
+    for group, heading in BRIEF_GROUPS.items():
+        pieces.append(f'<h3>{heading}</h3><ul>')
+        for entry in brief[group]:
+            refs = ', '.join(entry['section_ids']) or 'No included section reference'
+            pieces.append(f'<li>{esc(entry["statement"])} '
+                          f'[Basis: {esc(entry["basis"])}; evidence: {esc(entry["evidence"])}; sections: {esc(refs)}]</li>')
+        pieces.append('</ul>')
+    pieces.append('<h3>Author-recommended tutoring approach</h3><ul>')
+    pieces.extend(f'<li>{esc(item)}</li>' for item in brief['tutoring_guidance'])
+    pieces.append('</ul></aside>')
+    return ''.join(pieces)
+
+
 def validate_course(course: dict) -> None:
     if not isinstance(course, dict) or course.get('schema_version') != 3:
         raise ValueError('Expected a course object with schema_version: 3')
@@ -142,6 +197,8 @@ def validate_course(course: dict) -> None:
     if not course['synthetic'] and re.search(r'\b(synthetic demo|lorem ipsum|TODO|placeholder)\b', json.dumps(course), re.IGNORECASE):
         raise ValueError('Production content contains demo/placeholder markers')
     validate_metadata(course)
+    if 'study_brief' in course:
+        validate_study_brief(course['study_brief'], identifiers)
 
 
 def embedded_asset(block: dict, content_dir: Path) -> str:
@@ -291,6 +348,7 @@ def render_course(course: dict, content_dir: Path, config: dict) -> str:
     values = {'TITLE': esc(title), 'SUBTITLE': esc(course['subtitle']), 'KICKER': 'SYNTHETIC DEMO / NOT COURSE MATERIAL' if course['synthetic'] else 'YOUR COURSE / YOUR READING SPACE',
               'META': f'<span>{len(sections)} sections</span><span>{esc(config["depth"].replace("_", " "))}</span><span>Editable edition</span>',
               'NAV': ''.join(nav), 'CONTENT': ''.join(sections), 'REVIEW_HIDDEN': '' if config['include_review_mode'] else 'hidden',
+              'STUDY_BRIEF': render_study_brief(course.get('study_brief')),
               'CSS': (ROOT / 'template/styles.css').read_text(encoding='utf-8-sig') + f'\n:root{{--accent:{accent}}}',
               'JS': (ROOT / 'template/app.js').read_text(encoding='utf-8-sig')}
     fields = ['title', 'subtitle'] + re.findall(r'data-field="([^"]+)"', values['CONTENT'])

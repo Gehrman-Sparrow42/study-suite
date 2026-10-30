@@ -10,7 +10,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build import build, load_config, render_course  # noqa: E402 -- local scripts after path bootstrap
+from build import (  # noqa: E402 -- local scripts after path bootstrap
+    build,
+    load_config,
+    render_course,
+)
 from course_state import prepare_course, read_snapshot, reconcile_edits  # noqa: E402
 from update import apply_update, scan_sources  # noqa: E402
 
@@ -54,6 +58,18 @@ class WeeklyUpdateTests(unittest.TestCase):
         self.assertEqual(report['duplicates'][0]['path'], 'renamed.pdf')
         self.assertEqual(report['changed'][0]['path'], 'week-02.txt')
         self.assertEqual(report['missing'][0]['path'], 'week-03.txt')
+
+    def test_weekly_update_preserves_study_brief(self):
+        brief = json.loads((ROOT / 'demo/sample_course.json').read_text(encoding='utf-8'))['study_brief']
+        for group in ('scope', 'lecturers', 'emphasis', 'uncertainties'):
+            for entry in brief[group]:
+                entry['section_ids'] = []
+        self.course['study_brief'] = brief
+        self.source.write_text(json.dumps(self.course), encoding='utf-8')
+        self.apply()
+        updated = json.loads(self.output_course.read_text(encoding='utf-8'))
+        self.assertEqual(updated['study_brief'], brief)
+        self.assertEqual(read_snapshot(self.output_html.read_text(encoding='utf-8'))['baseline']['study_brief'], brief)
 
     def test_append_preserves_existing_content_and_sources(self):
         before = self.source.read_bytes()
