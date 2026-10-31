@@ -160,3 +160,10 @@ Removed the tutor-behavior field and rendered instruction section from all 14 de
 - New tests/browser_navigation.py: Edge, 24 long synthetic entries; follows active section down/up, preserves main scroll during sidebar browsing and wheel-at-edge, avoids same-section snapback, reveals current entry on desktop/mobile reopening, and survives real export/reopen.
 - Actual two private editions: section 15 remains visible in contents at 1366×768; reading position unchanged by sidebar-only scroll. Screenshots inspected; source rebuilds byte-identical and snapshots preserved.
 - 37 unit tests; Edge smoke plus offline/math and mocked picker branches; Learn/Review/search/export/mobile; layout; readability/edit/recovery pass. JS syntax, Python compile and Ruff pass. Firefox not run.
+
+## 2026-10-31: all delivered readers navigation refresh
+
+- 19 standard readers: actual Edge desktop/mobile follow, independent panel scrolling, reopen, real download/offline reopen and first/last active-link checks pass; snapshots/baselines preserved.
+- Custom guide: all 11 desktop tabs and mobile active-tab reveal pass; existing section-switch semantics retained.
+- All six renderer JS copies and custom-guide inline scripts pass node --check; private patch/verification helpers compile and pass Ruff.
+- Fourteen standard course files, one specialized guide and four older bundled renderer pairs updated. Two Bioinformatics editions, the shared template and three demos already current. Private evidence and before-copies: ignored work/navigation-all.
