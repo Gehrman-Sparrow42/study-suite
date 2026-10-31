@@ -167,3 +167,7 @@ Removed the tutor-behavior field and rendered instruction section from all 14 de
 - Custom guide: all 11 desktop tabs and mobile active-tab reveal pass; existing section-switch semantics retained.
 - All six renderer JS copies and custom-guide inline scripts pass node --check; private patch/verification helpers compile and pass Ruff.
 - Fourteen standard course files, one specialized guide and four older bundled renderer pairs updated. Two Bioinformatics editions, the shared template and three demos already current. Private evidence and before-copies: ignored work/navigation-all.
+
+## 2026-10-31: separate historical-topic supplements
+
+Four existing private editions pass exact prior-section preservation, source/HTML identity, structural validation, six-width Edge layout, Review problem/given/solution visibility and real edited download/offline reopening with study context. Two standalone source-bundle rebuilds match exactly. Arithmetic sanity checks and helper compilation/Ruff pass. No shared renderer change, no new scientific-review claim and no Firefox run. Evidence retained in ignored work/exam-integration-2026-10-31.
