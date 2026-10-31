@@ -31,6 +31,7 @@ def run():
     ]
     course['sections'] = [section]
     course['included_section_ids'] = [section['id']]
+    course.pop('study_brief', None)  # Fixture replaces the sections named by the demo brief.
     with tempfile.TemporaryDirectory() as directory, sync_playwright() as p:
         target = Path(directory) / 'reader.html'
         target.write_text(render_course(course, ROOT / 'demo', load_config()), encoding='utf-8')

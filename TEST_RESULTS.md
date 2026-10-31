@@ -154,3 +154,9 @@ Removed the tutor-behavior field and rendered instruction section from all 14 de
 - Actual clean export has zero false edits; bullet and table edits survive a real download and offline reopening. Hidden context-only study brief preserved; no page errors.
 - All original hashes unchanged; standalone source bundle rebuild equals actual delivered HTML byte-for-byte.
 - 37 unit tests, JS syntax and helper Python syntax/Ruff pass. Full-window screenshots and private evidence retained in ignored work/microbial. Temporary QA exports removed.
+
+## 2026-10-31: contents scroll following
+
+- New tests/browser_navigation.py: Edge, 24 long synthetic entries; follows active section down/up, preserves main scroll during sidebar browsing and wheel-at-edge, avoids same-section snapback, reveals current entry on desktop/mobile reopening, and survives real export/reopen.
+- Actual two private editions: section 15 remains visible in contents at 1366×768; reading position unchanged by sidebar-only scroll. Screenshots inspected; source rebuilds byte-identical and snapshots preserved.
+- 37 unit tests; Edge smoke plus offline/math and mocked picker branches; Learn/Review/search/export/mobile; layout; readability/edit/recovery pass. JS syntax, Python compile and Ruff pass. Firefox not run.

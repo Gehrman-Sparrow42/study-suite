@@ -55,3 +55,4 @@ details.explanation>summary:hover{color:var(--accent)}
 .block:has(.process-flow){border-color:#293c34;border-left-color:var(--green)}
 @media print{.section-toggle{display:none}.blocks,.section-folded>.blocks,.card-group{display:block!important}.section-folded>.section-intro{display:block}.block{margin-bottom:16px;grid-row-end:auto!important}details.explanation>.explanation-body{display:block!important}}
 @media(max-width:720px){.block[data-type=figure]{padding:8px 18px 16px}}
+#sidebar{overscroll-behavior-y:contain}

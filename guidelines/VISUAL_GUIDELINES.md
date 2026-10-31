@@ -1,5 +1,7 @@
 # Visual and interaction guidelines
 
+The contents panel follows changes to the active reading section by scrolling its own panel just enough to reveal the current link. Manual contents scrolling must not change the reading position or repeatedly snap back within the same section. Opening navigation should reveal the current section, including on mobile. Keep scrolling contained at the panel edges; do not use a page-scrolling operation to reveal sidebar links.
+
 The workspace uses available width beside navigation and expands when navigation closes. Use intrinsic CSS grid reflow to place readable cards into as many columns as fit; collapse naturally to one column when space is limited. Keep prose measure bounded inside cards, rather than imposing a fixed pixel cap on the entire page or computing viewport-specific left offsets. Preserve DOM reading order. Figure width follows its card and caption measure. Inspect full-window 16:9 screenshots at the user's actual desktop proportions (2560x1440 here), with navigation open and closed, plus laptop and mobile sizes. A cropped card or near-square preview cannot establish wide-screen layout quality.
 
 ## Design direction

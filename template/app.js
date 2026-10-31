@@ -47,6 +47,7 @@ function setNavigation(open) {
   document.body.classList.toggle('nav-closed', !mobile() && !open);
   $('#nav-toggle').setAttribute('aria-expanded', String(open));
   $('#scrim').hidden = !(mobile() && open);
+  if (open) revealCurrentLink();
 }
 $('#nav-toggle').onclick = () => setNavigation($('#nav-toggle').getAttribute('aria-expanded') !== 'true');
 $('#scrim').onclick = () => { setNavigation(false); $('#nav-toggle').focus(); };
@@ -117,12 +118,27 @@ $$('nav a').forEach(link => link.onclick = () => {
  section.setAttribute('tabindex', '-1'); section.focus({preventScroll:true});
 });
 let scrollScheduled = false;
+function revealCurrentLink() {
+ const sidebar = $('#sidebar');
+ const link = sidebar.querySelector('nav a[aria-current="location"]');
+ if (!link || !sidebar.getClientRects().length) return;
+ const bounds = sidebar.getBoundingClientRect();
+ const item = link.getBoundingClientRect();
+ const padding = 12;
+ // Scroll only this panel. scrollIntoView could also move the reading page.
+ if (item.top < bounds.top + padding) sidebar.scrollTop += item.top - bounds.top - padding;
+ else if (item.bottom > bounds.bottom - padding) sidebar.scrollTop += item.bottom - bounds.bottom + padding;
+}
 function scrollSpy() {
  scrollScheduled = false;
  const sections = $$('.section').filter(s => !s.hidden);
  const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3;
  const current = atBottom ? sections.at(-1) : sections.filter(s => s.getBoundingClientRect().top <= (mobile() ? 160 : 125)).pop() || sections[0];
- $$('nav a').forEach(a => { if (current && a.hash === '#' + current.id) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+ const previous = $('nav a[aria-current="location"]');
+ const active = current ? $$('nav a').find(a => a.hash === '#' + current.id) : null;
+ $$('nav a').forEach(a => { if (a === active) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+ // Follow section changes, while leaving independent contents browsing alone.
+ if (active !== previous) revealCurrentLink();
 }
 window.addEventListener('scroll', () => { if (!scrollScheduled) { scrollScheduled = true; requestAnimationFrame(scrollSpy); } }, {passive:true});
 scrollSpy();
