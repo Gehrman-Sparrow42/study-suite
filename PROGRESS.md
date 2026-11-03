@@ -216,3 +216,9 @@ Both delivered HTMLs pass six-width Edge layout, Learn/Review/search, figure zoo
 ## 2026-11-03: permanent authoring priorities
 
 At the user's request, made three explicit cross-course authoring priorities: reduce redundant explanations and repeated general caveats, plan useful explanatory figures for important visual relationships, and build connected explanations that support complete written exam answers. Updated AGENTS.md, content/visual guidance and the delivery checklist together. Essential scientific conditions, source fidelity, no-quiz scope and uncertainty boundaries remain explicit. Documentation-only change; checked rule consistency and Git whitespace. Existing course files and runtime were not edited in this task.
+
+## 2026-11-03: main reader reorganised around a supplied exam recollection
+
+Reauthored one private main reader around the newly supplied problem families, moving retained prerequisites and earlier secondary topics after the main route. Incomplete prompt wording, chemical basis, counting geometry and volume boundaries remain explicit; illustrative completions are distinguished beside their worked statements. Added two labelled geometry schematics and retained the assigned numerical separation dataset. The independent older edition and original inputs are unchanged; before-copy, source transcription, current coverage and rebuildable bundle remain private.
+
+Validation: numerical/units assertions, source/snapshot binding, identical bundled rebuild, actual Edge 2560/1366/390/320 layout and overlap checks, MathJax, figures, persistent Review tasks/data, search and real edited-text/formula download/offline reopening passed. No shared runtime change or scientific-review agent. Temporary test export removed. Added reusable visual guidance to bind geometry illustrations to the actual counted/occupied region and label assumptions in recalled prompts.
