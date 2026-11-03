@@ -18,6 +18,16 @@ When the user defines mixed exam scope, preserve that boundary explicitly: teach
 
 ## Teaching and selection
 
+### Three authoring priorities
+
+Apply these to new suites and authorized content revisions, across courses:
+
+1. **Reduce unnecessary repetition.** Give each explanation a clear home. Merge repeated definitions, examples and general cautions; avoid restating the same fact in a summary, body, table and closing takeaway unless the later occurrence serves a distinct learning purpose. State document-wide scope and provenance limits once in a short opening note or source record. Keep a local qualification when removing it would change the claim's meaning or invite a likely mistake, and keep essential conditions visible in Review. A brief refresher or a deliberately consolidated historical-answer section can repeat core facts when it saves the student from assembling scattered material. Shortening must preserve the mechanism and the reasoning.
+2. **Use more explanatory figures where they help.** During coverage planning identify important concepts students must visualize, draw or interpret, especially relationships shown in the lectures. Prefer a clear source figure or create a simple labelled schematic when it teaches the relationship better. Suitable subjects include process sequences, nested experimental units, balanced/confounded designs, graph patterns, algorithm steps and uneven distributions. Select by learning value rather than a fixed figure count. Put each figure beside its explanation and describe what to notice; follow VISUAL_GUIDELINES.md for source fidelity and rendering checks.
+3. **Strengthen explanations into connected written answers.** For a major examinable concept or supplied historical prompt, make it possible to explain what it is, how or why it works, the relevant comparison or example, and the conclusion with its essential limit. Choose the relevant elements rather than forcing every topic into an identical template. Teach causal links and justified method choices instead of supplying disconnected terms. In exam-oriented readers, provide a concise core answer with an expanded, coherent explanation where useful; a short answer outline may support the explanation but must not replace it. Source terminology and the expected course depth should remain recognizable. Label author-created examples and distinguish suggested answers from official keys. This is reading material, not a requirement to add a question bank or predict exam probabilities.
+
+Acceptance is about learning value: a student should spend less time rereading boilerplate, be able to interpret the important visual relationships, and be able to turn the explanation into an accurate answer in their own words. Do not claim measured study-time or grade improvements without evidence.
+
 Use short semantic bullets for parallel properties, advantages, limitations,
 alternatives and criteria. Highlight a few meaningful terms or short lead-ins with
 `**bold**`; avoid whole-sentence emphasis and repeated highlighting. Retain prose

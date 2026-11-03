@@ -43,6 +43,10 @@ Do not add decorative charts, stock photography, giant hero banners, unrelated a
 
 ## Selective visual pipeline
 
+Plan visual coverage alongside topic coverage. For each important drawable or interpretable concept, consider whether a figure would explain a relationship more clearly than prose alone. Prioritize missing teaching diagrams such as nested samples, confounding layouts, stepwise methods, coverage distributions and graph interpretation. Use the course's own needs; these are examples, not mandatory subjects or a numerical figure target. A figure must carry explanatory information rather than repeat a title or decorate a card.
+
+Keep the figure beside the relevant explanation, with a caption that identifies the relationship and its meaning. Preserve source axes, orientation, units and key labels; explicitly explain any deliberate convention change. Clearly label invented schematics or data. Inspect text/line legibility at normal desktop and mobile reading sizes and in the zoom view, and verify the embedded figure survives offline export. A concept should still have a sufficient written explanation when visuals are disabled.
+
 1. Prefer a useful professor-provided image/diagram/plot. Extract from PDF or PPTX with the tools available for that task. Save selected assets beside the course JSON, for example `assets/slide-12-diagram.png`. Record filename, page/slide, crop and any ambiguity in the source inventory.
 2. Preserve axes, legends, scale bars, units and relevant labels. Inspect the crop at display size; do not use illegible extraction just because it exists. Crop/compress responsibly before embedding. Raster PNG/WebP/JPEG and simple static SVG are accepted.
 3. If a simple relationship is clearer as a small original SVG, create one with readable text and a concise caption. Do not invent measured data. The builder rejects active SVG features and external references; use basic shapes, paths and text.
