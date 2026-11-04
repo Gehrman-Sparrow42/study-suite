@@ -49,6 +49,8 @@ Keep the figure beside the relevant explanation, with a caption that identifies 
 
 For geometry-based calculations, draw the exact region or occupied volume used in the calculation and label its dimensions. Distinguish container capacity from current liquid volume, and a counted region from the surrounding grid. When a recalled prompt omits that geometry, label the diagram as an illustrative assumption rather than a recovered exam figure.
 
+When a diagram contains nested grids, identify the complete parent boundary before applying a count or volume multiplier. A subdivision count must not substitute for the area of the region actually counted; show the parent region and its zoom together when that distinction changes the calculation.
+
 1. Prefer a useful professor-provided image/diagram/plot. Extract from PDF or PPTX with the tools available for that task. Save selected assets beside the course JSON, for example `assets/slide-12-diagram.png`. Record filename, page/slide, crop and any ambiguity in the source inventory.
 2. Preserve axes, legends, scale bars, units and relevant labels. Inspect the crop at display size; do not use illegible extraction just because it exists. Crop/compress responsibly before embedding. Raster PNG/WebP/JPEG and simple static SVG are accepted.
 3. If a simple relationship is clearer as a small original SVG, create one with readable text and a concise caption. Do not invent measured data. The builder rejects active SVG features and external references; use basic shapes, paths and text.
