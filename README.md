@@ -4,6 +4,22 @@ Turn course materials into **editable, portable HTML study readers** with Learn 
 
 The repository contains the reusable builder, reader, authoring guidelines, tests, and synthetic demos. An author or AI coding assistant interprets the supplied course materials and writes structured content. The Python builder renders that content; it does not summarize PDFs or decide what will be on an exam.
 
+## Architecture and authoring workflow
+
+```mermaid
+flowchart LR
+    A[Course sources] --> B[Author: structured course JSON]
+    B --> C[Builder and course configuration]
+    D[Template and embedded figures] --> C
+    C --> E[Portable HTML reader]
+    E --> F[Browser edits and saved HTML]
+    F --> G[Conflict-aware weekly update]
+    B --> G
+    H[New source material and authored delta] --> G
+    G --> C
+```
+
+An author interprets sources and checks coverage; the builder combines authored content, configuration, templates, and figures. Updates reconcile saved edits against stable content identities and require explicit resolution of conflicts. See the [weekly update guide](guidelines/WEEKLY_UPDATES.md).
 ## Try it
 
 [Download the repository ZIP](https://github.com/Gehrman-Sparrow42/study-suite/archive/refs/heads/main.zip), extract it, and open **`output/Demo_Study_Suite.html`** in your browser. No installation is needed to read or edit the demo.
